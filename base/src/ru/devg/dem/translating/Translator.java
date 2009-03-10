@@ -6,14 +6,14 @@ import ru.devg.dem.filtering.TypeBoundedHandler;
 
 /**
  * @author Devgru &lt;devgru@mail.ru&gt;
- * @version 0.17
+ * @version 0.175
  */
-public abstract class Translator<FROM extends Event,TO extends Event>
-    extends TypeBoundedHandler<FROM> implements TranslatorStrategy<FROM,TO> {
+public abstract class Translator<TO extends Event, FROM extends Event>
+    extends TypeBoundedHandler<FROM> implements TranslatorStrategy<TO, FROM> {
 
     private final Handler<? super TO> target;
 
-    protected Translator(Class<FROM> bound, Handler<? super TO> target) {
+    protected Translator(Handler<? super TO> target, Class<FROM> bound) {
         super(bound);
         this.target = target;
     }

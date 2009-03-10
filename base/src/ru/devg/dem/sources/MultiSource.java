@@ -6,27 +6,24 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.15
+ * @version 0.175
  */
 @SuppressWarnings("unchecked")
-public class MultiSource<H extends Handler<?>, E extends Event>
-        extends Source<E> implements AbstractMultiSource<H, E> {
+public abstract class MultiSource<H extends Handler<?>, E extends Event>
+        extends Source<E> implements HandlerBundle<H,E> {
+
+    private final HandlerBundle<H,E> target;
 
     public MultiSource(HandlerBundle<H, E> target) {
         super(target);
+        this.target = target;
     }
 
-    public final void addTarget(H handler) {
-        ((HandlerBundle<H, E>) target).addHandler(handler);
+    public final void addHandler(H handler) {
+        target.addHandler(handler);
     }
 
-
-    /**
-     * In fact, this method if checked of cource.
-     *
-     * @param handler target to remove
-     */
-    public void removeTarget(H handler) {
-        ((HandlerBundle<H, E>) target).addHandler(handler);
+    public void removeHandler(H handler) {
+        target.addHandler(handler);
     }
 }

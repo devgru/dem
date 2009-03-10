@@ -9,12 +9,12 @@ import test.events.CollectedEvent;
  * @author Devgru devgru@mail.ru
  * @version 0.0
  */
-public class BaseHandler extends Translator<BaseEvent, CollectedEvent> {
+public class BaseHandler extends Translator<CollectedEvent, BaseEvent> {
 
     private final char c;
 
     public BaseHandler( Handler<? super CollectedEvent> target, char c) {
-        super(BaseEvent.class, target);
+        super(target, BaseEvent.class);
         this.c = c;
     }
 
