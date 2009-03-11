@@ -34,8 +34,6 @@ import java.util.List;
     private ListIterator<Handler<E>> storedIterator
             = handlers.listIterator();
 
-
-
     private final List<Handler<E>> handlersToRemove
             = new LinkedList<Handler<E>>();
 
@@ -64,14 +62,6 @@ import java.util.List;
         }
     }
 
-    /**
-     * If you add iterator is between <code>b</code> and <code>c</code>
-     * we can say that the event will be transferred to <code>c</code>
-     * and the next one will be given to <code>a</code>.
-     * <p/>
-     * <pre>|a|b|c|      -->       |a|b|c|      -->       |a|b|c|</pre>
-     * <pre>    ^     handle to c        ^  after handle  ^</pre>
-     */
     public synchronized void addHandler(Handler<E> h) {
         assert h != null;
         storedIterator.add(h);

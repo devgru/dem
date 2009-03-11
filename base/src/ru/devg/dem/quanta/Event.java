@@ -9,7 +9,6 @@ package ru.devg.dem.quanta;
  * @author Devgru &lt;devgru@mail.ru&gt;
  * @version 0.1751
  * @see Handler
- * @see Provider
  */
 public interface Event {
 }
