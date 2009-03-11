@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.bundles.one2one.MethodDispatcher;
 import ru.devg.dem.bundles.one2one.MultiHandler;
-import ru.devg.dem.bundles.one2one.MultiHandlerImpl;
+import ru.devg.dem.bundles.one2one.MultiHandlerAdapter;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.quanta.Event;
 import test.events.BaseEvent;
@@ -28,7 +28,7 @@ public class MethodDispatcherTest {
         md.handle(new SecondLevelEvent3());
     }
 
-    public static final class TestedClass extends MultiHandlerImpl<BaseEvent> {
+    public static final class TestedClass extends MultiHandlerAdapter<BaseEvent> {
 
         @MultiHandler.Handles(SecondLevelEvent1.class)
         public Handler<?> dsa = new Yielder();

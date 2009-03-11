@@ -65,7 +65,7 @@ public final class Dispatcher<E extends Event>
         handlers.remove(newOne);
     }
 
-    public static boolean isOverlapping(TypeBoundedHandler<?> a, TypeBoundedHandler<?> b) {
+    private static boolean isOverlapping(TypeBoundedHandler<?> a, TypeBoundedHandler<?> b) {
         Class<?> alpha = a.getBoundClass();
         Class<?> beta = b.getBoundClass();
         return alpha.isAssignableFrom(beta) || beta.isAssignableFrom(alpha);

@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Handler;
  * @version 0.0
  */
 public class Collector implements Handler<CollectedEvent> {
-    StringBuilder sb = new StringBuilder();
+    private final StringBuilder sb = new StringBuilder();
 
     public void handle(CollectedEvent event) {
         sb.append(event.getChar());
