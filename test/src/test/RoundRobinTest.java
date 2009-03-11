@@ -12,7 +12,7 @@ import test.handlers.Collector;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @version 0.176
  */
 public class RoundRobinTest {
     @Test
@@ -20,12 +20,12 @@ public class RoundRobinTest {
         Collector c = new Collector();
 
         RoundRobinBroadcaster<BaseEvent> rrb = new RoundRobinBroadcaster<BaseEvent>();
-        rrb.addHandler(new BaseHandler(c, 'a'));
+        rrb.addHandler(new BaseHandler<BaseEvent>(c,BaseEvent.class, "a"));
         rrb.handle(new SecondLevelEvent1());
         rrb.handle(new SecondLevelEvent2());
         assertTrue(c.getString().equals("aa"));
 
-        BaseHandler b = new BaseHandler(c, 'b');
+        BaseHandler<BaseEvent> b = new BaseHandler<BaseEvent>(c,BaseEvent.class, "b");
         rrb.addHandler(b);
         rrb.handle(new SecondLevelEvent2());
         rrb.handle(new SecondLevelEvent2());
@@ -39,8 +39,6 @@ public class RoundRobinTest {
         rrb.handle(new SecondLevelEvent3());
         rrb.handle(new SecondLevelEvent3());
         assertTrue(c.getString().equals("aababaaaaa"));
-                                           
-
-
     }
+
 }

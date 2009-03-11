@@ -1,4 +1,4 @@
-package ru.devg.dem.bundles.one2one;
+package ru.devg.dem.bundles.one2one.onclass;
 
 import ru.devg.dem.quanta.Event;
 
@@ -6,10 +6,10 @@ import ru.devg.dem.quanta.Event;
  * @author Devgru devgru@mail.ru
  * @version 0.175
  */
-public abstract class MultiHandlerAdapter<E extends Event> implements MultiHandler<E> {
+public abstract class InplaceDispatchableAdapter<E extends Event> implements InplaceDispatchable<E> {
     private final Class<E> bound;
 
-    public MultiHandlerAdapter(Class<E> bound) {
+    public InplaceDispatchableAdapter(Class<E> bound) {
         this.bound = bound;
     }
 

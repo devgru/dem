@@ -7,14 +7,15 @@ import test.events.CollectedEvent;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @version 0.176
  */
-public class BaseHandler extends Translator<CollectedEvent, BaseEvent> {
+public class BaseHandler<E extends BaseEvent>
+        extends Translator<CollectedEvent, E> {
 
-    private final char c;
+    private final String c;
 
-    public BaseHandler( Handler<? super CollectedEvent> target, char c) {
-        super(target, BaseEvent.class);
+    public BaseHandler(Handler<? super CollectedEvent> target, Class<E> bound, String c) {
+        super(target, bound);
         this.c = c;
     }
 

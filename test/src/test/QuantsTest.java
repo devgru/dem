@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * @author Devgru &lt;devgru@mail.ru&gt;
- * @version 0.0
+ * @version 0.176
  */
 public class QuantsTest {
     private int countOfSimple = 0;

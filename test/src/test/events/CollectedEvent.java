@@ -4,16 +4,16 @@ import ru.devg.dem.quanta.Event;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @version 0.176
  */
 public class CollectedEvent implements Event {
-    private final char c;
+    private final String c;
 
-    public CollectedEvent(char c) {
+    public CollectedEvent(String c) {
         this.c = c;
     }
 
-    public char getChar() {
+    public String getString() {
         return c;
     }
 }

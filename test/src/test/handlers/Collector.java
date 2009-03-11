@@ -5,13 +5,14 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @version 0.176
  */
 public class Collector implements Handler<CollectedEvent> {
     private final StringBuilder sb = new StringBuilder();
 
     public void handle(CollectedEvent event) {
-        sb.append(event.getChar());
+        sb.append(event.getString());
+        System.out.println(event.getString() + " handled");
     }
 
     public String getString() {

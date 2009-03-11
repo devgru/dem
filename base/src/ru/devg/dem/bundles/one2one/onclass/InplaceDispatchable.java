@@ -1,4 +1,4 @@
-package ru.devg.dem.bundles.one2one;
+package ru.devg.dem.bundles.one2one.onclass;
 
 import ru.devg.dem.quanta.Event;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @author Devgru &lt;devgru@mail.ru&gt;
  * @version 0.15
  */
-public interface MultiHandler<E extends Event> {
+public interface InplaceDispatchable<E extends Event> {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD,ElementType.FIELD})
@@ -19,7 +19,6 @@ public interface MultiHandler<E extends Event> {
         public Class<? extends Event> value();
         public int priority() default 0;
     }
-
 
     public Class<E> getBoundClass();
 

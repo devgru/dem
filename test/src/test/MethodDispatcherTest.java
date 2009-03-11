@@ -1,9 +1,9 @@
 package test;
 
 import org.junit.Test;
-import ru.devg.dem.bundles.one2one.MethodDispatcher;
-import ru.devg.dem.bundles.one2one.MultiHandler;
-import ru.devg.dem.bundles.one2one.MultiHandlerAdapter;
+import ru.devg.dem.bundles.one2one.onclass.InplaceDispatcher;
+import ru.devg.dem.bundles.one2one.onclass.InplaceDispatchable;
+import ru.devg.dem.bundles.one2one.onclass.InplaceDispatchableAdapter;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.quanta.Event;
 import test.events.BaseEvent;
@@ -13,14 +13,14 @@ import test.events.SecondLevelEvent3;
 
 /**
  * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @version 0.176
  */
 public class MethodDispatcherTest {
 
     @Test
     public void tryTest() {
         TestedClass testedClass = new TestedClass();
-        MethodDispatcher<BaseEvent> md = new MethodDispatcher<BaseEvent>(testedClass);
+        InplaceDispatcher<BaseEvent> md = new InplaceDispatcher<BaseEvent>(testedClass);
 
         md.handle(new BaseEvent());
         md.handle(new SecondLevelEvent1());
@@ -28,9 +28,9 @@ public class MethodDispatcherTest {
         md.handle(new SecondLevelEvent3());
     }
 
-    public static final class TestedClass extends MultiHandlerAdapter<BaseEvent> {
+    public static final class TestedClass extends InplaceDispatchableAdapter<BaseEvent> {
 
-        @MultiHandler.Handles(SecondLevelEvent1.class)
+        @InplaceDispatchable.Handles(SecondLevelEvent1.class)
         public Handler<?> dsa = new Yielder();
 
         private TestedClass() {
