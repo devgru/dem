@@ -8,7 +8,7 @@ package ru.devg.dem.quanta;
  * @version 0.15
  * @see Event
  */
-public interface Handler<E extends Event>{
+public interface Handler<E extends Event> {
 
     /**
      * This method is the only method in {@link Handler this interface}.

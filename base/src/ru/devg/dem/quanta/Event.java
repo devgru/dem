@@ -5,7 +5,6 @@ package ru.devg.dem.quanta;
  * Event represents any event, that can be
  * transferred and {@link Handler#handle(Event) handled}
  *
- *
  * @author Devgru &lt;devgru@mail.ru&gt;
  * @version 0.1751
  * @see Handler
