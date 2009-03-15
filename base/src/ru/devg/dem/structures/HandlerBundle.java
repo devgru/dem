@@ -1,4 +1,4 @@
-package ru.devg.dem.bundles;
+package ru.devg.dem.structures;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
@@ -11,11 +11,10 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;devgru@mail.ru&gt;
  * @version 0.15
  */
-public interface HandlerBundle<H extends Handler<?>, E extends Event>
+public interface HandlerBundle<H extends Handler<? super E>, E extends Event>
         extends Handler<E> {
 
     /**
-     *
      * @param handler handler to add
      * @throws IllegalArgumentException if handler == null
      */

@@ -1,6 +1,5 @@
-package ru.devg.dem.bundles.one2one;
+package ru.devg.dem.structures.dispatchers;
 
-import ru.devg.dem.bundles.HandlerBundle;
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
@@ -14,9 +13,10 @@ import java.util.List;
  */
 public final class Dispatcher<E extends Event>
         extends TypeBoundedHandler<E>
-        implements HandlerBundle<TypeBoundedHandler<? extends E>, E> {
+//        implements HandlerBundle<TypeBoundedHandler<? extends E>, E>
+{
 
-    public static Dispatcher<Event> getCommon(){
+    public static Dispatcher<Event> getCommon() {
         return new Dispatcher<Event>(Event.class);
     }
 

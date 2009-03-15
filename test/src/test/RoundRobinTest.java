@@ -2,7 +2,7 @@ package test;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
-import ru.devg.dem.structures.dispatchers.RoundRobinBroadcaster;
+import ru.devg.dem.structures.dispatchers.RoundRobin;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.events.SecondLevelEvent2;
@@ -19,7 +19,7 @@ public class RoundRobinTest {
     public void test() {
         Collector c = new Collector();
 
-        RoundRobinBroadcaster<BaseEvent> rrb = new RoundRobinBroadcaster<BaseEvent>();
+        RoundRobin<BaseEvent> rrb = new RoundRobin<BaseEvent>();
         rrb.addHandler(new BaseHandler<BaseEvent>(c,BaseEvent.class, "a"));
         rrb.handle(new SecondLevelEvent1());
         rrb.handle(new SecondLevelEvent2());

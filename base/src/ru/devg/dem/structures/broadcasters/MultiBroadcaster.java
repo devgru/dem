@@ -1,8 +1,8 @@
-package ru.devg.dem.bundles.one2many;
+package ru.devg.dem.structures.broadcasters;
 
+import ru.devg.dem.structures.HandlerBundle;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.bundles.HandlerBundle;
 
 import java.util.LinkedList;
 
@@ -15,12 +15,21 @@ import java.util.LinkedList;
  * @version 0.17
  */
 public final class MultiBroadcaster<E extends Event>
-        implements HandlerBundle<Handler<E>,E> {
+        implements HandlerBundle<Handler<? super E>, E> {
 
-    private final LinkedList<Handler<E>> handlers =
-            new LinkedList<Handler<E>>();
+    private final LinkedList<Handler<? super E>> handlers =
+            new LinkedList<Handler<? super E>>();
 
-    public static <E extends Event> MultiBroadcaster<E> hey() {
+    public MultiBroadcaster() {
+    }
+
+    public MultiBroadcaster(Handler<? super E>... handlers) {
+        for(Handler<? super E> handler : handlers){
+            addHandler(handler);
+        }
+    }
+
+    public static <E extends Event> MultiBroadcaster<E> one() {
         return new MultiBroadcaster<E>();
     }
 
@@ -30,12 +39,12 @@ public final class MultiBroadcaster<E extends Event>
         }
     }
 
-    public void addHandler(Handler<E> handler) {
+    public void addHandler(Handler<? super E> handler) {
         assert handler != null;
         handlers.add(handler);
     }
 
-    public void removeHandler(Handler<E> handler) {
+    public void removeHandler(Handler<? super E> handler) {
         handlers.remove(handler);
     }
 }
