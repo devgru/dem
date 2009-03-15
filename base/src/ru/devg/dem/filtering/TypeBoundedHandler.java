@@ -1,11 +1,12 @@
 package ru.devg.dem.filtering;
 
-import ru.devg.dem.quanta.*;
+import ru.devg.dem.quanta.Event;
+import ru.devg.dem.quanta.Handler;
 
 /**
  * Bounded handlers are required when we must have
  * some info about the bound class {@link E}. For example, it's used
- * a lot in the {@link ru.devg.dem.bundles} section.
+ * a lot in the {@link ru.devg.dem.structures} section.
  *
  * @author Devgru &lt;devgru@mail.ru&gt;
  * @version 0.15

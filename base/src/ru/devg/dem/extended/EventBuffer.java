@@ -1,15 +1,15 @@
 package ru.devg.dem.extended;
 
+import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.filtering.TypeBoundedHandler;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
 /**
  * @author Devgru &lt;devgru@mail.ru&gt;
- * @version 0.1755
+ * @version 0.176
  */
 public final class EventBuffer<E extends Event>
         extends TypeBoundedHandler<E> {
@@ -54,10 +54,10 @@ public final class EventBuffer<E extends Event>
      * Also, it calls {@link EventBuffer#reset()}, so it
      * isn't applicable for broadcasting to multiple handlers.
      * If you want to broadcast events, use any
-     * {@link ru.devg.dem.bundles handler from multi}.
+     * {@link ru.devg.dem.structures handler from multi}.
      *
-     * @see ru.devg.dem.bundles.one2many.MultiBroadcaster
-     * @see ru.devg.dem.bundles.one2one.Dispatcher
+     * @see ru.devg.dem.structures.broadcasters.MultiBroadcaster
+     * @see ru.devg.dem.structures.dispatchers.Dispatcher
      */
     public final void release() {
         lock();

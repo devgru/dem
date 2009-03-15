@@ -1,5 +1,4 @@
 *.iws
 *.ipr
 *.iml
-#for builds
-out/
+out

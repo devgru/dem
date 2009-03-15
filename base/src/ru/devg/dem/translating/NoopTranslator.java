@@ -7,7 +7,7 @@ import ru.devg.dem.quanta.Event;
  * @version 0.175
  */
 public final class NoopTranslator<TO extends Event, FROM extends TO>
-        implements TranslatorStrategy<TO, FROM>{
+        implements TranslatorStrategy<TO, FROM> {
     public TO translate(FROM event) {
         return event;
     }

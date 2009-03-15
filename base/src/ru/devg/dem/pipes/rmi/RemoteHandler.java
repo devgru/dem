@@ -2,8 +2,8 @@ package ru.devg.dem.pipes.rmi;
 
 import ru.devg.dem.quanta.Event;
 
-import java.rmi.RemoteException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Created by IntelliJ IDEA.

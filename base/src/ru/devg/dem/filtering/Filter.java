@@ -1,6 +1,7 @@
 package ru.devg.dem.filtering;
 
-import ru.devg.dem.quanta.*;
+import ru.devg.dem.quanta.Event;
+import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;devgru@mail.ru&gt;
@@ -9,10 +10,10 @@ import ru.devg.dem.quanta.*;
 public abstract class Filter<E extends Event> implements Handler<E>, FilterStrategy {
 
     @SuppressWarnings("unchecked")
-    public final boolean handleIfPossible(Event event){
+    public final boolean handleIfPossible(Event event) {
         boolean canHandle = canHandle(event);
-        if(canHandle){
-            handle((E)event);
+        if (canHandle) {
+            handle((E) event);
         }
         return canHandle;
     }

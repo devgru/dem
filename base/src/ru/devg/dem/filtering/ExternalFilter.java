@@ -7,7 +7,7 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru devgru@mail.ru
  * @version 0.175
  */
-public final class ExternalFilter<E extends Event> extends Filter<E>{
+public final class ExternalFilter<E extends Event> extends Filter<E> {
     private final FilterStrategy filterStrategy;
     private final Handler<E> handler;
 

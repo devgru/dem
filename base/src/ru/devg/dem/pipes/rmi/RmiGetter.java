@@ -3,10 +3,10 @@ package ru.devg.dem.pipes.rmi;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.net.MalformedURLException;
 
 /**
  * @author Devgru devgru@mail.ru
@@ -21,7 +21,7 @@ public class RmiGetter {
         return new Connector<E>((RemoteHandler<E>) Naming.lookup(name));
     }
 
-    private static final class Connector<E extends Event> implements Handler<E>{
+    private static final class Connector<E extends Event> implements Handler<E> {
 
         private final RemoteHandler<E> rh;
 
@@ -30,10 +30,10 @@ public class RmiGetter {
         }
 
         public void handle(E event) {
-                try {
-                    rh.handleRemote(event);
-                } catch (RemoteException ignored) {
-                }
+            try {
+                rh.handleRemote(event);
+            } catch (RemoteException ignored) {
             }
+        }
     }
 }
