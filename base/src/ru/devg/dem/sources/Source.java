@@ -14,7 +14,7 @@ public abstract class Source<E extends Event> {
         this.target = target;
     }
 
-    protected final void fire(E event){
+    protected final void sendUp(E event) {
         target.handle(event);
     }
 }
