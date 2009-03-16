@@ -6,8 +6,8 @@ import test.events.SecondLevelEvent1;
 import test.handlers.Collector;
 import test.handlers.BaseHandler;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.structures.dispatchers.inclass.InplaceDispatcher;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
+import ru.devg.dem.structures.dispatchers.inclass.InclassDispatcher;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -17,7 +17,7 @@ public class InclassDispatcherTest {
     @Test
     public void testPriorities(){
         Dolly d = new Dolly();
-        Handler<BaseEvent> h = new InplaceDispatcher<BaseEvent>(d);
+        Handler<BaseEvent> h = new InclassDispatcher<BaseEvent>(d);
 
         h.handle(new SecondLevelEvent1());
         h.handle(new BaseEvent());

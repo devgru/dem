@@ -12,26 +12,26 @@ import java.util.EnumSet;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
-public final class InplaceDispatcher<E extends Event>
+public final class InclassDispatcher<E extends Event>
         implements Handler<E> {
 
     private final List<Filter<?>> handlers;
 
     private final boolean broadcastMode;
 
-    public InplaceDispatcher(Object handler) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler) throws NoSuchMethodError, NoSuchFieldError {
         this(handler,EnumSet.noneOf(Configuration.class));
     }
 
-    public InplaceDispatcher(Object handler, EnumSet<Configuration> config) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws NoSuchMethodError, NoSuchFieldError {
         this(handler, config, Event.class);
     }
 
-    public InplaceDispatcher(Object handler, Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler, Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
         this(handler, EnumSet.noneOf(Configuration.class),bound);
     }
 
-    public InplaceDispatcher(Object handler, EnumSet<Configuration> config,Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler, EnumSet<Configuration> config,Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
         handlers = new ClassWorker(handler, config,bound).result();
         broadcastMode = config.contains(Configuration.broadcast);
     }
