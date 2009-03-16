@@ -1,63 +1,59 @@
-package ru.devg.dem.bundles.one2one.onclass;
+package ru.devg.dem.structures.dispatchers.inclass.binding;
 
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
+import ru.devg.dem.structures.dispatchers.inclass.Handles;
+import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
-final class MethodWorker {
-    private final InplaceDispatchable target;
+final class MethodWorker implements AbstractBinder {
+    private final Object target;
 
-    MethodWorker(InplaceDispatchable target) {
+    MethodWorker(Object target) {
         this.target = target;
     }
 
-    public List<DispatchedEntry> result() {
-        List<DispatchedEntry> grabbed = new LinkedList<DispatchedEntry>();
-        Class<? extends InplaceDispatchable> targetClass = target.getClass();
+    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) {
         for (Method method : targetClass.getMethods()) {
-            DispatchedEntry filter = tryBindMethod(method);
+            BindedMember filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
-        return grabbed;
     }
 
-    private DispatchedEntry tryBindMethod(Method method) throws NoSuchMethodError {
-        if (method.getAnnotation(InplaceDispatchable.Handles.class) != null) {
-            return bindMethod(method);
+    private BindedMember tryBindMethod(Method method) throws NoSuchMethodError {
+        if (method.getAnnotation(Handles.class) != null) {
+            Handles a = method.getAnnotation(Handles.class);
+
+            Class<? extends Event> annotatedClass = a.value();
+            int priority = a.priority();
+            return bindMethod(method, annotatedClass, priority);
+        } else if (method.getAnnotation(HandlesOrphans.class) != null) {
+            return bindMethod(method, Event.class, (long) Integer.MIN_VALUE - 1);
         } else {
             return null;
         }
     }
 
-    private DispatchedEntry bindMethod(Method method) {
-        InplaceDispatchable.Handles a = method.getAnnotation(InplaceDispatchable.Handles.class);
-
+    private BindedMember bindMethod(Method method, Class<? extends Event> bound, long priority) {
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;
-
-        Class<?> annotatedClass = a.value();
-        int priority = a.priority();
         if (argsCount > 1) {
             throw new NoSuchMethodError("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != annotatedClass) {
+            if (argClass != bound) {
                 throw new NoSuchMethodError("declared parameter's type must be equal to annotated class.");
             }
-            if (!target.getBoundClass().isAssignableFrom(argClass)) {
-                throw new NoSuchMethodError("declared parameter's type should extend parental handler's one.");
-            }
-            return new DispatchedEntry(new MethodInvoker(argClass, method),priority);
+            return new BindedMember(new MethodInvoker(argClass, method), priority);
         } else {
-            return new DispatchedEntry(new NoParamMethodInvoker(a.value(), method),priority);
+            return new BindedMember(new NoParamMethodInvoker(bound, method), priority);
         }
     }
 

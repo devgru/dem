@@ -1,16 +1,16 @@
-package ru.devg.dem.bundles.one2one.onclass;
+package ru.devg.dem.structures.dispatchers.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
-final class DispatchedEntry implements Comparable<DispatchedEntry>{
+final class BindedMember implements Comparable<BindedMember> {
     private final Filter filter;
     private final Long priority;
 
-    public DispatchedEntry(Filter filter, long priority) {
+    public BindedMember(Filter filter, long priority) {
         this.filter = filter;
         this.priority = priority;
     }
@@ -19,7 +19,7 @@ final class DispatchedEntry implements Comparable<DispatchedEntry>{
         return filter;
     }
 
-    public int compareTo(DispatchedEntry o) {
+    public int compareTo(BindedMember o) {
         return o.priority.compareTo(priority);
     }
 }

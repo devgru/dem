@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Handler;
  * If you want to use your own strategy - you just have
  * to implement this interface.
  *
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
 public interface HandlerBundle<H extends Handler<? super E>, E extends Event>

@@ -4,7 +4,7 @@ import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.18
  */
 public final class NoopHandler extends Filter {

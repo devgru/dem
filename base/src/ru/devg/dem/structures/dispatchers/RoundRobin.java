@@ -12,7 +12,7 @@ import ru.devg.dem.structures.HandlerBundle;
  * <li>when you add a Handler to RoundRobinBroadcaster it is added <i>before</i> the next Handler;</li>
  * </ul>
  *
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
 public final class RoundRobin<E extends Event>

@@ -4,7 +4,7 @@ package ru.devg.dem.quanta;
  * Handler is a second <i>quantum</i> of the framework.
  * It was created to provide the alterntive Observer idiom.
  *
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  * @see Event
  */

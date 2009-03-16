@@ -5,7 +5,7 @@ import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
 @SuppressWarnings("unchecked")

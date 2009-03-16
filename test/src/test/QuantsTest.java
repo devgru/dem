@@ -10,7 +10,7 @@ import ru.devg.dem.filtering.TypeBoundedHandler;
 import java.util.Random;
 
 /**
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class QuantsTest {

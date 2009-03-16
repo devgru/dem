@@ -9,7 +9,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
 public class RmiGetter {

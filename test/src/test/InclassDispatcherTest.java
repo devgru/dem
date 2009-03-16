@@ -10,7 +10,7 @@ import ru.devg.dem.structures.dispatchers.inclass.InplaceDispatcher;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class InclassDispatcherTest {

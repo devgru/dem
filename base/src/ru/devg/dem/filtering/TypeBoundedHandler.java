@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Handler;
  * some info about the bound class {@link E}. For example, it's used
  * a lot in the {@link ru.devg.dem.structures} section.
  *
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
 public abstract class TypeBoundedHandler<E extends Event> extends Filter<E> {

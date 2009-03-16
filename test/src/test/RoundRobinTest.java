@@ -11,7 +11,7 @@ import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class RoundRobinTest {

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public final class EventBuffer<E extends Event>

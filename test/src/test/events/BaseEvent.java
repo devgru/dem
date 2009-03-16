@@ -3,7 +3,7 @@ package test.events;
 import ru.devg.dem.quanta.Event;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class BaseEvent implements Event {

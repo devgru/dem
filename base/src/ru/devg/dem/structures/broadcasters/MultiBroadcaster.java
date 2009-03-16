@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * {@link MultiBroadcaster#handle(ru.devg.dem.quanta.Event)}
  * it passes an {@link ru.devg.dem.quanta.Event} to every contained handler.
  *
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
 public final class MultiBroadcaster<E extends Event>

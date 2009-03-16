@@ -4,7 +4,7 @@ import test.events.CollectedEvent;
 import ru.devg.dem.quanta.Handler;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class Collector implements Handler<CollectedEvent> {

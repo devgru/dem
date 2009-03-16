@@ -6,7 +6,7 @@ import test.events.BaseEvent;
 import test.events.CollectedEvent;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
 public class BaseHandler<E extends BaseEvent>

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * @author Devgru devgru@mail.ru
- * @version 0.0
+ * @author Devgru &lt;java@devg.ru&gt;
+ * @version 0.178
  */
 class LoopedIterator<H> {
 

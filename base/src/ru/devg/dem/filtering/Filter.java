@@ -4,7 +4,7 @@ import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 /**
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
 public abstract class Filter<E extends Event> implements Handler<E>, FilterStrategy {

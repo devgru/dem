@@ -9,7 +9,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
 public class RmiBinder {

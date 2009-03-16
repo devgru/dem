@@ -5,7 +5,7 @@ import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 /**
- * @author Devgru &lt;devgru@mail.ru&gt;
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
 public abstract class Translator<TO extends Event, FROM extends Event>

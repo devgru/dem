@@ -1,68 +1,69 @@
-package ru.devg.dem.bundles.one2one.onclass;
+package ru.devg.dem.structures.dispatchers.inclass.binding;
 
 import ru.devg.dem.extended.NoopHandler;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.structures.dispatchers.inclass.Handles;
+import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
 
 import java.lang.reflect.Field;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Devgru devgru@mail.ru
+ * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
-final class FieldWorker {
-    private final InplaceDispatchable<?> target;
+final class FieldWorker implements AbstractBinder {
+    private final Object target;
 
-    FieldWorker(InplaceDispatchable<?> target) {
+    FieldWorker(Object target) {
         this.target = target;
     }
 
-    public List<DispatchedEntry> result() {
-        List<DispatchedEntry> grabbed = new LinkedList<DispatchedEntry>();
-        Class<? extends InplaceDispatchable> targetClass = target.getClass();
-
+    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) {
         for (Field field : targetClass.getDeclaredFields()) {
-            DispatchedEntry entry = tryBindField(field);
+            BindedMember entry = tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }
-        return grabbed;
     }
 
-    private DispatchedEntry tryBindField(Field field) throws NoSuchFieldError {
-        if (field.getAnnotation(InplaceDispatchable.Handles.class) != null) {
-            return bindField(field);
+    private BindedMember tryBindField(Field field) throws NoSuchFieldError {
+        if (field.getAnnotation(Handles.class) != null) {
+            Handles a = field.getAnnotation(Handles.class);
+
+            Class<? extends Event> bound = a.value();
+            int priority = a.priority();
+
+            return innerBind(field, bound, priority);
+        } else if (field.getAnnotation(HandlesOrphans.class) != null) {
+            return innerBind(field, Event.class, (long) Integer.MIN_VALUE - 1);
         } else {
             return null;
         }
     }
 
-    private DispatchedEntry bindField(Field field) {
-        InplaceDispatchable.Handles a = field.getAnnotation(InplaceDispatchable.Handles.class);
-
+    private BindedMember innerBind(Field field, Class<? extends Event> bound, long priority) {
         Class<?> type = field.getType();
         try {
             field.get(target);
         } catch (IllegalAccessException e) {
             throw new NoSuchFieldError("field " + field.getName() + " is inaccessible. Probably it's not public.");
         }
-
-        Class<?> annotatedClass = a.value();
-        int priority = a.priority();
         if (Filter.class.isAssignableFrom(type)) {
             if (TypeBoundedHandler.class.isAssignableFrom(type)) {
-                if (type.isAssignableFrom(annotatedClass)) {
-                    throw new NoSuchFieldError("field " + field.getName() + " mush have same type as annotated class.");
+/*
+                if (type.isAssignableFrom(bound)) {
+                    throw new NoSuchFieldError("field " + field.getName() + " must have same type as annotated class.");
                 }
+*/
             }
-            return new DispatchedEntry(new FilteredFieldHandler(field), priority);
+            return new BindedMember(new FilteredFieldHandler(field), priority);
         } else if (Handler.class.isAssignableFrom(type)) {
-            return new DispatchedEntry(new FieldHandler(annotatedClass, field), priority);
+            return new BindedMember(new FieldHandler(bound, field), priority);
         } else {
-            throw new NoSuchFieldError("field's class must implement ru.devg.dem.quanta.Handler.");
+            throw new NoSuchFieldError("field's must contain any Handler or null.");
         }
     }
 
@@ -79,7 +80,7 @@ final class FieldWorker {
                 return (Handler) rawHandler;
             } catch (IllegalAccessException ignored) {
 //                throw new RuntimeException(ignored);
-                return NoopHandler.getInstance();
+                return new NoopHandler();
             }
         }
 
@@ -104,7 +105,6 @@ final class FieldWorker {
     }
 
     private class FilteredFieldHandler extends AbstractFieldHandler {
-
         private FilteredFieldHandler(Field field) {
             super(field);
         }
