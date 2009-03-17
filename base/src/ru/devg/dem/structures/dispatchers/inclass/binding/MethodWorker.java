@@ -1,9 +1,12 @@
 package ru.devg.dem.structures.dispatchers.inclass.binding;
 
+import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
+import ru.devg.dem.sources.Source;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
 import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
+import ru.devg.dem.structures.dispatchers.inclass.PushesDown;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,10 +33,9 @@ final class MethodWorker implements AbstractBinder {
     private BindedMember tryBindMethod(Method method) throws NoSuchMethodError {
         if (method.getAnnotation(Handles.class) != null) {
             Handles a = method.getAnnotation(Handles.class);
-
-            Class<? extends Event> annotatedClass = a.value();
+            Class<? extends Event> bound = a.value();
             int priority = a.priority();
-            return bindMethod(method, annotatedClass, priority);
+            return bindMethod(method, bound, priority);
         } else if (method.getAnnotation(HandlesOrphans.class) != null) {
             return bindMethod(method, Event.class, (long) Integer.MIN_VALUE - 1);
         } else {
@@ -42,6 +44,8 @@ final class MethodWorker implements AbstractBinder {
     }
 
     private BindedMember bindMethod(Method method, Class<? extends Event> bound, long priority) {
+        Filter halfResult;
+
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;
         if (argsCount > 1) {
@@ -51,10 +55,22 @@ final class MethodWorker implements AbstractBinder {
             if (argClass != bound) {
                 throw new NoSuchMethodError("declared parameter's type must be equal to annotated class.");
             }
-            return new BindedMember(new MethodInvoker(argClass, method), priority);
+            halfResult = new MethodInvoker(argClass, method);
         } else {
-            return new BindedMember(new NoParamMethodInvoker(bound, method), priority);
+            halfResult = new NoParamMethodInvoker(bound, method);
         }
+
+        if (method.getAnnotation(PushesDown.class) != null) {
+            if (target instanceof Source) {
+                Source s = (Source) target;
+                halfResult = new DownPusher(s, halfResult);
+            } else {
+                throw new NoSuchFieldError("target must extend Source class" +
+                        "if you want to use PushesDown annotation.");
+            }
+        }
+
+        return new BindedMember(halfResult, priority);
     }
 
     private class NoParamMethodInvoker extends TypeBoundedHandler {

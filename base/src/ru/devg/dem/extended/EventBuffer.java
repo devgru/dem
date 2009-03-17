@@ -56,7 +56,7 @@ public final class EventBuffer<E extends Event>
      * If you want to broadcast events, use any
      * {@link ru.devg.dem.structures handler from multi}.
      *
-     * @see ru.devg.dem.structures.broadcasters.MultiBroadcaster
+     * @see ru.devg.dem.structures.broadcasters.Broadcaster
      * @see ru.devg.dem.structures.dispatchers.Dispatcher
      */
     public final void release() {

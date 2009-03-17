@@ -2,11 +2,12 @@ package ru.devg.dem.structures.dispatchers.inclass.binding;
 
 import ru.devg.dem.extended.NoopHandler;
 import ru.devg.dem.filtering.Filter;
-import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.sources.Source;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
 import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
+import ru.devg.dem.structures.dispatchers.inclass.PushesDown;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -45,6 +46,8 @@ final class FieldWorker implements AbstractBinder {
     }
 
     private BindedMember innerBind(Field field, Class<? extends Event> bound, long priority) {
+        Filter halfResult;
+
         Class<?> type = field.getType();
         try {
             field.get(target);
@@ -52,19 +55,24 @@ final class FieldWorker implements AbstractBinder {
             throw new NoSuchFieldError("field " + field.getName() + " is inaccessible. Probably it's not public.");
         }
         if (Filter.class.isAssignableFrom(type)) {
-            if (TypeBoundedHandler.class.isAssignableFrom(type)) {
-/*
-                if (type.isAssignableFrom(bound)) {
-                    throw new NoSuchFieldError("field " + field.getName() + " must have same type as annotated class.");
-                }
-*/
-            }
-            return new BindedMember(new FilteredFieldHandler(field), priority);
+            halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
-            return new BindedMember(new FieldHandler(bound, field), priority);
+            halfResult = new FieldHandler(bound, field);
         } else {
             throw new NoSuchFieldError("field's must contain any Handler or null.");
         }
+
+        if (field.getAnnotation(PushesDown.class) != null) {
+            if (target instanceof Source) {
+                Source s = (Source) target;
+                halfResult = new DownPusher(s, halfResult);
+            } else {
+                throw new NoSuchFieldError("target must extend Source class" +
+                        "if you want to use PushesDown annotation.");
+            }
+        }
+
+        return new BindedMember(halfResult, priority);
     }
 
     private abstract class AbstractFieldHandler extends Filter {

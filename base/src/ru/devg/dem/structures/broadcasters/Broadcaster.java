@@ -8,29 +8,29 @@ import java.util.LinkedList;
 
 /**
  * MultiBroadcaster is a bundle of handlers. On
- * {@link MultiBroadcaster#handle(ru.devg.dem.quanta.Event)}
+ * {@link Broadcaster#handle(ru.devg.dem.quanta.Event)}
  * it passes an {@link ru.devg.dem.quanta.Event} to every contained handler.
  *
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
-public final class MultiBroadcaster<E extends Event>
+public final class Broadcaster<E extends Event>
         implements HandlerBundle<Handler<? super E>, E> {
 
     private final LinkedList<Handler<? super E>> handlers =
             new LinkedList<Handler<? super E>>();
 
-    public MultiBroadcaster() {
+    public Broadcaster() {
     }
 
-    public MultiBroadcaster(Handler<? super E>... handlers) {
+    public Broadcaster(Handler<? super E>... handlers) {
         for(Handler<? super E> handler : handlers){
             addHandler(handler);
         }
     }
 
-    public static <E extends Event> MultiBroadcaster<E> one() {
-        return new MultiBroadcaster<E>();
+    public static <E extends Event> Broadcaster<E> one() {
+        return new Broadcaster<E>();
     }
 
     public void handle(E event) {
