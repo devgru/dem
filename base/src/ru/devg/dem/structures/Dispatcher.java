@@ -24,6 +24,13 @@ public final class Dispatcher<E extends Event>
         super(bound);
     }
 
+    public Dispatcher(Class<E> bound,TypeBoundedHandler<? extends E>... handlers) {
+        super(bound);
+        for(TypeBoundedHandler<? extends E> handler : handlers){
+            addHandler(handler);
+        }
+    }
+
     // fields
 
     private final List<TypeBoundedHandler<? extends E>> handlers =

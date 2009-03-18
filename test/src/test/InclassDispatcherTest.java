@@ -6,8 +6,9 @@ import test.events.SecondLevelEvent1;
 import test.handlers.Collector;
 import test.handlers.BaseHandler;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.structures.dispatchers.inclass.Handles;
-import ru.devg.dem.structures.dispatchers.inclass.InclassDispatcher;
+import ru.devg.dem.structures.inclass.Handles;
+import ru.devg.dem.structures.inclass.InclassDispatcher;
+import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -15,7 +16,7 @@ import ru.devg.dem.structures.dispatchers.inclass.InclassDispatcher;
  */
 public class InclassDispatcherTest {
     @Test
-    public void testPriorities(){
+    public void testPriorities() throws ClassIsUnbindableException {
         Dolly d = new Dolly();
         Handler<BaseEvent> h = new InclassDispatcher<BaseEvent>(d);
 

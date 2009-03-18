@@ -1,12 +1,12 @@
-package ru.devg.dem.structures.dispatchers.inclass.binding;
+package ru.devg.dem.structures.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.translating.TranslatorStrategy;
 import ru.devg.dem.translating.ExternalTranslator;
-import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.structures.dispatchers.inclass.PushesDown;
+import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.structures.inclass.PushesDown;
 import ru.devg.dem.sources.Source;
 
 import java.util.List;
@@ -25,6 +25,7 @@ abstract class AbstractBinder {
 
     public abstract void tryBindMembers(List<BindedMember> listToUpdate,Class<?> targetClass) throws ClassIsUnbindableException;
 
+    @SuppressWarnings("unchecked")
     protected Filter wrapByTranslator(Class<? extends Event> bound, Class<? extends TranslatorStrategy> translator, Filter halfResult) {
         if (translator != TranslatorStrategy.class) {
             try {

@@ -1,4 +1,4 @@
-package ru.devg.dem.structures.dispatchers.inclass;
+package ru.devg.dem.structures.inclass;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

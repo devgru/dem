@@ -1,4 +1,4 @@
-package ru.devg.dem.structures.dispatchers.inclass.binding;
+package ru.devg.dem.structures.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 

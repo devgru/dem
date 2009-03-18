@@ -1,9 +1,9 @@
-package ru.devg.dem.structures.dispatchers.inclass.binding;
+package ru.devg.dem.structures.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.structures.dispatchers.inclass.Configuration;
-import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.structures.inclass.Configuration;
+import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
 
 import java.util.*;
 

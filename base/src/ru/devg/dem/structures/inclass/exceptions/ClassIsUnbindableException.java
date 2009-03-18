@@ -1,8 +1,8 @@
-package ru.devg.dem.structures.dispatchers.inclass.exceptions;
+package ru.devg.dem.structures.inclass.exceptions;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.0
+ * @version 0.179
  */
 public class ClassIsUnbindableException extends Exception{
     public ClassIsUnbindableException() {

@@ -1,11 +1,11 @@
-package ru.devg.dem.structures.dispatchers.inclass;
+package ru.devg.dem.structures.inclass;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.translating.TranslatorStrategy;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.0
+ * @version 0.179
  */
 public class SomeStructure {
     private final Class<? extends Event> bound;

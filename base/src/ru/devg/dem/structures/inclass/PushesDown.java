@@ -1,4 +1,4 @@
-package ru.devg.dem.structures.dispatchers.inclass;
+package ru.devg.dem.structures.inclass;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
