@@ -1,4 +1,4 @@
-package ru.devg.dem.structures.inclass;
+package ru.devg.dem.structures.inclass.binding;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.translating.TranslatorStrategy;
@@ -7,12 +7,12 @@ import ru.devg.dem.translating.TranslatorStrategy;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public class SomeStructure {
+public class BindableElementDescriptor {
     private final Class<? extends Event> bound;
     private final Class<? extends TranslatorStrategy> translatorStrategy;
     private final long priority;
 
-    public SomeStructure(Class<? extends Event> bound,
+    public BindableElementDescriptor(Class<? extends Event> bound,
                          long priority,
                          Class<? extends TranslatorStrategy> translatorStrategy) {
         this.bound = bound;

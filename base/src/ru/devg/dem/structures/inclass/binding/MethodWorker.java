@@ -5,10 +5,10 @@ import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.structures.inclass.Handles;
 import ru.devg.dem.structures.inclass.HandlesOrphans;
-import ru.devg.dem.structures.inclass.SomeStructure;
+import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
 import ru.devg.dem.structures.inclass.exceptions.MethodIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,18 +31,22 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BindedMember tryBindMethod(Method method) throws NoSuchMethodError, ClassIsUnbindableException {
+    private BindedMember tryBindMethod(Method method) throws ClassIsUnbindableException {
         if (method.getAnnotation(Handles.class) != null) {
             Handles a = method.getAnnotation(Handles.class);
             try {
-                return bindMethod(method, new SomeStructure(a.value(), a.priority(), a.translator()));
-            } catch (MethodIsUnbindableException e) {
+                BindableElementDescriptor ss =
+                        new BindableElementDescriptor(a.value(), a.priority(), a.translator());
+                return bindMethod(method, ss);
+            } catch (ElementIsUnbindableException e) {
                 throw new ClassIsUnbindableException(e);
             }
         } else if (method.getAnnotation(HandlesOrphans.class) != null) {
             try {
-                return bindMethod(method, new SomeStructure(Event.class, (long) Integer.MIN_VALUE - 1, null));
-            } catch (MethodIsUnbindableException e) {
+                BindableElementDescriptor ss =
+                        new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, null);
+                return bindMethod(method, ss);
+            } catch (ElementIsUnbindableException e) {
                 throw new ClassIsUnbindableException(e);
             }
         } else {
@@ -50,28 +54,27 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BindedMember bindMethod(Method method, SomeStructure ss) throws MethodIsUnbindableException {
+    private BindedMember bindMethod(Method method, BindableElementDescriptor ss) throws ElementIsUnbindableException {
         Filter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;
         if (argsCount > 1) {
-            throw new NoSuchMethodError("method shouldn't have more than 1 parameter.");
+            throw new MethodIsUnbindableException("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
             if (argClass != ss.getBound()) {
-                throw new NoSuchMethodError("declared parameter's type must be equal to annotated class.");
+                throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method);
         } else {
             halfResult = new NoParamMethodInvoker(ss.getBound(), method);
         }
 
-
         try {
             halfResult = wrapByDownpusher(method, halfResult);
         } catch (ClassNotExtendsSourceException e) {
-            throw  new MethodIsUnbindableException(e);
+            throw new MethodIsUnbindableException(e);
         }
         halfResult = wrapByTranslator(ss.getBound(), ss.getTranslatorStrategy(), halfResult);
         return new BindedMember(halfResult, ss.getPriority());

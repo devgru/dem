@@ -2,15 +2,16 @@ package ru.devg.dem.structures.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.translating.TranslatorStrategy;
-import ru.devg.dem.translating.ExternalTranslator;
-import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.structures.inclass.PushesDown;
 import ru.devg.dem.sources.Source;
+import ru.devg.dem.structures.inclass.PushesDown;
+import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.translating.ExternalTranslator;
+import ru.devg.dem.translating.TranslatorStrategy;
 
-import java.util.List;
 import java.lang.reflect.AnnotatedElement;
+import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -23,23 +24,29 @@ abstract class AbstractBinder {
         this.target = target;
     }
 
-    public abstract void tryBindMembers(List<BindedMember> listToUpdate,Class<?> targetClass) throws ClassIsUnbindableException;
+    public abstract void tryBindMembers(List<BindedMember> listToUpdate, Class<?> targetClass)
+            throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected Filter wrapByTranslator(Class<? extends Event> bound, Class<? extends TranslatorStrategy> translator, Filter halfResult) {
+    protected Filter wrapByTranslator(Class<? extends Event> bound,
+                                      Class<? extends TranslatorStrategy> translator,
+                                      Filter halfResult)
+            throws ElementIsUnbindableException {
+
         if (translator != TranslatorStrategy.class) {
             try {
                 halfResult = new ExternalTranslator(halfResult, bound, translator.newInstance());
             } catch (InstantiationException e) {
-                throw new RuntimeException(e);
+                throw new ElementIsUnbindableException(e);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
+                throw new ElementIsUnbindableException(e);
             }
         }
         return halfResult;
     }
 
-    protected Filter wrapByDownpusher(AnnotatedElement element, Filter halfResult) throws ClassNotExtendsSourceException {
+    protected Filter wrapByDownpusher(AnnotatedElement element, Filter halfResult)
+            throws ClassNotExtendsSourceException {
         if (element.getAnnotation(PushesDown.class) != null) {
             if (target instanceof Source) {
                 Source s = (Source) target;

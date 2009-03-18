@@ -6,10 +6,10 @@ import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.structures.inclass.Handles;
 import ru.devg.dem.structures.inclass.HandlesOrphans;
-import ru.devg.dem.structures.inclass.SomeStructure;
 import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
 import ru.devg.dem.structures.inclass.exceptions.FieldIsUnbindableException;
+import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;
@@ -39,17 +39,17 @@ final class FieldWorker extends AbstractBinder {
             Class<? extends Event> bound = a.value();
             int priority = a.priority();
 
-            SomeStructure ss = new SomeStructure(bound, priority, a.translator());
+            BindableElementDescriptor ss = new BindableElementDescriptor(bound, priority, a.translator());
             try {
                 return bindField(field, ss);
-            } catch (FieldIsUnbindableException e) {
+            } catch (ElementIsUnbindableException e) {
                 throw new ClassIsUnbindableException(e);
             }
         } else if (field.getAnnotation(HandlesOrphans.class) != null) {
-            SomeStructure ss = new SomeStructure(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
+            BindableElementDescriptor ss = new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
             try {
                 return bindField(field, ss);
-            } catch (FieldIsUnbindableException e) {
+            } catch (ElementIsUnbindableException e) {
                 throw new ClassIsUnbindableException(e);
             }
         } else {
@@ -57,21 +57,21 @@ final class FieldWorker extends AbstractBinder {
         }
     }
 
-    private BindedMember bindField(Field field, SomeStructure ss) throws FieldIsUnbindableException {
+    private BindedMember bindField(Field field, BindableElementDescriptor ss) throws ElementIsUnbindableException {
         Filter halfResult;
 
         Class<?> type = field.getType();
         try {
             field.get(target);
         } catch (IllegalAccessException e) {
-            throw new NoSuchFieldError("field " + field.getName() + " is inaccessible. Probably it's not public.");
+            throw new FieldIsUnbindableException("field " + field.getName() + " is inaccessible. Probably it's not public.",e);
         }
         if (Filter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
             halfResult = new FieldHandler(ss.getBound(), field);
         } else {
-            throw new NoSuchFieldError("field's must contain any Handler or null.");
+            throw new FieldIsUnbindableException("field's type must implement Handler.");
         }
 
         try {
