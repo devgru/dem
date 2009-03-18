@@ -11,7 +11,7 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
-public interface HandlerBundle<H extends Handler<? super E>, E extends Event>
+public interface HandlerBundle<H extends Handler, E extends Event>
         extends Handler<E> {
 
     /**

@@ -2,7 +2,7 @@ package test;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
-import ru.devg.dem.structures.dispatchers.RoundRobin;
+import ru.devg.dem.structures.RoundRobin;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.events.SecondLevelEvent2;
