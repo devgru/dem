@@ -3,6 +3,7 @@ package ru.devg.dem.structures.dispatchers.inclass.binding;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.structures.dispatchers.inclass.Configuration;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ public final class ClassWorker {
         strictPrioritization = config.contains(Configuration.strictPrioritization);
     }
 
-    public List<Filter<?>> result() {
+    public List<Filter<?>> bindClassElements() throws ClassIsUnbindableException {
         List<AbstractBinder> binders = new LinkedList<AbstractBinder>();
 
         binders.add(new FieldWorker(target));

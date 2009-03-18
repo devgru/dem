@@ -4,48 +4,60 @@ import ru.devg.dem.extended.NoopHandler;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.sources.Source;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
 import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
-import ru.devg.dem.structures.dispatchers.inclass.PushesDown;
+import ru.devg.dem.structures.dispatchers.inclass.SomeStructure;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.FieldIsUnbindableException;
+import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * @author Devgru &lt;java@devg.ru&gt;
+ * @author Devgru &lt;javaм@devg.ru&gt;
  * @version 0.176
  */
-final class FieldWorker implements AbstractBinder {
-    private final Object target;
+final class FieldWorker extends AbstractBinder {
 
     FieldWorker(Object target) {
-        this.target = target;
+        super(target);
     }
 
-    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) {
+    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Field field : targetClass.getDeclaredFields()) {
             BindedMember entry = tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }
     }
 
-    private BindedMember tryBindField(Field field) throws NoSuchFieldError {
+    private BindedMember tryBindField(Field field) throws ClassIsUnbindableException {
         if (field.getAnnotation(Handles.class) != null) {
             Handles a = field.getAnnotation(Handles.class);
 
             Class<? extends Event> bound = a.value();
             int priority = a.priority();
 
-            return innerBind(field, bound, priority);
+            SomeStructure ss = new SomeStructure(bound, priority, a.translator());
+            try {
+                return bindField(field, ss);
+            } catch (FieldIsUnbindableException e) {
+                throw new ClassIsUnbindableException(e);
+            }
         } else if (field.getAnnotation(HandlesOrphans.class) != null) {
-            return innerBind(field, Event.class, (long) Integer.MIN_VALUE - 1);
+            SomeStructure ss = new SomeStructure(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
+            try {
+                return bindField(field, ss);
+            } catch (FieldIsUnbindableException e) {
+                throw new ClassIsUnbindableException(e);
+            }
         } else {
             return null;
         }
     }
 
-    private BindedMember innerBind(Field field, Class<? extends Event> bound, long priority) {
+    private BindedMember bindField(Field field, SomeStructure ss) throws FieldIsUnbindableException {
         Filter halfResult;
 
         Class<?> type = field.getType();
@@ -57,22 +69,19 @@ final class FieldWorker implements AbstractBinder {
         if (Filter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
-            halfResult = new FieldHandler(bound, field);
+            halfResult = new FieldHandler(ss.getBound(), field);
         } else {
             throw new NoSuchFieldError("field's must contain any Handler or null.");
         }
 
-        if (field.getAnnotation(PushesDown.class) != null) {
-            if (target instanceof Source) {
-                Source s = (Source) target;
-                halfResult = new DownPusher(s, halfResult);
-            } else {
-                throw new NoSuchFieldError("target must extend Source class" +
-                        "if you want to use PushesDown annotation.");
-            }
+        try {
+            halfResult = wrapByDownpusher(field, halfResult);
+        } catch (ClassNotExtendsSourceException e) {
+            throw new FieldIsUnbindableException(e);
         }
+        halfResult = wrapByTranslator(ss.getBound(), ss.getTranslatorStrategy(), halfResult);
 
-        return new BindedMember(halfResult, priority);
+        return new BindedMember(halfResult, ss.getPriority());
     }
 
     private abstract class AbstractFieldHandler extends Filter {
@@ -125,6 +134,5 @@ final class FieldWorker implements AbstractBinder {
         }
 
     }
-
 
 }

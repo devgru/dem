@@ -1,6 +1,7 @@
 package ru.devg.dem.structures.dispatchers.inclass;
 
 import ru.devg.dem.structures.dispatchers.inclass.binding.ClassWorker;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
@@ -19,20 +20,20 @@ public final class InclassDispatcher<E extends Event>
 
     private final boolean broadcastMode;
 
-    public InclassDispatcher(Object handler) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler) throws NoSuchMethodError, NoSuchFieldError, ClassIsUnbindableException {
         this(handler,EnumSet.noneOf(Configuration.class));
     }
 
-    public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws NoSuchMethodError, NoSuchFieldError, ClassIsUnbindableException {
         this(handler, config, Event.class);
     }
 
-    public InclassDispatcher(Object handler, Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
+    public InclassDispatcher(Object handler, Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError, ClassIsUnbindableException {
         this(handler, EnumSet.noneOf(Configuration.class),bound);
     }
 
-    public InclassDispatcher(Object handler, EnumSet<Configuration> config,Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError {
-        handlers = new ClassWorker(handler, config,bound).result();
+    public InclassDispatcher(Object handler, EnumSet<Configuration> config,Class<? extends Event> bound) throws NoSuchMethodError, NoSuchFieldError, ClassIsUnbindableException {
+        handlers = new ClassWorker(handler, config,bound).bindClassElements();
         broadcastMode = config.contains(Configuration.broadcast);
     }
 

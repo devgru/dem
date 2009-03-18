@@ -3,10 +3,12 @@ package ru.devg.dem.structures.dispatchers.inclass.binding;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.sources.Source;
 import ru.devg.dem.structures.dispatchers.inclass.Handles;
 import ru.devg.dem.structures.dispatchers.inclass.HandlesOrphans;
-import ru.devg.dem.structures.dispatchers.inclass.PushesDown;
+import ru.devg.dem.structures.dispatchers.inclass.SomeStructure;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.MethodIsUnbindableException;
+import ru.devg.dem.structures.dispatchers.inclass.exceptions.ClassIsUnbindableException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,34 +18,39 @@ import java.util.List;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.176
  */
-final class MethodWorker implements AbstractBinder {
-    private final Object target;
+final class MethodWorker extends AbstractBinder {
 
     MethodWorker(Object target) {
-        this.target = target;
+        super(target);
     }
 
-    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) {
+    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Method method : targetClass.getMethods()) {
             BindedMember filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
     }
 
-    private BindedMember tryBindMethod(Method method) throws NoSuchMethodError {
+    private BindedMember tryBindMethod(Method method) throws NoSuchMethodError, ClassIsUnbindableException {
         if (method.getAnnotation(Handles.class) != null) {
             Handles a = method.getAnnotation(Handles.class);
-            Class<? extends Event> bound = a.value();
-            int priority = a.priority();
-            return bindMethod(method, bound, priority);
+            try {
+                return bindMethod(method, new SomeStructure(a.value(), a.priority(), a.translator()));
+            } catch (MethodIsUnbindableException e) {
+                throw new ClassIsUnbindableException(e);
+            }
         } else if (method.getAnnotation(HandlesOrphans.class) != null) {
-            return bindMethod(method, Event.class, (long) Integer.MIN_VALUE - 1);
+            try {
+                return bindMethod(method, new SomeStructure(Event.class, (long) Integer.MIN_VALUE - 1, null));
+            } catch (MethodIsUnbindableException e) {
+                throw new ClassIsUnbindableException(e);
+            }
         } else {
             return null;
         }
     }
 
-    private BindedMember bindMethod(Method method, Class<? extends Event> bound, long priority) {
+    private BindedMember bindMethod(Method method, SomeStructure ss) throws MethodIsUnbindableException {
         Filter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
@@ -52,25 +59,22 @@ final class MethodWorker implements AbstractBinder {
             throw new NoSuchMethodError("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != bound) {
+            if (argClass != ss.getBound()) {
                 throw new NoSuchMethodError("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method);
         } else {
-            halfResult = new NoParamMethodInvoker(bound, method);
+            halfResult = new NoParamMethodInvoker(ss.getBound(), method);
         }
 
-        if (method.getAnnotation(PushesDown.class) != null) {
-            if (target instanceof Source) {
-                Source s = (Source) target;
-                halfResult = new DownPusher(s, halfResult);
-            } else {
-                throw new NoSuchFieldError("target must extend Source class" +
-                        "if you want to use PushesDown annotation.");
-            }
-        }
 
-        return new BindedMember(halfResult, priority);
+        try {
+            halfResult = wrapByDownpusher(method, halfResult);
+        } catch (ClassNotExtendsSourceException e) {
+            throw  new MethodIsUnbindableException(e);
+        }
+        halfResult = wrapByTranslator(ss.getBound(), ss.getTranslatorStrategy(), halfResult);
+        return new BindedMember(halfResult, ss.getPriority());
     }
 
     private class NoParamMethodInvoker extends TypeBoundedHandler {
