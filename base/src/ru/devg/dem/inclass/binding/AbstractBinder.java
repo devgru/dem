@@ -1,12 +1,12 @@
-package ru.devg.dem.structures.inclass.binding;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.sources.Source;
-import ru.devg.dem.structures.inclass.PushesDown;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.PushesDown;
+import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.translating.ExternalTranslator;
 import ru.devg.dem.translating.TranslatorStrategy;
 

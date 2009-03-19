@@ -1,15 +1,15 @@
-package ru.devg.dem.structures.inclass.binding;
+package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.extended.NoopHandler;
+import ru.devg.dem.filtering.NoopFilter;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.structures.inclass.Handles;
-import ru.devg.dem.structures.inclass.HandlesOrphans;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.structures.inclass.exceptions.FieldIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.Handles;
+import ru.devg.dem.inclass.HandlesOrphans;
+import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;
@@ -97,7 +97,7 @@ final class FieldWorker extends AbstractBinder {
                 return (Handler) rawHandler;
             } catch (IllegalAccessException ignored) {
 //                throw new RuntimeException(ignored);
-                return new NoopHandler();
+                return new NoopFilter();
             }
         }
 

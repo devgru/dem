@@ -1,4 +1,4 @@
-package ru.devg.dem.structures.inclass;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.translating.TranslatorStrategy;

@@ -1,4 +1,4 @@
-package ru.devg.dem.extended;
+package ru.devg.dem.filtering;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
@@ -7,7 +7,7 @@ import ru.devg.dem.quanta.Event;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.18
  */
-public final class NoopHandler extends Filter {
+public final class NoopFilter extends Filter {
 
     public boolean canHandle(Event event) {
         return false;

@@ -1,14 +1,14 @@
-package ru.devg.dem.structures.inclass.binding;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.structures.inclass.Handles;
-import ru.devg.dem.structures.inclass.HandlesOrphans;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.structures.inclass.exceptions.MethodIsUnbindableException;
-import ru.devg.dem.structures.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.Handles;
+import ru.devg.dem.inclass.HandlesOrphans;
+import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
+import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

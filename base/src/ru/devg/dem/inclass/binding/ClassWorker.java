@@ -1,9 +1,9 @@
-package ru.devg.dem.structures.inclass.binding;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.structures.inclass.Configuration;
-import ru.devg.dem.structures.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.Configuration;
+import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 
 import java.util.*;
 

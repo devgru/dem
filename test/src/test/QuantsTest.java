@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.filtering.TypeBoundedHandler;
+import ru.devg.dem.extended.TypeBoundedHandler;
 
 import java.util.Random;
 
