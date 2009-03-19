@@ -32,7 +32,8 @@ public class RmiGetter {
         public void handle(E event) {
             try {
                 rh.handleRemote(event);
-            } catch (RemoteException ignored) {
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
             }
         }
     }

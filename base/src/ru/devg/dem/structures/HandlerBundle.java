@@ -16,10 +16,13 @@ public interface HandlerBundle<H extends Handler, E extends Event>
 
     /**
      * @param handler handler to add
-     * @throws IllegalArgumentException if handler == null
+     * @throws IllegalArgumentException may be thrown if handler is null
      */
     public void addHandler(H handler) throws IllegalArgumentException;
 
+    /**
+     * @param handler handler to add
+     */
     public void removeHandler(H handler);
 
 }

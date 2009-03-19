@@ -54,7 +54,7 @@ abstract class AbstractBinder {
                 halfResult = new DownPusher(s, halfResult);
             } else {
                 throw new ClassNotExtendsSourceException("target must extend Source class" +
-                        "if you want to use PushesDown annotation.");
+                        " if you want to use PushesDown annotation.");
             }
         }
         return halfResult;

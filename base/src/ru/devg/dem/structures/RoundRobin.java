@@ -26,7 +26,7 @@ public final class RoundRobin<E extends Event>
     private final List<Handler<E>> handlers
             = new LinkedList<Handler<E>>();
 
-    private ListIterator<Handler<E>> storedIterator
+    private final ListIterator<Handler<E>> storedIterator
             = handlers.listIterator();
 
     private final List<Handler<E>> handlersToRemove
@@ -75,7 +75,10 @@ public final class RoundRobin<E extends Event>
 
     private void rewindIfNeeded() {
         if (handlers.size() != 0 && !storedIterator.hasNext()) {
-            storedIterator = handlers.listIterator();
+//            storedIterator = handlers.listIterator();
+            while(storedIterator.hasPrevious()){
+                storedIterator.previous();
+            }
         }
     }
 

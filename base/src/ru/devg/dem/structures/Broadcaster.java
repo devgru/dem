@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Handler;
 import java.util.LinkedList;
 
 /**
- * MultiBroadcaster is a bundle of handlers. On
+ * Broadcaster is a bundle of handlers. On
  * {@link Broadcaster#handle(ru.devg.dem.quanta.Event)}
  * it passes an {@link ru.devg.dem.quanta.Event} to every contained handler.
  *

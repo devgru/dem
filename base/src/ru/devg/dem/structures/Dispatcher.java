@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Dispatcher is a handler bundle that passes
+ * every event to one of {@link ru.devg.dem.quanta.Handler handlers} it contain.
+ *
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.16
  */
@@ -61,7 +64,7 @@ public final class Dispatcher<E extends Event>
         handlers.add(newOne);
         for (TypeBoundedHandler<?> oldOne : handlers) {
             if (isOverlapping(oldOne, newOne)) {
-                throw new RuntimeException("handler overlaps another one");
+                throw new IllegalArgumentException("handler " + newOne + " overlaps " + oldOne);
             }
         }
     }

@@ -7,7 +7,9 @@ import ru.devg.dem.quanta.Handler;
 /**
  * Bounded handlers are required when we must have
  * some info about the bound class {@link E}. For example, it's used
- * a lot in the {@link ru.devg.dem.structures} section.
+ * a lot in the {@link ru.devg.dem.structures Structures} section.
+ * <p/>
+ * Bounded handlers are strong filters.
  *
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
@@ -15,7 +17,7 @@ import ru.devg.dem.quanta.Handler;
 public abstract class TypeBoundedHandler<E extends Event> extends Filter<E> {
     private final Class<E> bound;
 
-    protected TypeBoundedHandler(Class<E> bound) {
+    public TypeBoundedHandler(Class<E> bound) {
         this.bound = bound;
     }
 
@@ -23,6 +25,14 @@ public abstract class TypeBoundedHandler<E extends Event> extends Filter<E> {
         return bound;
     }
 
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param event an event to be analyzed.
+     * @return true if and only if an event
+     *         is an instance of {@link TypeBoundedHandler#getBoundClass() bound class}.
+     */
     public final boolean canHandle(Event event) {
         return bound.isInstance(event);
     }
