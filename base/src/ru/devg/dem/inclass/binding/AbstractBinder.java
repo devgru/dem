@@ -1,12 +1,13 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
-import ru.devg.dem.quanta.Event;
-import ru.devg.dem.sources.Source;
 import ru.devg.dem.inclass.PushesDown;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
+import ru.devg.dem.quanta.Event;
+import ru.devg.dem.sources.Source;
 import ru.devg.dem.translating.ExternalTranslator;
 import ru.devg.dem.translating.TranslatorStrategy;
 
@@ -24,13 +25,13 @@ abstract class AbstractBinder {
         this.target = target;
     }
 
-    public abstract void tryBindMembers(List<BindedMember> listToUpdate, Class<?> targetClass)
+    public abstract void tryBindMembers(List<BindedElement> listToUpdate, Class<?> targetClass)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected Filter wrapByTranslator(Class<? extends Event> bound,
-                                      Class<? extends TranslatorStrategy> translator,
-                                      Filter halfResult)
+    private Filter wrapByTranslator(Class<? extends Event> bound,
+                                    Class<? extends TranslatorStrategy> translator,
+                                    Filter halfResult)
             throws ElementIsUnbindableException {
 
         if (translator != TranslatorStrategy.class) {
@@ -45,7 +46,7 @@ abstract class AbstractBinder {
         return halfResult;
     }
 
-    protected Filter wrapByDownpusher(AnnotatedElement element, Filter halfResult)
+    private Filter wrapByDownpusher(AnnotatedElement element, Filter halfResult)
             throws ClassNotExtendsSourceException {
         if (element.getAnnotation(PushesDown.class) != null) {
             if (target instanceof Source) {
@@ -57,5 +58,15 @@ abstract class AbstractBinder {
             }
         }
         return halfResult;
+    }
+
+    protected BindedElement wrap(AnnotatedElement element, BindableElementDescriptor desc, Filter halfResult) throws ElementIsUnbindableException {
+        try {
+            halfResult = wrapByDownpusher(element, halfResult);
+        } catch (ClassNotExtendsSourceException e) {
+            throw new MethodIsUnbindableException(e);
+        }
+        halfResult = wrapByTranslator(desc.getBound(), desc.getTranslatorStrategy(), halfResult);
+        return new BindedElement(halfResult, desc.getPriority());
     }
 }

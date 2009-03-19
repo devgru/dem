@@ -1,14 +1,14 @@
 package test;
 
 import org.junit.Test;
-import test.events.BaseEvent;
-import test.events.SecondLevelEvent1;
-import test.handlers.Collector;
-import test.handlers.BaseHandler;
-import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.quanta.Handler;
+import test.events.BaseEvent;
+import test.events.SecondLevelEvent1;
+import test.handlers.BaseHandler;
+import test.handlers.Collector;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -31,7 +31,7 @@ public class InclassDispatcherTest {
         }
 
         @Handles(SecondLevelEvent1.class)
-        public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c,SecondLevelEvent1.class,"SLE1");
+        public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
     }
 
 }

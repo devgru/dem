@@ -1,15 +1,14 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.NoopFilter;
 import ru.devg.dem.filtering.Filter;
-import ru.devg.dem.quanta.Event;
-import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.filtering.NoopFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
+import ru.devg.dem.quanta.Event;
+import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;
@@ -25,63 +24,54 @@ final class FieldWorker extends AbstractBinder {
         super(target);
     }
 
-    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
+    public void tryBindMembers(List<BindedElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Field field : targetClass.getDeclaredFields()) {
-            BindedMember entry = tryBindField(field);
+            BindedElement entry = tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }
     }
 
-    private BindedMember tryBindField(Field field) throws ClassIsUnbindableException {
-        if (field.getAnnotation(Handles.class) != null) {
-            Handles a = field.getAnnotation(Handles.class);
-
-            Class<? extends Event> bound = a.value();
-            int priority = a.priority();
-
-            BindableElementDescriptor ss = new BindableElementDescriptor(bound, priority, a.translator());
-            try {
-                return bindField(field, ss);
-            } catch (ElementIsUnbindableException e) {
-                throw new ClassIsUnbindableException(e);
+    private BindedElement tryBindField(Field field) throws ClassIsUnbindableException {
+        try {
+            if (field.getAnnotation(Handles.class) != null) {
+                Handles a = field.getAnnotation(Handles.class);
+                Class<? extends Event> bound = a.value();
+                int priority = a.priority();
+                BindableElementDescriptor desc =
+                        new BindableElementDescriptor(bound, priority, a.translator());
+                return bindField(field, desc);
+            } else if (field.getAnnotation(HandlesOrphans.class) != null) {
+                BindableElementDescriptor desc =
+                        new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
+                return bindField(field, desc);
+            } else {
+                return null;
             }
-        } else if (field.getAnnotation(HandlesOrphans.class) != null) {
-            BindableElementDescriptor ss = new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
-            try {
-                return bindField(field, ss);
-            } catch (ElementIsUnbindableException e) {
-                throw new ClassIsUnbindableException(e);
-            }
-        } else {
-            return null;
+        } catch (ElementIsUnbindableException e) {
+            throw new ClassIsUnbindableException(e);
         }
     }
 
-    private BindedMember bindField(Field field, BindableElementDescriptor ss) throws ElementIsUnbindableException {
+    private BindedElement bindField(Field field, BindableElementDescriptor desc) throws ElementIsUnbindableException {
         Filter halfResult;
 
-        Class<?> type = field.getType();
         try {
             field.get(target);
         } catch (IllegalAccessException e) {
-            throw new FieldIsUnbindableException("field " + field.getName() + " is inaccessible. Probably it's not public.",e);
+            throw new FieldIsUnbindableException("field " + field.getName() + " is inaccessible. Probably it's not public.", e);
         }
+
+        Class<?> type = field.getType();
+
         if (Filter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
-            halfResult = new FieldHandler(ss.getBound(), field);
+            halfResult = new FieldHandler(desc.getBound(), field);
         } else {
             throw new FieldIsUnbindableException("field's type must implement Handler.");
         }
 
-        try {
-            halfResult = wrapByDownpusher(field, halfResult);
-        } catch (ClassNotExtendsSourceException e) {
-            throw new FieldIsUnbindableException(e);
-        }
-        halfResult = wrapByTranslator(ss.getBound(), ss.getTranslatorStrategy(), halfResult);
-
-        return new BindedMember(halfResult, ss.getPriority());
+        return wrap(field, desc, halfResult);
     }
 
     private abstract class AbstractFieldHandler extends Filter {

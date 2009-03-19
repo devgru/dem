@@ -13,8 +13,7 @@ import java.util.List;
  */
 public final class Dispatcher<E extends Event>
         extends TypeBoundedHandler<E>
-        implements HandlerBundle<TypeBoundedHandler<? extends E>, E>
-{
+        implements HandlerBundle<TypeBoundedHandler<? extends E>, E> {
 
     public static Dispatcher<Event> getCommon() {
         return new Dispatcher<Event>(Event.class);
@@ -24,9 +23,9 @@ public final class Dispatcher<E extends Event>
         super(bound);
     }
 
-    public Dispatcher(Class<E> bound,TypeBoundedHandler<? extends E>... handlers) {
+    public Dispatcher(Class<E> bound, TypeBoundedHandler<? extends E>... handlers) {
         super(bound);
-        for(TypeBoundedHandler<? extends E> handler : handlers){
+        for (TypeBoundedHandler<? extends E> handler : handlers) {
             addHandler(handler);
         }
     }

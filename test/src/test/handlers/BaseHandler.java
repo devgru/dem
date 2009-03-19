@@ -1,7 +1,7 @@
 package test.handlers;
 
-import ru.devg.dem.translating.Translator;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.translating.Translator;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
 

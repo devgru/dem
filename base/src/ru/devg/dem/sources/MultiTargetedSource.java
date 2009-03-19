@@ -1,8 +1,8 @@
 package ru.devg.dem.sources;
 
-import ru.devg.dem.structures.HandlerBundle;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.structures.HandlerBundle;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

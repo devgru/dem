@@ -37,7 +37,7 @@ public final class RoundRobin<E extends Event>
     }
 
     public RoundRobin(Handler<E>... handlers) {
-        for(Handler<E> handler : handlers){
+        for (Handler<E> handler : handlers) {
             addHandler(handler);
         }
     }

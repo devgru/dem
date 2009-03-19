@@ -1,13 +1,13 @@
 package ru.devg.dem.inclass;
 
+import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.inclass.binding.ClassWorker;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
-import java.util.List;
 import java.util.EnumSet;
+import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -21,7 +21,7 @@ public final class InclassDispatcher<E extends Event>
     private final boolean broadcastMode;
 
     public InclassDispatcher(Object handler) throws ClassIsUnbindableException {
-        this(handler,EnumSet.noneOf(Configuration.class));
+        this(handler, EnumSet.noneOf(Configuration.class));
     }
 
     public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws ClassIsUnbindableException {
@@ -29,11 +29,11 @@ public final class InclassDispatcher<E extends Event>
     }
 
     public InclassDispatcher(Object handler, Class<? extends Event> bound) throws ClassIsUnbindableException {
-        this(handler, EnumSet.noneOf(Configuration.class),bound);
+        this(handler, EnumSet.noneOf(Configuration.class), bound);
     }
 
-    public InclassDispatcher(Object handler, EnumSet<Configuration> config,Class<? extends Event> bound) throws ClassIsUnbindableException {
-        handlers = new ClassWorker(handler, config,bound).bindClassElements();
+    public InclassDispatcher(Object handler, EnumSet<Configuration> config, Class<? extends Event> bound) throws ClassIsUnbindableException {
+        handlers = new ClassWorker(handler, config, bound).bindClassElements();
         broadcastMode = config.contains(Configuration.broadcast);
     }
 

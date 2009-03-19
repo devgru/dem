@@ -1,6 +1,5 @@
 package ru.devg.dem.filtering;
 
-import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 
 /**

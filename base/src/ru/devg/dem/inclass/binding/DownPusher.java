@@ -1,8 +1,8 @@
 package ru.devg.dem.inclass.binding;
 
+import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.sources.Source;
-import ru.devg.dem.filtering.Filter;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

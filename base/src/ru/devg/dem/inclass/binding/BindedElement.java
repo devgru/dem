@@ -6,11 +6,11 @@ import ru.devg.dem.filtering.Filter;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
-final class BindedMember implements Comparable<BindedMember> {
+final class BindedElement implements Comparable<BindedElement> {
     private final Filter filter;
     private final Long priority;
 
-    public BindedMember(Filter filter, long priority) {
+    public BindedElement(Filter filter, long priority) {
         this.filter = filter;
         this.priority = priority;
     }
@@ -19,7 +19,7 @@ final class BindedMember implements Comparable<BindedMember> {
         return filter;
     }
 
-    public int compareTo(BindedMember o) {
+    public int compareTo(BindedElement o) {
         return o.priority.compareTo(priority);
     }
 }

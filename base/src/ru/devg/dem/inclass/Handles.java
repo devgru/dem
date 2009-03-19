@@ -17,6 +17,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface Handles {
     public Class<? extends Event> value();
+
     public Class<? extends TranslatorStrategy> translator() default TranslatorStrategy.class;
+
     public int priority() default 0;
 }

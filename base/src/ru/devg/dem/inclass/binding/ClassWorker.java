@@ -1,9 +1,9 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
-import ru.devg.dem.quanta.Event;
 import ru.devg.dem.inclass.Configuration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.quanta.Event;
 
 import java.util.*;
 
@@ -28,7 +28,7 @@ public final class ClassWorker {
         binders.add(new FieldWorker(target));
         binders.add(new MethodWorker(target));
 
-        List<BindedMember> grabbed = new LinkedList<BindedMember>();
+        List<BindedElement> grabbed = new LinkedList<BindedElement>();
 
         Class clazz = target.getClass();
         while (clazz != Object.class) {
@@ -38,22 +38,22 @@ public final class ClassWorker {
             clazz = clazz.getSuperclass();
         }
 
-        Collections.sort(grabbed,new MembersComparator());
+        Collections.sort(grabbed, new MembersComparator());
         return grabResult(grabbed);
     }
 
-    private List<Filter<?>> grabResult(List<BindedMember> entries) {
+    private List<Filter<?>> grabResult(List<BindedElement> entries) {
         List<Filter<?>> grabbed = new LinkedList<Filter<?>>();
-        for (BindedMember entry : entries) {
+        for (BindedElement entry : entries) {
             grabbed.add(entry.getFilter());
         }
         return grabbed;
     }
 
-    private final class MembersComparator implements Comparator<BindedMember>{
-        public int compare(BindedMember o1, BindedMember o2) {
+    private final class MembersComparator implements Comparator<BindedElement> {
+        public int compare(BindedElement o1, BindedElement o2) {
             int result = o1.compareTo(o2);
-            if(result ==0 && strictPrioritization){
+            if (result == 0 && strictPrioritization) {
                 throw new RuntimeException("you required strict prioritization, but you have prodivded some" +
                         "methods/fields with same priority. It was:" + o1 + " and " + o2);
             }

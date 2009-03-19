@@ -1,7 +1,7 @@
 package test.handlers;
 
-import test.events.CollectedEvent;
 import ru.devg.dem.quanta.Handler;
+import test.events.CollectedEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

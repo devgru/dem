@@ -2,13 +2,12 @@ package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
-import ru.devg.dem.quanta.Event;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.inclass.exceptions.ClassNotExtendsSourceException;
-import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
+import ru.devg.dem.quanta.Event;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,37 +23,33 @@ final class MethodWorker extends AbstractBinder {
         super(target);
     }
 
-    public void tryBindMembers(List<BindedMember> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
+    public void tryBindMembers(List<BindedElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Method method : targetClass.getMethods()) {
-            BindedMember filter = tryBindMethod(method);
+            BindedElement filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
     }
 
-    private BindedMember tryBindMethod(Method method) throws ClassIsUnbindableException {
-        if (method.getAnnotation(Handles.class) != null) {
-            Handles a = method.getAnnotation(Handles.class);
-            try {
-                BindableElementDescriptor ss =
+    private BindedElement tryBindMethod(Method method) throws ClassIsUnbindableException {
+        try {
+            if (method.getAnnotation(Handles.class) != null) {
+                Handles a = method.getAnnotation(Handles.class);
+                BindableElementDescriptor desc =
                         new BindableElementDescriptor(a.value(), a.priority(), a.translator());
-                return bindMethod(method, ss);
-            } catch (ElementIsUnbindableException e) {
-                throw new ClassIsUnbindableException(e);
-            }
-        } else if (method.getAnnotation(HandlesOrphans.class) != null) {
-            try {
-                BindableElementDescriptor ss =
+                return bindMethod(method, desc);
+            } else if (method.getAnnotation(HandlesOrphans.class) != null) {
+                BindableElementDescriptor desc =
                         new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, null);
-                return bindMethod(method, ss);
-            } catch (ElementIsUnbindableException e) {
-                throw new ClassIsUnbindableException(e);
+                return bindMethod(method, desc);
+            } else {
+                return null;
             }
-        } else {
-            return null;
+        } catch (ElementIsUnbindableException e) {
+            throw new ClassIsUnbindableException(e);
         }
     }
 
-    private BindedMember bindMethod(Method method, BindableElementDescriptor ss) throws ElementIsUnbindableException {
+    private BindedElement bindMethod(Method method, BindableElementDescriptor desc) throws ElementIsUnbindableException {
         Filter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
@@ -63,21 +58,15 @@ final class MethodWorker extends AbstractBinder {
             throw new MethodIsUnbindableException("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != ss.getBound()) {
+            if (argClass != desc.getBound()) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method);
         } else {
-            halfResult = new NoParamMethodInvoker(ss.getBound(), method);
+            halfResult = new NoParamMethodInvoker(desc.getBound(), method);
         }
 
-        try {
-            halfResult = wrapByDownpusher(method, halfResult);
-        } catch (ClassNotExtendsSourceException e) {
-            throw new MethodIsUnbindableException(e);
-        }
-        halfResult = wrapByTranslator(ss.getBound(), ss.getTranslatorStrategy(), halfResult);
-        return new BindedMember(halfResult, ss.getPriority());
+        return wrap(method, desc, halfResult);
     }
 
     private class NoParamMethodInvoker extends TypeBoundedHandler {

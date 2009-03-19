@@ -1,8 +1,8 @@
 package ru.devg.dem.extended;
 
+import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.filtering.Filter;
 
 /**
  * Bounded handlers are required when we must have

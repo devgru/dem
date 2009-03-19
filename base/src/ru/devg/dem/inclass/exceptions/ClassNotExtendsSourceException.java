@@ -4,7 +4,7 @@ package ru.devg.dem.inclass.exceptions;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public class ClassNotExtendsSourceException extends Exception{
+public class ClassNotExtendsSourceException extends Exception {
     public ClassNotExtendsSourceException() {
         super();
     }

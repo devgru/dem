@@ -13,8 +13,8 @@ public class BindableElementDescriptor {
     private final long priority;
 
     public BindableElementDescriptor(Class<? extends Event> bound,
-                         long priority,
-                         Class<? extends TranslatorStrategy> translatorStrategy) {
+                                     long priority,
+                                     Class<? extends TranslatorStrategy> translatorStrategy) {
         this.bound = bound;
         this.priority = priority;
         this.translatorStrategy = translatorStrategy;

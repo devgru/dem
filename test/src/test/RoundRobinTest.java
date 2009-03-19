@@ -1,7 +1,7 @@
 package test;
 
-import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 import ru.devg.dem.structures.RoundRobin;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
@@ -20,12 +20,12 @@ public class RoundRobinTest {
         Collector c = new Collector();
 
         RoundRobin<BaseEvent> rrb = new RoundRobin<BaseEvent>();
-        rrb.addHandler(new BaseHandler<BaseEvent>(c,BaseEvent.class, "a"));
+        rrb.addHandler(new BaseHandler<BaseEvent>(c, BaseEvent.class, "a"));
         rrb.handle(new SecondLevelEvent1());
         rrb.handle(new SecondLevelEvent2());
         assertTrue(c.getString().equals("aa"));
 
-        BaseHandler<BaseEvent> b = new BaseHandler<BaseEvent>(c,BaseEvent.class, "b");
+        BaseHandler<BaseEvent> b = new BaseHandler<BaseEvent>(c, BaseEvent.class, "b");
         rrb.addHandler(b);
         rrb.handle(new SecondLevelEvent2());
         rrb.handle(new SecondLevelEvent2());

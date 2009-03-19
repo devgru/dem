@@ -1,11 +1,12 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+import ru.devg.dem.extended.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.extended.TypeBoundedHandler;
 
 import java.util.Random;
 
@@ -75,7 +76,8 @@ public class QuantsTest {
     public void testHowWeFail() {
         Exception e = null;
         try {
-            unknownHandler.handle(new Event() {});
+            unknownHandler.handle(new Event() {
+            });
 
         } catch (ClassCastException cce) {
             e = cce;

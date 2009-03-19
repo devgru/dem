@@ -4,7 +4,7 @@ package ru.devg.dem.inclass.exceptions;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public class ElementIsUnbindableException extends Exception{
+public class ElementIsUnbindableException extends Exception {
     public ElementIsUnbindableException() {
         super();
     }

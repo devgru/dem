@@ -23,7 +23,7 @@ public final class Broadcaster<E extends Event>
     }
 
     public Broadcaster(Handler<? super E>... handlers) {
-        for(Handler<? super E> handler : handlers){
+        for (Handler<? super E> handler : handlers) {
             addHandler(handler);
         }
     }
