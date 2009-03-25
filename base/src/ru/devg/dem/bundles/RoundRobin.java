@@ -1,4 +1,4 @@
-package ru.devg.dem.structures;
+package ru.devg.dem.bundles;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
@@ -76,7 +76,7 @@ public final class RoundRobin<E extends Event>
     private void rewindIfNeeded() {
         if (handlers.size() != 0 && !storedIterator.hasNext()) {
 //            storedIterator = handlers.listIterator();
-            while(storedIterator.hasPrevious()){
+            while (storedIterator.hasPrevious()) {
                 storedIterator.previous();
             }
         }

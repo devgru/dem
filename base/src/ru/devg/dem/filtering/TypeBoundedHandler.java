@@ -1,13 +1,12 @@
-package ru.devg.dem.extended;
+package ru.devg.dem.filtering;
 
-import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 /**
  * Bounded handlers are required when we must have
  * some info about the bound class {@link E}. For example, it's used
- * a lot in the {@link ru.devg.dem.structures Structures} section.
+ * a lot in the {@link ru.devg.dem.bundles Structures} section.
  * <p/>
  * Bounded handlers are strong filters.
  *

@@ -66,9 +66,9 @@ public class InclassDispatcherTest {
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
     }
 
-    public final class ClassWithPrivates{
+    public final class ClassWithPrivates {
 
-@Handles(SecondLevelEvent2.class)
+        @Handles(SecondLevelEvent2.class)
         private Filter<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
     }

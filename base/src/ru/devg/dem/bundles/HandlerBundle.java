@@ -1,4 +1,4 @@
-package ru.devg.dem.structures;
+package ru.devg.dem.bundles;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;

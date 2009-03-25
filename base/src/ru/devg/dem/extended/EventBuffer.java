@@ -1,4 +1,4 @@
-package ru.devg.dem.sources;
+package ru.devg.dem.extended;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * @version 0.176
  */
 public final class EventBuffer<E extends Event>
-        extends Source<E> {
+        extends Source<E> implements Handler<E>{
 
     private final Collection<E> events
             = new LinkedList<E>();
@@ -50,10 +50,10 @@ public final class EventBuffer<E extends Event>
      * Also, it calls {@link EventBuffer#reset()}, so it
      * isn't applicable for broadcasting to multiple handlers.
      * If you want to broadcast events, use any
-     * {@link ru.devg.dem.structures handler from multi}.
+     * {@link ru.devg.dem.bundles handler from multi}.
      *
-     * @see ru.devg.dem.structures.Broadcaster
-     * @see ru.devg.dem.structures.Dispatcher
+     * @see ru.devg.dem.bundles.Broadcaster
+     * @see ru.devg.dem.bundles.Dispatcher
      */
     public final void release() {
         lock();
