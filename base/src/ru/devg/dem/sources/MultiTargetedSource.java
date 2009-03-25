@@ -23,7 +23,7 @@ public abstract class MultiTargetedSource<H extends Handler<? super E>, E extend
         target.addHandler(handler);
     }
 
-    public void removeHandler(H handler) {
+    public final void removeHandler(H handler) {
         target.removeHandler(handler);
     }
 }

@@ -20,7 +20,7 @@ public class DownPusher extends Filter {
     @SuppressWarnings("unchecked")
     public void handle(Event event) {
         targetMember.handle(event);
-        target.sendUp(event);
+        target.fire(event);
     }
 
     public boolean canHandle(Event e) {

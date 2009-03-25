@@ -1,8 +1,8 @@
-package ru.devg.dem.structures;
+package ru.devg.dem.sources;
 
-import ru.devg.dem.extended.TypeBoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.sources.Source;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -12,9 +12,7 @@ import java.util.LinkedList;
  * @version 0.176
  */
 public final class EventBuffer<E extends Event>
-        extends TypeBoundedHandler<E> {
-
-    private final Handler<? super E> target;
+        extends Source<E> {
 
     private final Collection<E> events
             = new LinkedList<E>();
@@ -23,10 +21,8 @@ public final class EventBuffer<E extends Event>
 
     //Constructors
 
-    public EventBuffer(Handler<? super E> target, Class<E> bound) {
-        super(bound);
-        assert target != null;
-        this.target = target;
+    public EventBuffer(Handler<? super E> target) {
+        super(target);
     }
 
     //Locking
@@ -62,7 +58,7 @@ public final class EventBuffer<E extends Event>
     public final void release() {
         lock();
         for (E event : events) {
-            target.handle(event);
+            fire(event);
         }
         reset();
     }
