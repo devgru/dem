@@ -19,8 +19,8 @@ public class DownPusher extends Filter {
 
     @SuppressWarnings("unchecked")
     public void handle(Event event) {
-        targetMember.handle(event);
         target.fire(event);
+        targetMember.handle(event);
     }
 
     public boolean canHandle(Event e) {

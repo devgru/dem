@@ -62,11 +62,6 @@ public final class Dispatcher<E extends Event>
     public void addHandler(TypeBoundedHandler<? extends E> newOne) {
         assert newOne != null;
         handlers.add(newOne);
-        for (TypeBoundedHandler<?> oldOne : handlers) {
-            if (isOverlapping(oldOne, newOne)) {
-                throw new IllegalArgumentException("handler " + newOne + " overlaps " + oldOne);
-            }
-        }
     }
 
 
@@ -74,9 +69,4 @@ public final class Dispatcher<E extends Event>
         handlers.remove(newOne);
     }
 
-    private static boolean isOverlapping(TypeBoundedHandler<?> a, TypeBoundedHandler<?> b) {
-        Class<?> alpha = a.getBoundClass();
-        Class<?> beta = b.getBoundClass();
-        return alpha.isAssignableFrom(beta) || beta.isAssignableFrom(alpha);
-    }
 }

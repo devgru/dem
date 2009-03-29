@@ -19,17 +19,10 @@ public final class Broadcaster<E extends Event>
     private final LinkedList<Handler<? super E>> handlers =
             new LinkedList<Handler<? super E>>();
 
-    public Broadcaster() {
-    }
-
     public Broadcaster(Handler<? super E>... handlers) {
         for (Handler<? super E> handler : handlers) {
             addHandler(handler);
         }
-    }
-
-    public static <E extends Event> Broadcaster<E> one() {
-        return new Broadcaster<E>();
     }
 
     public void handle(E event) {
