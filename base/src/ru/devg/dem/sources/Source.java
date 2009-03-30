@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Handler;
  * @version 0.175
  */
 public abstract class Source<E extends Event> {
-    private final Handler<? super E> target;
+    protected final Handler<? super E> target;
 
     public Source(Handler<? super E> target) {
         assert target != null;
