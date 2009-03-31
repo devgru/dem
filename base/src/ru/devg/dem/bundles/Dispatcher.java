@@ -16,7 +16,7 @@ import java.util.List;
  */
 public final class Dispatcher<E extends Event>
         extends TypeBoundedHandler<E>
-        implements HandlerBundle<TypeBoundedHandler<? extends E>, E> {
+        implements HandlingBundle<TypeBoundedHandler<? extends E>, E> {
 
     public static Dispatcher<Event> getCommon() {
         return new Dispatcher<Event>(Event.class);

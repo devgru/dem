@@ -19,7 +19,7 @@ import java.util.ListIterator;
  * @version 0.15
  */
 public final class RoundRobin<E extends Event>
-        implements HandlerBundle<Handler<E>, E> {
+        implements HandlingBundle<Handler<E>, E> {
 
 
     @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"})

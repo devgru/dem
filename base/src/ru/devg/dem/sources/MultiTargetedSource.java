@@ -1,6 +1,7 @@
 package ru.devg.dem.sources;
 
-import ru.devg.dem.bundles.HandlerBundle;
+import ru.devg.dem.bundles.HandlingBundle;
+import ru.devg.dem.bundles.Bundle;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -10,16 +11,15 @@ import ru.devg.dem.quanta.Handler;
  */
 @SuppressWarnings("unchecked")
 public abstract class MultiTargetedSource<H extends Handler<? super E>, E extends Event>
-        extends Source<E> implements HandlerBundle<H, E> {
+        extends Source<E> implements Bundle<H> {
 
-    @Deprecated
-    public MultiTargetedSource(HandlerBundle<H, E> target) {
+    public MultiTargetedSource(HandlingBundle<? super H, E> target) {
         super(target);
     }
 
-    public MultiTargetedSource(Class<? extends HandlerBundle<H, E>> target)
+    public MultiTargetedSource(Class<? extends HandlingBundle> target)
             throws IllegalAccessException, InstantiationException {
-        super(target.newInstance());
+        this(target.newInstance());
     }
 
     public final void addHandler(H handler) {
@@ -30,7 +30,7 @@ public abstract class MultiTargetedSource<H extends Handler<? super E>, E extend
         getTargetAsBundle().removeHandler(handler);
     }
 
-    private HandlerBundle<H, E> getTargetAsBundle() {
-        return ((HandlerBundle<H,E>)target);
+    private HandlingBundle<? super H, E> getTargetAsBundle() {
+        return ((HandlingBundle< ? super H,E>)target);
     }
 }
