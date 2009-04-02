@@ -1,5 +1,6 @@
 package ru.devg.dem.bundles;
 
+import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 /**
@@ -10,7 +11,8 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
-public interface Bundle<H extends Handler> {
+public interface HandlerBundle<H extends Handler, E extends Event>
+        extends Handler<E> {
 
     /**
      * @param handler handler to add

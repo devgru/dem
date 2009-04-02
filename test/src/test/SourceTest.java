@@ -3,8 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.bundles.Broadcaster;
 import ru.devg.dem.bundles.RoundRobin;
-import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.sources.MultiTargetedSource;
+import ru.devg.dem.sources.Source;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 
@@ -18,7 +17,7 @@ public class SourceTest {
 
     }
 
-    private final static class Tested extends MultiTargetedSource<Handler<BaseEvent>, BaseEvent> {
+    private final static class Tested extends Source<BaseEvent> {
 
         private Tested(int i) {
             super(new RoundRobin<BaseEvent>());
@@ -26,20 +25,10 @@ public class SourceTest {
             fire(new SecondLevelEvent1());
         }
 
-
         private Tested(String i) {
             super(new Broadcaster<BaseEvent>());
 
             fire(new SecondLevelEvent1());
         }
-
-/*
-        private Tested(Tested i ) {
-            super(BASE_EVENT_BROADCASTER);
-
-            fire(new SecondLevelEvent1());
-        }*/
-
-
     }
 }

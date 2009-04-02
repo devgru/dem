@@ -9,7 +9,7 @@ import ru.devg.dem.sources.Source;
  * @version 0.179
  */
 public final class ExceptionGrounder<E extends Event>
-        extends Source<E> implements Handler<E>{
+        extends Source<E> implements Handler<E> {
     private final Handler<ExceptionEvent> hole;
 
     public ExceptionGrounder(Handler<? super E> target) {

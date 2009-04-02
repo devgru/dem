@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * @version 0.176
  */
 public final class EventBuffer<E extends Event>
-        extends Source<E> implements Handler<E>{
+        extends Source<E> implements Handler<E> {
 
     private final Collection<E> events
             = new LinkedList<E>();
