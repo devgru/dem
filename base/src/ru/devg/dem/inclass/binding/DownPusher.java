@@ -8,7 +8,7 @@ import ru.devg.dem.sources.Source;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public class DownPusher extends Filter {
+final class DownPusher extends Filter {
     private final Source target;
     private final Filter targetMember;
 

@@ -1,6 +1,5 @@
 package test.handlers;
 
-import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.translating.Translator;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
@@ -14,7 +13,7 @@ public class BaseHandler<E extends BaseEvent>
 
     private final String c;
 
-    public BaseHandler(Handler<? super CollectedEvent> target, Class<E> bound, String c) {
+    public BaseHandler(Collector target, Class<E> bound, String c) {
         super(target, bound);
         this.c = c;
     }

@@ -22,4 +22,19 @@ final class BindedElement implements Comparable<BindedElement> {
     public int compareTo(BindedElement o) {
         return o.priority.compareTo(priority);
     }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof BindedElement) {
+            BindedElement be = (BindedElement) obj;
+            return filter.equals(be.filter) && priority.equals(be.priority);
+        }
+        return false;
+    }
+
+    public int hashCode() {
+        int result;
+        result = filter.hashCode();
+        result = 31 * result + priority.hashCode();
+        return result;
+    }
 }
