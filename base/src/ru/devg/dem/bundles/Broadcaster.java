@@ -14,7 +14,8 @@ import java.util.LinkedList;
  * @version 0.17
  */
 public final class Broadcaster<E extends Event>
-        implements HandlerBundle<Handler<? super E>, E> {
+        implements HandlerBundle<Handler<? super E>>,Handler<E> {
+
 
     private final LinkedList<Handler<? super E>> handlers =
             new LinkedList<Handler<? super E>>();
