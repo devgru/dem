@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
-*/
+ */
 public final class ObtainedRemoteHandler<E extends Event> implements Handler<E> {
 
     private final RemoteHandler<E> rh;

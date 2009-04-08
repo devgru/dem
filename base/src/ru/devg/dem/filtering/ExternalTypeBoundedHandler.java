@@ -5,7 +5,7 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.0
+ * @version 0.180
  */
 public final class ExternalTypeBoundedHandler<E extends Event> extends TypeBoundedHandler<E> {
     private final Handler<? super E> target;
