@@ -10,8 +10,7 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
-public interface HandlerBundle<H extends Handler>
-        {
+public interface HandlerBundle<H extends Handler> {
 
     /**
      * @param handler handler to add
