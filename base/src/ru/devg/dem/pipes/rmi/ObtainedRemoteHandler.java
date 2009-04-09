@@ -2,6 +2,7 @@ package ru.devg.dem.pipes.rmi;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.pipes.api.RemoteEvent;
 
 import java.rmi.RemoteException;
 
@@ -9,7 +10,7 @@ import java.rmi.RemoteException;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public final class ObtainedRemoteHandler<E extends Event> implements Handler<E> {
+public final class ObtainedRemoteHandler<E extends RemoteEvent> implements Handler<E> {
 
     private final RemoteHandler<E> rh;
 
