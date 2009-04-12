@@ -1,6 +1,5 @@
 package ru.devg.dem.pipes.rmi;
 
-import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.pipes.api.RemoteEvent;
 
@@ -11,9 +10,8 @@ import java.rmi.RemoteException;
  * @version 0.179
  */
 public final class BindableHandler<E extends RemoteEvent> implements RemoteHandler<E> {
-    private final Handler<E> h;
-
-    public BindableHandler(Handler<E> target) {
+    private final Handler<? super E> h;
+    public BindableHandler(Handler<? super E> target) {
         this.h = target;
     }
 
