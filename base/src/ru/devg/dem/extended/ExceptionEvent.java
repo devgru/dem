@@ -1,12 +1,12 @@
 package ru.devg.dem.extended;
 
-import ru.devg.dem.quanta.Event;
+import ru.devg.dem.pipes.api.RemoteEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.180
  */
-public final class ExceptionEvent implements Event {
+public final class ExceptionEvent implements RemoteEvent {
     private final Throwable exception;
 
     ExceptionEvent(Throwable exception) {
