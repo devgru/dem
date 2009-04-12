@@ -3,7 +3,6 @@ package ru.devg.dem.inclass.binding;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.inclass.Configuration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.quanta.Event;
 
 import java.util.*;
 
@@ -14,11 +13,9 @@ import java.util.*;
 public final class ClassWorker {
     private final Object target;
     private final boolean strictPrioritization;
-    private final Class<? extends Event> bound; //todo involve in checks
 
-    public ClassWorker(Object target, EnumSet<Configuration> config, Class<? extends Event> bound) {
+    public ClassWorker(Object target, EnumSet<Configuration> config) {
         this.target = target;
-        this.bound = bound;
         strictPrioritization = config.contains(Configuration.strictPrioritization);
     }
 

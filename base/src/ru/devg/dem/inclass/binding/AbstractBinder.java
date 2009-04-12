@@ -46,7 +46,7 @@ abstract class AbstractBinder {
         return halfResult;
     }
 
-    private Filter wrapByDownpusher(AnnotatedElement element, Filter halfResult)
+    private Filter wrapByDownPusher(AnnotatedElement element, Filter halfResult)
             throws ClassNotExtendsSourceException {
         if (element.getAnnotation(PushesDown.class) != null) {
             if (target instanceof Source) {
@@ -62,7 +62,7 @@ abstract class AbstractBinder {
 
     protected BindedElement wrap(AnnotatedElement element, BindableElementDescriptor desc, Filter halfResult) throws ElementIsUnbindableException {
         try {
-            halfResult = wrapByDownpusher(element, halfResult);
+            halfResult = wrapByDownPusher(element, halfResult);
         } catch (ClassNotExtendsSourceException e) {
             throw new MethodIsUnbindableException(e);
         }

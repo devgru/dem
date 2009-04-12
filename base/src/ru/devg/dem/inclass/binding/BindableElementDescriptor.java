@@ -7,7 +7,7 @@ import ru.devg.dem.translating.TranslatorStrategy;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-public class BindableElementDescriptor {
+final class BindableElementDescriptor {
     private final Class<? extends Event> bound;
     private final Class<? extends TranslatorStrategy> translatorStrategy;
     private final long priority;

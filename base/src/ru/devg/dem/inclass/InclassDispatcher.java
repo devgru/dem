@@ -25,15 +25,7 @@ public final class InclassDispatcher<E extends Event>
     }
 
     public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws ClassIsUnbindableException {
-        this(handler, config, Event.class);
-    }
-
-    public InclassDispatcher(Object handler, Class<? extends Event> bound) throws ClassIsUnbindableException {
-        this(handler, EnumSet.noneOf(Configuration.class), bound);
-    }
-
-    public InclassDispatcher(Object handler, EnumSet<Configuration> config, Class<? extends Event> bound) throws ClassIsUnbindableException {
-        handlers = new ClassWorker(handler, config, bound).bindClassElements();
+        handlers = new ClassWorker(handler, config).bindClassElements();
         broadcastMode = config.contains(Configuration.broadcast);
     }
 
