@@ -10,6 +10,7 @@ import ru.devg.dem.pipes.rmi.RemoteHandler;
 import ru.devg.dem.quanta.Handler;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
+import test.events.RemoteEvent;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
@@ -53,7 +54,7 @@ public class RmiTest {
         Handler<BaseEvent> h = new MyBaseHandler();
 
         System.out.println(h);
-        r.rebind("test", new BindableHandler<BaseEvent>(h));
+        r.rebind("test", new BindableHandler<RemoteEvent>(h));
     }
 
     @Test
@@ -61,15 +62,11 @@ public class RmiTest {
 
         Remote x = r.lookup("test");
         if (x instanceof RemoteHandler) {
-            RemoteHandler<BaseEvent> remoteHandler = (RemoteHandler<BaseEvent>) x;
-            Handler<BaseEvent> be = new ObtainedRemoteHandler<BaseEvent>(remoteHandler);
-            BaseEvent event = new BaseEvent() {
+            RemoteHandler<RemoteEvent> remoteHandler = (RemoteHandler<RemoteEvent>) x;
+            Handler<RemoteEvent> be = new ObtainedRemoteHandler<RemoteEvent>(remoteHandler);
+            RemoteEvent event = new RemoteEvent() {
                 private int a = new Random().nextInt();
 
-                @Override
-                public String toString() {
-                    return String.valueOf(a);
-                }
             };
             be.handle(event);
             assertTrue(c.getString().length() == 1);
