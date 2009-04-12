@@ -32,10 +32,6 @@ public final class RoundRobin<E extends Event>
     private final List<Handler<E>> handlersToRemove
             = new LinkedList<Handler<E>>();
 
-
-    public RoundRobin() {
-    }
-
     public RoundRobin(Handler<E>... handlers) {
         for (Handler<E> handler : handlers) {
             addHandler(handler);
