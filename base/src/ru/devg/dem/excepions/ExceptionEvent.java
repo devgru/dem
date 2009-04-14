@@ -1,4 +1,4 @@
-package ru.devg.dem.extended;
+package ru.devg.dem.excepions;
 
 import ru.devg.dem.pipes.api.RemoteEvent;
 

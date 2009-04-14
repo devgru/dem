@@ -7,11 +7,13 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
-public final class ExternalFilter<E extends Event> extends Filter<E> {
-    private final FilterStrategy filterStrategy;
-    private final Handler<E> handler;
+public final class ExternalFilter<E extends Event>
+        extends CommonFilter<E> {
 
-    public ExternalFilter(Handler<E> handler, FilterStrategy filterStrategy) {
+    private final FilterStrategy filterStrategy;
+    private final Handler<? super E> handler;
+
+    public ExternalFilter(Handler<? super E> handler, FilterStrategy filterStrategy) {
         this.handler = handler;
         this.filterStrategy = filterStrategy;
     }

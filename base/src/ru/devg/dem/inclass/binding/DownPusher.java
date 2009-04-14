@@ -8,7 +8,7 @@ import ru.devg.dem.sources.Source;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
-final class DownPusher extends Filter {
+final class DownPusher implements Filter {
     private final Source target;
     private final Filter targetMember;
 
@@ -23,7 +23,7 @@ final class DownPusher extends Filter {
         targetMember.handle(event);
     }
 
-    public boolean canHandle(Event e) {
-        return targetMember.canHandle(e);
+    public boolean handleIfPossible(Event e) {
+        return targetMember.handleIfPossible(e);
     }
 }

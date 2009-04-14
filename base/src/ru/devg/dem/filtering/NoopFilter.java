@@ -6,9 +6,10 @@ import ru.devg.dem.quanta.Event;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.18
  */
-public final class NoopFilter<E extends Event> extends Filter<E> {
+public final class NoopFilter<E extends Event>
+        implements Filter<E> {
 
-    public boolean canHandle(Event event) {
+    public boolean handleIfPossible(Event event) {
         return false;
     }
 

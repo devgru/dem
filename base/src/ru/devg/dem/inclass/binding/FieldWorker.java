@@ -2,6 +2,7 @@ package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.NoopFilter;
+import ru.devg.dem.filtering.CommonFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -63,7 +64,7 @@ final class FieldWorker extends AbstractBinder {
 
         Class<?> type = field.getType();
 
-        if (Filter.class.isAssignableFrom(type)) {
+        if (CommonFilter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
             halfResult = new FieldHandler(desc.getBound(), field);
@@ -74,7 +75,7 @@ final class FieldWorker extends AbstractBinder {
         return wrap(field, desc, halfResult);
     }
 
-    private abstract class AbstractFieldHandler extends Filter {
+    private abstract class AbstractFieldHandler implements Filter {
         protected final Field field;
 
         private AbstractFieldHandler(Field field) {
@@ -86,7 +87,6 @@ final class FieldWorker extends AbstractBinder {
                 Object rawHandler = field.get(target);
                 return (Handler) rawHandler;
             } catch (IllegalAccessException ignored) {
-//                throw new RuntimeException(ignored);
                 return new NoopFilter();
             }
         }
@@ -106,8 +106,11 @@ final class FieldWorker extends AbstractBinder {
             this.bound = bound;
         }
 
-        public boolean canHandle(Event event) {
-            return bound.isInstance(event);
+        public boolean handleIfPossible(Event event) {
+
+            boolean isInstance = bound.isInstance(event);
+            if(isInstance)handle(event);
+            return isInstance;
         }
     }
 
@@ -116,11 +119,9 @@ final class FieldWorker extends AbstractBinder {
             super(field);
         }
 
-        public boolean canHandle(Event event) {
-            Handler handler = getHandler();
-            if (handler == null) return false;
-            Filter filter = (Filter) handler;
-            return filter.canHandle(event);
+        public boolean handleIfPossible(Event event) {
+            CommonFilter filter = (CommonFilter) getHandler();
+            return filter.handleIfPossible(event);
         }
 
     }

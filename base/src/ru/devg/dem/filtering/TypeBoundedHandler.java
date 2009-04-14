@@ -13,7 +13,9 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.15
  */
-public abstract class TypeBoundedHandler<E extends Event> extends Filter<E> {
+public abstract class TypeBoundedHandler<E extends Event>
+        extends CommonFilter<E> {
+
     private final Class<E> bound;
 
     public TypeBoundedHandler(Class<E> bound) {

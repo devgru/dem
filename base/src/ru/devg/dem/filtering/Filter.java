@@ -7,14 +7,8 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.17
  */
-public abstract class Filter<E extends Event> implements Handler<E>, FilterStrategy {
+public interface Filter<E extends Event>
+        extends Handler<E> {
 
-    @SuppressWarnings("unchecked")
-    public final boolean handleIfPossible(Event event) {
-        boolean canHandle = canHandle(event);
-        if (canHandle) {
-            handle((E) event);
-        }
-        return canHandle;
-    }
+    public abstract boolean handleIfPossible(Event event);
 }
