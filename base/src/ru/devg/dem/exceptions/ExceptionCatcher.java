@@ -1,4 +1,4 @@
-package ru.devg.dem.excepions;
+package ru.devg.dem.exceptions;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
