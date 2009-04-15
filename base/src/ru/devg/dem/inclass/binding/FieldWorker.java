@@ -1,8 +1,8 @@
 package ru.devg.dem.inclass.binding;
 
+import ru.devg.dem.filtering.CommonFilter;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.NoopFilter;
-import ru.devg.dem.filtering.CommonFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -109,7 +109,7 @@ final class FieldWorker extends AbstractBinder {
         public boolean handleIfPossible(Event event) {
 
             boolean isInstance = bound.isInstance(event);
-            if(isInstance)handle(event);
+            if (isInstance) handle(event);
             return isInstance;
         }
     }

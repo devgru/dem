@@ -16,7 +16,7 @@ public final class EventCollectionHandler<E extends Event>
     }
 
     public void handle(EventCollection<E> event) {
-        for(E e : event){
+        for (E e : event) {
             fire(e);
         }
     }

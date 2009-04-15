@@ -1,7 +1,7 @@
 package ru.devg.dem.extended;
 
-import ru.devg.dem.quanta.Event;
 import ru.devg.dem.pipes.api.RemoteEvent;
+import ru.devg.dem.quanta.Event;
 
 import java.util.LinkedList;
 
