@@ -14,7 +14,7 @@ import ru.devg.dem.quanta.Handler;
  * @version 0.15
  */
 public abstract class TypeBoundedHandler<E extends Event>
-        extends CommonFilter<E> {
+        implements Filter<E> {
 
     private final Class<E> bound;
 
@@ -26,17 +26,6 @@ public abstract class TypeBoundedHandler<E extends Event>
         return bound;
     }
 
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param event an event to be analyzed.
-     * @return true if and only if an event
-     *         is an instance of {@link TypeBoundedHandler#getBoundClass() bound class}.
-     */
-    public final boolean canHandle(Event event) {
-        return bound.isInstance(event);
-    }
 
     /**
      * This function returns a simple bounded instance of your handler.
@@ -56,5 +45,15 @@ public abstract class TypeBoundedHandler<E extends Event>
                 handler.handle(e);
             }
         };
+    }
+
+    @SuppressWarnings("unchecked")
+
+    public boolean handleIfPossible(Event event) {
+        boolean canHandle = bound.isInstance(event);
+        if (canHandle) {
+            handle((E) event);
+        }
+        return canHandle;
     }
 }

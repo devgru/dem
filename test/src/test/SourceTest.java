@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.bundles.Broadcaster;
 import ru.devg.dem.bundles.RoundRobin;
-import ru.devg.dem.sources.Source;
+import ru.devg.dem.quanta.Source;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 

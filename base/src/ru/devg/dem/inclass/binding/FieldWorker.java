@@ -1,6 +1,5 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.CommonFilter;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.NoopFilter;
 import ru.devg.dem.inclass.Handles;
@@ -64,7 +63,7 @@ final class FieldWorker extends AbstractBinder {
 
         Class<?> type = field.getType();
 
-        if (CommonFilter.class.isAssignableFrom(type)) {
+        if (Filter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
             halfResult = new FieldHandler(desc.getBound(), field);
@@ -72,7 +71,7 @@ final class FieldWorker extends AbstractBinder {
             throw new FieldIsUnbindableException("field's type must implement Handler.");
         }
 
-        return wrap(field, desc, halfResult);
+        return wrap(desc, halfResult);
     }
 
     private abstract class AbstractFieldHandler implements Filter {
@@ -120,7 +119,7 @@ final class FieldWorker extends AbstractBinder {
         }
 
         public boolean handleIfPossible(Event event) {
-            CommonFilter filter = (CommonFilter) getHandler();
+            Filter filter = (Filter) getHandler();
             return filter.handleIfPossible(event);
         }
 

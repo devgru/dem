@@ -2,7 +2,7 @@ package ru.devg.dem.extended;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.sources.Source;
+import ru.devg.dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

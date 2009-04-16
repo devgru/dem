@@ -1,4 +1,4 @@
-package ru.devg.dem.filtering;
+package ru.devg.dem.filtering.external;
 
 import ru.devg.dem.quanta.Event;
 

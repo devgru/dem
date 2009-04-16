@@ -66,7 +66,7 @@ final class MethodWorker extends AbstractBinder {
             halfResult = new NoParamMethodInvoker(desc.getBound(), method);
         }
 
-        return wrap(method, desc, halfResult);
+        return wrap(desc, halfResult);
     }
 
     private class NoParamMethodInvoker extends TypeBoundedHandler {

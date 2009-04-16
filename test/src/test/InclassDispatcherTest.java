@@ -5,7 +5,6 @@ import org.junit.Test;
 import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
-import ru.devg.dem.inclass.PushesDown;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Handler;
 import test.events.BaseEvent;
@@ -62,7 +61,6 @@ public class InclassDispatcherTest {
     public final class BadFormedClass {
 
         @Handles(SecondLevelEvent1.class)
-        @PushesDown
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
     }
 

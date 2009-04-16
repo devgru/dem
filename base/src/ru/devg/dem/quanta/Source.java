@@ -1,7 +1,4 @@
-package ru.devg.dem.sources;
-
-import ru.devg.dem.quanta.Event;
-import ru.devg.dem.quanta.Handler;
+package ru.devg.dem.quanta;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
