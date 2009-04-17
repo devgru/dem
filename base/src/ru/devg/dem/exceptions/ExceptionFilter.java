@@ -1,16 +1,15 @@
 package ru.devg.dem.exceptions;
 
-import ru.devg.dem.filtering.Filter;
+import ru.devg.dem.filtering.UpperFilter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.181
  */
-public abstract class ExceptionFilter<E extends Event>
-        extends Source<E> implements Filter<E> {
+public final class ExceptionFilter<E extends Event>
+        extends UpperFilter<E> {
 
     public ExceptionFilter(Handler<? super E> target) {
         super(target);

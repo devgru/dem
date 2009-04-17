@@ -1,7 +1,6 @@
 package ru.devg.dem.filtering;
 
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.quanta.Handler;
 
 /**
  * Bounded handlers are required when we must have
@@ -26,29 +25,7 @@ public abstract class TypeBoundedHandler<E extends Event>
         return bound;
     }
 
-
-    /**
-     * This function returns a simple bounded instance of your handler.
-     * No, it's not a brainfuck, I claim! 01:31, 09.12.2008
-     *
-     * @param handler handler we will bound
-     * @param cls     our bound class
-     * @param <E>     bound type
-     * @return bounded handler
-     */
-    public static <E extends Event>
-    TypeBoundedHandler<E> bound(final Handler<E> handler, Class<E> cls) {
-        assert handler != null;
-        assert cls != null;
-        return new TypeBoundedHandler<E>(cls) {
-            public void handle(E e) {
-                handler.handle(e);
-            }
-        };
-    }
-
     @SuppressWarnings("unchecked")
-
     public boolean handleIfPossible(Event event) {
         boolean canHandle = bound.isInstance(event);
         if (canHandle) {
