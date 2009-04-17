@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.Filter;
+import ru.devg.dem.filtering.TypeFilter;
 import ru.devg.dem.inclass.Configuration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 
@@ -19,7 +19,7 @@ public final class ClassWorker {
         strictPrioritization = config.contains(Configuration.strictPrioritization);
     }
 
-    public List<Filter<?>> bindClassElements() throws ClassIsUnbindableException {
+    public List<TypeFilter<?>> bindClassElements() throws ClassIsUnbindableException {
         List<AbstractBinder> binders = new LinkedList<AbstractBinder>();
 
         binders.add(new FieldWorker(target));
@@ -39,8 +39,8 @@ public final class ClassWorker {
         return grabResult(grabbed);
     }
 
-    private List<Filter<?>> grabResult(List<BindedElement> entries) {
-        List<Filter<?>> grabbed = new LinkedList<Filter<?>>();
+    private List<TypeFilter<?>> grabResult(List<BindedElement> entries) {
+        List<TypeFilter<?>> grabbed = new LinkedList<TypeFilter<?>>();
         for (BindedElement entry : entries) {
             grabbed.add(entry.getFilter());
         }

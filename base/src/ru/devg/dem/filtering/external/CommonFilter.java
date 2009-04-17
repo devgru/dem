@@ -17,10 +17,10 @@ public abstract class CommonFilter<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public boolean handleIfPossible(Event event) {
+    public boolean handleIfPossible(E event) {
         boolean canHandle = canHandle(event);
         if (canHandle) {
-            handle((E) event);
+            handle(event);
         }
         return canHandle;
     }

@@ -9,7 +9,7 @@ import ru.devg.dem.quanta.Event;
 public final class NoopFilter<E extends Event>
         implements Filter<E> {
 
-    public boolean handleIfPossible(Event event) {
+    public boolean handleIfPossible(E event) {
         return false;
     }
 

@@ -10,5 +10,5 @@ import ru.devg.dem.quanta.Handler;
 public interface Filter<E extends Event>
         extends Handler<E> {
 
-    public abstract boolean handleIfPossible(Event event);
+    public abstract boolean handleIfPossible(E event);
 }

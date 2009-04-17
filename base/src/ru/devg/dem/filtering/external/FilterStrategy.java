@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Event;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.175
  */
-public interface FilterStrategy {
+public interface FilterStrategy<E extends Event> {
 
     /**
      * Simple boolean method.
@@ -20,5 +20,5 @@ public interface FilterStrategy {
      *         any {@link ru.devg.dem.quanta.Handler Handler} using this strategy
      *         will handle given event.
      */
-    public boolean canHandle(Event e);
+    public boolean canHandle(E e);
 }

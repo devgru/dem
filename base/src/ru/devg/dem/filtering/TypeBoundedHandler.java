@@ -13,7 +13,7 @@ import ru.devg.dem.quanta.Event;
  * @version 0.15
  */
 public abstract class TypeBoundedHandler<E extends Event>
-        implements Filter<E> {
+        extends TypeFilterImpl<E> {
 
     private final Class<E> bound;
 
@@ -26,11 +26,12 @@ public abstract class TypeBoundedHandler<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public boolean handleIfPossible(Event event) {
+    public final boolean handleIfPossible(Object event) {
         boolean canHandle = bound.isInstance(event);
         if (canHandle) {
             handle((E) event);
         }
         return canHandle;
     }
+
 }

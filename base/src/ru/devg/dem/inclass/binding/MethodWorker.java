@@ -1,7 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.filtering.TypeBoundedHandler;
+import ru.devg.dem.filtering.TypeFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -50,7 +50,7 @@ final class MethodWorker extends AbstractBinder {
     }
 
     private BindedElement bindMethod(Method method, BindableElementDescriptor desc) throws ElementIsUnbindableException {
-        Filter halfResult;
+        TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;

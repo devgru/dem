@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.Filter;
+import ru.devg.dem.filtering.TypeFilter;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.translating.ExternalTranslator;
@@ -23,7 +23,7 @@ abstract class AbstractBinder {
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected BindedElement wrap(BindableElementDescriptor desc, Filter halfResult) throws ElementIsUnbindableException {
+    protected BindedElement wrap(BindableElementDescriptor desc, TypeFilter halfResult) throws ElementIsUnbindableException {
         Class<? extends TranslatorStrategy> translator = desc.getTranslatorStrategy();
 
         if (translator != TranslatorStrategy.class) {

@@ -1,8 +1,8 @@
 package ru.devg.dem.exceptions;
 
-import ru.devg.dem.filtering.UpperFilter;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.filtering.UpperFilter;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -16,9 +16,9 @@ public final class ExceptionFilter<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public boolean handleIfPossible(Event event) {
+    public boolean handleIfPossible(E event) {
         try {
-            fire((E) event);
+            fire(event);
             return true;
         } catch (Exception e) {
             return false;

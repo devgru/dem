@@ -30,14 +30,6 @@ public class InclassDispatcherTest {
     @Test
     public void testBadClass() {
         ClassIsUnbindableException exc;
-        exc = null;
-        try {
-            new InclassDispatcher<BaseEvent>(new BadFormedClass());
-        } catch (ClassIsUnbindableException e) {
-            exc = e;
-        } finally {
-            Assert.assertNotNull(exc);
-        }
 
         exc = null;
         try {
@@ -56,12 +48,6 @@ public class InclassDispatcherTest {
         @Handles(SecondLevelEvent1.class)
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
-    }
-
-    public final class BadFormedClass {
-
-        @Handles(SecondLevelEvent1.class)
-        public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
     }
 
     public final class ClassWithPrivates {

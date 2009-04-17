@@ -19,10 +19,10 @@ public final class ExternalFilter<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public boolean handleIfPossible(Event event) {
+    public boolean handleIfPossible(E event) {
         boolean canHandle = filterStrategy.canHandle(event);
         if (canHandle) {
-            fire((E) event);
+            fire( event);
         }
         return canHandle;
     }
