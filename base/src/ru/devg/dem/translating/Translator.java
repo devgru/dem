@@ -1,6 +1,6 @@
 package ru.devg.dem.translating;
 
-import ru.devg.dem.filtering.TypeBoundedHandler;
+import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -9,7 +9,7 @@ import ru.devg.dem.quanta.Handler;
  * @version 0.175
  */
 public abstract class Translator<TO extends Event, FROM extends Event>
-        extends TypeBoundedHandler<FROM> implements TranslatorStrategy<TO, FROM> {
+        extends BoundedHandler<FROM> implements TranslatorStrategy<TO, FROM> {
 
     private final Handler<? super TO> target;
 

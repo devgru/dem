@@ -1,7 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.TypeBoundedHandler;
-import ru.devg.dem.filtering.TypeFilter;
+import ru.devg.dem.bounding.BoundedHandler;
+import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -69,7 +69,7 @@ final class MethodWorker extends AbstractBinder {
         return wrap(desc, halfResult);
     }
 
-    private class NoParamMethodInvoker extends TypeBoundedHandler {
+    private class NoParamMethodInvoker extends BoundedHandler {
         private final Method method;
 
         @SuppressWarnings("unchecked")
@@ -87,7 +87,7 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private class MethodInvoker extends TypeBoundedHandler {
+    private class MethodInvoker extends BoundedHandler {
         private final Method method;
 
         @SuppressWarnings("unchecked")

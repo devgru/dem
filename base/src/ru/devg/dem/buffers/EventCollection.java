@@ -1,4 +1,4 @@
-package ru.devg.dem.extended;
+package ru.devg.dem.buffers;
 
 import ru.devg.dem.pipes.api.RemoteEvent;
 import ru.devg.dem.quanta.Event;

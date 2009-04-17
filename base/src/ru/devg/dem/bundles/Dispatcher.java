@@ -1,6 +1,6 @@
 package ru.devg.dem.bundles;
 
-import ru.devg.dem.filtering.TypeBoundedHandler;
+import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -15,24 +15,24 @@ import java.util.List;
  * @version 0.16
  */
 public final class Dispatcher<E extends Event>
-        extends TypeBoundedHandler<E>
-        implements HandlingBundle<E, TypeBoundedHandler<? extends E>> {
+        extends BoundedHandler<E>
+        implements HandlingBundle<E, BoundedHandler<? extends E>> {
 
     public Dispatcher(Class<E> bound) {
         super(bound);
     }
 
-    public Dispatcher(Class<E> bound, TypeBoundedHandler<? extends E>... handlers) {
+    public Dispatcher(Class<E> bound, BoundedHandler<? extends E>... handlers) {
         super(bound);
-        for (TypeBoundedHandler<? extends E> handler : handlers) {
+        for (BoundedHandler<? extends E> handler : handlers) {
             addHandler(handler);
         }
     }
 
     // fields
 
-    private final List<TypeBoundedHandler<? extends E>> handlers =
-            new LinkedList<TypeBoundedHandler<? extends E>>();
+    private final List<BoundedHandler<? extends E>> handlers =
+            new LinkedList<BoundedHandler<? extends E>>();
 
     //orphans
 
@@ -45,7 +45,7 @@ public final class Dispatcher<E extends Event>
     //vv
 
     public void handle(E event) {
-        for (TypeBoundedHandler<?> binder : handlers) {
+        for (BoundedHandler<?> binder : handlers) {
             if (binder.handleIfPossible(event)) return;
         }
         if (handlerForOrphans != null) {
@@ -55,10 +55,10 @@ public final class Dispatcher<E extends Event>
 
     //adding
 
-    public void addHandler(TypeBoundedHandler<? extends E> newOne) {
+    public void addHandler(BoundedHandler<? extends E> newOne) {
         assert newOne != null;
         handlers.add(newOne);
-        for (TypeBoundedHandler<?> oldOne : handlers) {
+        for (BoundedHandler<?> oldOne : handlers) {
             if (isOverlapping(oldOne, newOne)) {
                 throw new IllegalArgumentException("handler " + newOne + " overlaps " + oldOne);
             }
@@ -66,11 +66,11 @@ public final class Dispatcher<E extends Event>
     }
 
 
-    public void removeHandler(TypeBoundedHandler<? extends E> newOne) {
+    public void removeHandler(BoundedHandler<? extends E> newOne) {
         handlers.remove(newOne);
     }
 
-    private static boolean isOverlapping(TypeBoundedHandler<?> a, TypeBoundedHandler<?> b) {
+    private static boolean isOverlapping(BoundedHandler<?> a, BoundedHandler<?> b) {
         Class<?> alpha = a.getBoundClass();
         Class<?> beta = b.getBoundClass();
         return alpha.isAssignableFrom(beta) || beta.isAssignableFrom(alpha);

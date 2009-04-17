@@ -2,14 +2,14 @@ package ru.devg.dem.exceptions;
 
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.quanta.Source;
+import ru.devg.dem.filtering.Bypasser;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
 public final class ExceptionCatcher<E extends Event>
-        extends Source<E> implements Handler<E> {
+        extends Bypasser<E> {
 
     private final Handler<ExceptionEvent> hole;
 

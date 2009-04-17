@@ -2,7 +2,6 @@ package test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.devg.dem.filtering.Filter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -53,7 +52,7 @@ public class InclassDispatcherTest {
     public final class ClassWithPrivates {
 
         @Handles(SecondLevelEvent2.class)
-        private Filter<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
+        private Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
     }
 

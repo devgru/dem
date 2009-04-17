@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.filtering.TypeFilter;
+import ru.devg.dem.bounding.TypeFilter;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

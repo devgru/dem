@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass;
 
-import ru.devg.dem.filtering.TypeFilter;
+import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.binding.ClassWorker;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Event;
@@ -31,7 +31,7 @@ public final class InclassDispatcher<E extends Event>
 
     public final void handle(E event) {
         for (TypeFilter binder : handlers) {
-            if (binder.handleIfPossible((Object) event) && !broadcastMode) return;
+            if (binder.handleIfPossible(event) && !broadcastMode) return;
         }
     }
 

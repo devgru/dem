@@ -1,8 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
+import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.filtering.NoopFilter;
-import ru.devg.dem.filtering.TypeFilterImpl;
-import ru.devg.dem.filtering.TypeFilter;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -75,7 +74,7 @@ final class FieldWorker extends AbstractBinder {
         return wrap(desc, halfResult);
     }
 
-    private abstract class AbstractFieldHandler extends TypeFilterImpl {
+    private abstract class AbstractFieldHandler implements TypeFilter {
         protected final Field field;
 
         private AbstractFieldHandler(Field field) {
@@ -106,10 +105,10 @@ final class FieldWorker extends AbstractBinder {
             this.bound = bound;
         }
 
-        public boolean handleIfPossible(Object event) {
+        public boolean handleIfPossible(Event event) {
 
             boolean isInstance = bound.isInstance(event);
-            if (isInstance) handle((Event) event);
+            if (isInstance) handle(event);
             return isInstance;
         }
     }
@@ -119,7 +118,7 @@ final class FieldWorker extends AbstractBinder {
             super(field);
         }
 
-        public boolean handleIfPossible(Object event) {
+        public boolean handleIfPossible(Event event) {
             TypeFilter filter = (TypeFilter) getHandler();
             return filter.handleIfPossible(event);
         }

@@ -1,6 +1,6 @@
 package ru.devg.dem.filtering.external;
 
-import ru.devg.dem.filtering.UpperFilter;
+import ru.devg.dem.filtering.Bypasser;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -9,7 +9,7 @@ import ru.devg.dem.quanta.Handler;
  * @version 0.175
  */
 public final class ExternalFilter<E extends Event>
-        extends UpperFilter<E> {
+        extends Bypasser<E> {
 
     private final FilterStrategy filterStrategy;
 
@@ -19,12 +19,11 @@ public final class ExternalFilter<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public boolean handleIfPossible(E event) {
+    public void handle(E event) {
         boolean canHandle = filterStrategy.canHandle(event);
         if (canHandle) {
-            fire( event);
+            fire(event);
         }
-        return canHandle;
     }
 }
 

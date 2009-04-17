@@ -12,7 +12,7 @@ public abstract class Source<E extends Event> {
         this.target = target;
     }
 
-    public final void fire(E event) {
+    protected final void fire(E event) {
         target.handle(event);
     }
 }

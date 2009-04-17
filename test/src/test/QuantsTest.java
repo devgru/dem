@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
-import ru.devg.dem.filtering.TypeBoundedHandler;
+import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -19,7 +19,7 @@ public class QuantsTest {
     private int countOfSmart = 0;
 
     private Handler<Event> lazyHandler;
-    private TypeBoundedHandler<SmartEvent> smartHandler;
+    private BoundedHandler<SmartEvent> smartHandler;
     private Handler unknownHandler;
 
     @Before
@@ -30,7 +30,7 @@ public class QuantsTest {
                 countOfSimple++;
             }
         };
-        smartHandler = new TypeBoundedHandler<SmartEvent>(SmartEvent.class) {
+        smartHandler = new BoundedHandler<SmartEvent>(SmartEvent.class) {
             public void handle(SmartEvent event) {
                 System.out.println("Oh, something smart!");
                 countOfSmart++;
