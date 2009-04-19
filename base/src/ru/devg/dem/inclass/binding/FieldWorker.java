@@ -1,7 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.filtering.NoopFilter;
+import ru.devg.dem.filtering.NoopHandler;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -86,7 +86,7 @@ final class FieldWorker extends AbstractBinder {
                 Object rawHandler = field.get(target);
                 return (Handler) rawHandler;
             } catch (IllegalAccessException ignored) {
-                return new NoopFilter();
+                return new NoopHandler();
             }
         }
 

@@ -1,6 +1,6 @@
-package ru.devg.dem.pipes.rmi;
+package ru.devg.dem.rmi;
 
-import ru.devg.dem.pipes.api.RemoteEvent;
+import ru.devg.dem.remote.RemoteEvent;
 import ru.devg.dem.quanta.Handler;
 
 import java.rmi.RemoteException;

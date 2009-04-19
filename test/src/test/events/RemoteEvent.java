@@ -5,5 +5,5 @@ package test.events;
  * @version 0.181
  */
 public class RemoteEvent
-        extends BaseEvent implements ru.devg.dem.pipes.api.RemoteEvent {
+        extends BaseEvent implements ru.devg.dem.remote.RemoteEvent {
 }

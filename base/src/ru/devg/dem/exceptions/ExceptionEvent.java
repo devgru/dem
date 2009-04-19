@@ -1,6 +1,6 @@
 package ru.devg.dem.exceptions;
 
-import ru.devg.dem.pipes.api.RemoteEvent;
+import ru.devg.dem.remote.RemoteEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
