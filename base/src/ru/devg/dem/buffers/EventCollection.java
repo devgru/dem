@@ -1,7 +1,7 @@
 package ru.devg.dem.buffers;
 
-import ru.devg.dem.remote.RemoteEvent;
 import ru.devg.dem.quanta.Event;
+import ru.devg.dem.remote.RemoteEvent;
 
 import java.util.LinkedList;
 

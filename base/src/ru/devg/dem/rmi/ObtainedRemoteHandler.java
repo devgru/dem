@@ -1,7 +1,7 @@
 package ru.devg.dem.rmi;
 
-import ru.devg.dem.remote.RemoteEvent;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.remote.RemoteEvent;
 
 import java.rmi.RemoteException;
 

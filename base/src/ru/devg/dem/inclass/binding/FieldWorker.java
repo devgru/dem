@@ -1,7 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.filtering.NoopHandler;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -9,6 +8,7 @@ import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.stuff.NoopHandler;
 import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;

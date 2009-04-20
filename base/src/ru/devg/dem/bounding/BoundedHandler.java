@@ -57,5 +57,4 @@ public abstract class BoundedHandler<E extends Event>
     }
 
 
-
 }
