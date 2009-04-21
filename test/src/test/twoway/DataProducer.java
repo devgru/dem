@@ -1,18 +1,15 @@
 package test.twoway;
 
-import ru.devg.dem.quanta.Source;
-import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.processing.BiConnector;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.182
  */
-public class DataProducer extends Source<DataEvent> implements Handler<ControlEvent> {
-    public DataProducer(Handler<? super DataEvent> target) {
-        super(target);
-    }
+public class DataProducer extends BiConnector<DataEvent,ControlEvent> {
 
     public void handle(ControlEvent event) {
-        
+        System.out.println("oh, they control me");
+        fire(new DataEvent());
     }
 }

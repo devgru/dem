@@ -9,20 +9,20 @@ import ru.devg.dem.quanta.Handler;
  */
 public class LazyHandler<E extends Event> implements Handler<E> {
 
-    private Handler<E> handler = new NoopHandler<E>();
+    private Handler<? super E> handler = new NoopHandler<E>();
 
     public LazyHandler() {
     }
 
-    public LazyHandler(Handler<E> handler) {
+    public LazyHandler(Handler<? super E> handler) {
         setHandler(handler);
     }
 
-    public Handler<E> getHandler() {
+    public Handler<? super E> getHandler() {
         return handler;
     }
 
-    public void setHandler(Handler<E> handler) {
+    public void setHandler(Handler<? super E> handler) {
         if (handler == null) {
             this.handler = new NoopHandler<E>();
         } else {
