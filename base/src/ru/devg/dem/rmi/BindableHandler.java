@@ -4,17 +4,19 @@ import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.remote.RemoteEvent;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.179
  */
 public final class BindableHandler<E extends RemoteEvent>
-        implements RemoteHandler<E> {
+        extends UnicastRemoteObject implements RemoteHandler<E> {
 
     private final Handler<? super E> h;
 
-    public BindableHandler(Handler<? super E> target) {
+    public BindableHandler(Handler<? super E> target) throws RemoteException {
+        super();
         this.h = target;
     }
 

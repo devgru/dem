@@ -4,10 +4,10 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.rmi.BindableHandler;
 import ru.devg.dem.rmi.ObtainedRemoteHandler;
 import ru.devg.dem.rmi.RemoteHandler;
-import ru.devg.dem.quanta.Handler;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
 import test.events.RemoteEvent;
@@ -31,8 +31,7 @@ import java.util.Random;
 public class RmiTest {
 
     private static final Registry r;
-    private static final int PORT = 62051;
-    private static final Process rmir;
+    private static final int PORT = Math.max(new Random().nextInt() % 65536 + 1024, 1999);
     private static final Collector c = new Collector();
 
     static {
@@ -42,11 +41,6 @@ public class RmiTest {
             throw new RuntimeException(e);
         }
 
-        try {
-            rmir = new ProcessBuilder("rmiregistry", Integer.toString(PORT)).start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @BeforeClass
@@ -69,7 +63,8 @@ public class RmiTest {
 
             };
             be.handle(event);
-            assertTrue(c.getString().length() == 1);
+            be.handle(event);
+            assertTrue(c.getString().length() == 2);
         } else {
             throw new RuntimeException();
         }
@@ -78,7 +73,6 @@ public class RmiTest {
     @AfterClass
     public static void tearDown() throws RemoteException, NotBoundException {
         r.unbind("test");
-        rmir.destroy();
     }
 
     private static class MyBaseHandler extends BaseHandler<BaseEvent> {
