@@ -7,14 +7,14 @@ import ru.devg.dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @version 0.182
  */
-public class LazyHandler<E extends Event> implements Handler<E> {
+public class MutableHandler<E extends Event> implements Handler<E> {
 
-    private Handler<? super E> handler = new NoopHandler<E>();
+    private Handler<? super E> handler = null;
 
-    public LazyHandler() {
+    public MutableHandler() {
     }
 
-    public LazyHandler(Handler<? super E> handler) {
+    public MutableHandler(Handler<? super E> handler) {
         setHandler(handler);
     }
 
@@ -23,14 +23,12 @@ public class LazyHandler<E extends Event> implements Handler<E> {
     }
 
     public void setHandler(Handler<? super E> handler) {
-        if (handler == null) {
-            this.handler = new NoopHandler<E>();
-        } else {
-            this.handler = handler;
-        }
+        this.handler = handler;
     }
 
     public void handle(E event) {
-        handler.handle(event);
+        if (handler != null) {
+            handler.handle(event);
+        }
     }
 }
