@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * it passes an {@link ru.devg.dem.quanta.Event} to every contained handler.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.17
+ * @since 0.17
  */
 public final class Broadcaster<E extends Event>
         implements HandlingBundle<E, Handler<? super E>> {

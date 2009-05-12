@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.175
+ * @since 0.175
  */
 public abstract class Translator<TO extends Event, FROM extends Event>
         extends BoundedHandler<FROM> implements TranslatorStrategy<TO, FROM> {

@@ -6,8 +6,8 @@ package ru.devg.dem.quanta;
  * transferred and {@link Handler#handle(Event) handled}
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.1751
  * @see Handler
+ * @since 0.1751
  */
 public interface Event {
 }

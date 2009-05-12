@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.179
+ * @since 0.179
  */
 public final class BindableHandler<E extends RemoteEvent>
         extends UnicastRemoteObject implements RemoteHandler<E> {

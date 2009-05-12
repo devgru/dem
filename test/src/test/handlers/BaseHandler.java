@@ -6,7 +6,7 @@ import test.events.CollectedEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public class BaseHandler<E extends BaseEvent>
         extends Translator<CollectedEvent, E> {

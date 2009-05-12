@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Event;
  * Translator strategies are the simpliest way to use Translating.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.175
+ * @since 0.175
  */
 public interface TranslatorStrategy<TO extends Event, FROM extends Event> {
 

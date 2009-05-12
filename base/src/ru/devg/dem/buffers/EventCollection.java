@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.180
+ * @since 0.180
  */
 public class EventCollection<E extends Event>
         extends LinkedList<E> implements RemoteEvent {

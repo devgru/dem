@@ -7,7 +7,7 @@ import ru.devg.dem.processing.external.ExternalBiProcessor;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.182
+ * @since 0.182
  */
 public class Runner {
 

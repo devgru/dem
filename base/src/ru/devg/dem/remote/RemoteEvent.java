@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.175
+ * @since 0.175
  */
 public interface RemoteEvent extends Event, Serializable {
 }

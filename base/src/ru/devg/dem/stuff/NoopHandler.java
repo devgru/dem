@@ -5,7 +5,7 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.18
+ * @since 0.18
  */
 public final class NoopHandler<E extends Event>
         implements Handler<E> {

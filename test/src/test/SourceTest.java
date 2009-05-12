@@ -9,7 +9,7 @@ import test.events.SecondLevelEvent1;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.179
+ * @since 0.179
  */
 public class SourceTest {
     @Test

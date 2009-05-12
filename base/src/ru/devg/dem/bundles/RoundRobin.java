@@ -16,7 +16,7 @@ import java.util.ListIterator;
  * </ul>
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.15
+ * @since 0.15
  */
 public final class RoundRobin<E extends Event>
         implements HandlingBundle<E, Handler<E>> {

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 final class MethodWorker extends AbstractBinder {
 

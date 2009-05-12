@@ -12,7 +12,7 @@ import java.util.List;
  * every event to one of {@link ru.devg.dem.quanta.Handler handlers} it contain.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.16
+ * @since 0.16
  */
 public final class Dispatcher<E extends Event>
         extends BoundedHandler<E>

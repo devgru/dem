@@ -5,7 +5,7 @@ import test.events.CollectedEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public class Collector implements Handler<CollectedEvent> {
     private final StringBuilder sb = new StringBuilder();

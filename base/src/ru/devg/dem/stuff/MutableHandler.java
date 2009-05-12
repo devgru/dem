@@ -5,7 +5,7 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.182
+ * @since 0.182
  */
 public class MutableHandler<E extends Event> implements Handler<E> {
 

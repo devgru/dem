@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public final class EventBuffer<E extends Event>
         extends Source<E> implements Handler<E> {

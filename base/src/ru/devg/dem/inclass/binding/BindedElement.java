@@ -4,7 +4,7 @@ import ru.devg.dem.bounding.TypeFilter;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.175
+ * @since 0.175
  */
 final class BindedElement implements Comparable<BindedElement> {
     private final TypeFilter filter;

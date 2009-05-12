@@ -4,7 +4,7 @@ import ru.devg.dem.remote.RemoteEvent;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.180
+ * @since 0.180
  */
 public final class ExceptionEvent implements RemoteEvent {
     private final Throwable exception;

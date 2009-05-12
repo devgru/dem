@@ -8,7 +8,7 @@ import ru.devg.dem.quanta.Handler;
  * to implement this interface.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.15
+ * @since 0.15
  */
 public interface HandlerBundle<H extends Handler> {
 

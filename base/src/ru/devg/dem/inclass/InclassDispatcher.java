@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.17
+ * @since 0.17
  */
 public final class InclassDispatcher<E extends Event>
         implements Handler<E> {

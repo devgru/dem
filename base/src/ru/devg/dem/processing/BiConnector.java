@@ -6,7 +6,7 @@ import ru.devg.dem.stuff.MutableSource;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.182
+ * @since 0.182
  */
 public abstract class BiConnector<SENDS extends Event, HANDLES extends Event>
         extends MutableSource<SENDS> implements Handler<HANDLES> {

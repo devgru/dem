@@ -2,7 +2,7 @@ package ru.devg.dem.quanta;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.175
+ * @since 0.175
  */
 public abstract class Source<E extends Event> {
     protected final Handler<? super E> target;

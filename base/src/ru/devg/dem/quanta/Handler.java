@@ -5,8 +5,8 @@ package ru.devg.dem.quanta;
  * It was created to provide the alterntive Observer idiom.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.15
  * @see Event
+ * @since 0.15
  */
 public interface Handler<E extends Event> {
 

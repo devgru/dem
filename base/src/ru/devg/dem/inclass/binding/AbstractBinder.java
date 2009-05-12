@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.177
+ * @since 0.177
  */
 abstract class AbstractBinder {
     protected final Object target;

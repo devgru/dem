@@ -4,7 +4,7 @@ import ru.devg.dem.quanta.Event;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public class CollectedEvent implements Event {
     private final String c;

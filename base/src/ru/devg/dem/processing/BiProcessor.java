@@ -1,11 +1,10 @@
 package ru.devg.dem.processing;
 
-import ru.devg.dem.processing.external.ProcessorStrategy;
 import ru.devg.dem.quanta.Event;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.182
+ * @since 0.182
  */
 public abstract class BiProcessor<LEFT extends Event, RIGHT extends Event> {
 

@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.180
+ * @since 0.180
  */
 public final class EventCollectionHandler<E extends Event>
         extends Source<E> implements Handler<EventCollection<E>> {

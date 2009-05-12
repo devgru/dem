@@ -11,7 +11,7 @@ import ru.devg.dem.quanta.Handler;
  * Bounded handlers are strong filters.
  *
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.15
+ * @since 0.15
  */
 public abstract class BoundedHandler<E extends Event>
         implements TypeFilter<E> {

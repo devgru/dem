@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public final class ClassWorker {
     private final Object target;

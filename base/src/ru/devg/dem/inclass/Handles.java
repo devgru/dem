@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 
 @Retention(RetentionPolicy.RUNTIME)

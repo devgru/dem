@@ -14,7 +14,7 @@ import test.handlers.Collector;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.176
+ * @since 0.176
  */
 public class InclassDispatcherTest {
     @Test

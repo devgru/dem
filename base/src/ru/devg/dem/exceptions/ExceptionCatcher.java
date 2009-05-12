@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Handler;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.179
+ * @since 0.179
  */
 public final class ExceptionCatcher<E extends Event>
         extends Processor<E> {

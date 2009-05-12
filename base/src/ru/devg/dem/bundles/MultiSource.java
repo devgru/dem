@@ -6,7 +6,7 @@ import ru.devg.dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.181
+ * @since 0.181
  */
 public abstract class MultiSource<E extends Event, H extends Handler>
         extends Source<E>
