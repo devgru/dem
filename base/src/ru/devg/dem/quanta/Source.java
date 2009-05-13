@@ -13,6 +13,7 @@ public abstract class Source<E extends Event> {
     }
 
     protected final void fire(E event) {
+        assert event != null;
         target.handle(event);
     }
 }

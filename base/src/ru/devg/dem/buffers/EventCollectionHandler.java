@@ -16,6 +16,7 @@ public final class EventCollectionHandler<E extends Event>
     }
 
     public void handle(EventCollection<E> eventCollection) {
+        assert eventCollection != null;
         for (E event : eventCollection) {
             fire(event);
         }
