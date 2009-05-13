@@ -5,9 +5,6 @@ package ru.devg.dem.inclass.exceptions;
  * @since 0.179
  */
 public class FieldIsUnbindableException extends ElementIsUnbindableException {
-    public FieldIsUnbindableException() {
-        super();
-    }
 
     public FieldIsUnbindableException(Throwable cause) {
         super(cause);

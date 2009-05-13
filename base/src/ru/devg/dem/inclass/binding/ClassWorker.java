@@ -52,7 +52,7 @@ public final class ClassWorker {
             int result = o1.compareTo(o2);
             if (result == 0 && strictPrioritization) {
                 throw new RuntimeException("you required strict prioritization, but you have prodivded some" +
-                        "methods/fields with same priority. It was:" + o1 + " and " + o2);
+                        "methods or fields with same priority. It was:" + o1 + " and " + o2);
             }
             return result;
         }

@@ -5,9 +5,6 @@ package ru.devg.dem.inclass.exceptions;
  * @since 0.179
  */
 public class MethodIsUnbindableException extends ElementIsUnbindableException {
-    public MethodIsUnbindableException() {
-        super();
-    }
 
     public MethodIsUnbindableException(Throwable cause) {
         super(cause);

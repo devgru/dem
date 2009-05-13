@@ -34,11 +34,11 @@ final class FieldWorker extends AbstractBinder {
     private BindedElement tryBindField(Field field) throws ClassIsUnbindableException {
         try {
             if (field.getAnnotation(Handles.class) != null) {
-                Handles a = field.getAnnotation(Handles.class);
-                Class<? extends Event> bound = a.value();
-                int priority = a.priority();
+                Handles annotation = field.getAnnotation(Handles.class);
+                Class<? extends Event> bound = annotation.value();
+                int priority = annotation.priority();
                 BindableElementDescriptor desc =
-                        new BindableElementDescriptor(bound, priority, a.translator());
+                        new BindableElementDescriptor(bound, priority, annotation.translator());
                 return bindField(field, desc);
             } else if (field.getAnnotation(HandlesOrphans.class) != null) {
                 BindableElementDescriptor desc =
@@ -56,7 +56,10 @@ final class FieldWorker extends AbstractBinder {
         TypeFilter halfResult;
 
         try {
+            boolean oldAccessible = field.isAccessible();
+            field.setAccessible(true);
             field.get(target);
+            field.setAccessible(oldAccessible);
         } catch (IllegalAccessException e) {
             throw new FieldIsUnbindableException("field " + field.getName() + " is inaccessible. Probably it's not public.", e);
         }

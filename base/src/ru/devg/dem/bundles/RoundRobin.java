@@ -55,17 +55,17 @@ public final class RoundRobin<E extends Event>
     }
 
     private synchronized Handler<E> next() {
-        Handler<E> h = null;
-        while (handlers.size() > 0 && h == null) {
-            h = storedIterator.next();
-            if (handlersToRemove.contains(h)) {
+        Handler<E> handler = null;
+        while (handlers.size() > 0 && handler == null) {
+            handler = storedIterator.next();
+            if (handlersToRemove.contains(handler)) {
                 storedIterator.remove();
-                handlersToRemove.remove(h);
-                h = null;
+                handlersToRemove.remove(handler);
+                handler = null;
             }
             rewindIfNeeded();
         }
-        return h;
+        return handler;
     }
 
     private void rewindIfNeeded() {
@@ -77,9 +77,9 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-    public synchronized void addHandler(Handler<E> h) {
-        assert h != null;
-        storedIterator.add(h);
+    public synchronized void addHandler(Handler<E> handler) {
+        assert handler != null;
+        storedIterator.add(handler);
         storedIterator.previous();
     }
 

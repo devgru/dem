@@ -28,6 +28,10 @@ public abstract class BoundedHandler<E extends Event>
 
     @SuppressWarnings("unchecked")
     public final boolean handleIfPossible(Event event) {
+        /**
+         * <code>assert event != null;</code> not required because {@link Class#isInstance(Object)}
+         * returns <code>false</code> on null values
+         */
         boolean canHandle = bound.isInstance(event);
         if (canHandle) {
             handle((E) event);
@@ -50,8 +54,8 @@ public abstract class BoundedHandler<E extends Event>
         assert handler != null;
         assert cls != null;
         return new BoundedHandler<E>(cls) {
-            public void handle(E e) {
-                handler.handle(e);
+            public void handle(E event) {
+                handler.handle(event);
             }
         };
     }

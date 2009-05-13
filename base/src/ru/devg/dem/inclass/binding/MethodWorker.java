@@ -33,9 +33,9 @@ final class MethodWorker extends AbstractBinder {
     private BindedElement tryBindMethod(Method method) throws ClassIsUnbindableException {
         try {
             if (method.getAnnotation(Handles.class) != null) {
-                Handles a = method.getAnnotation(Handles.class);
+                Handles annotation = method.getAnnotation(Handles.class);
                 BindableElementDescriptor desc =
-                        new BindableElementDescriptor(a.value(), a.priority(), a.translator());
+                        new BindableElementDescriptor(annotation.value(), annotation.priority(), annotation.translator());
                 return bindMethod(method, desc);
             } else if (method.getAnnotation(HandlesOrphans.class) != null) {
                 BindableElementDescriptor desc =
@@ -91,10 +91,10 @@ final class MethodWorker extends AbstractBinder {
         private final Method method;
 
         @SuppressWarnings("unchecked")
-        private MethodInvoker(Class<?> bound, Method m) {
+        private MethodInvoker(Class<?> bound, Method method) {
             super(bound);
-            assert m != null;
-            method = m;
+            assert method != null;
+            this.method = method;
         }
 
         public void handle(Event event) {
