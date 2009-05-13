@@ -39,13 +39,13 @@ final class MethodWorker extends AbstractBinder {
                 return bindMethod(method, desc);
             } else if (method.getAnnotation(HandlesOrphans.class) != null) {
                 BindableElementDescriptor desc =
-                        new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, null);
+                        new BindableElementDescriptor(Event.class, Handles.UNREACHABLE_NEGATIVE_PRIORITY, null);
                 return bindMethod(method, desc);
             } else {
                 return null;
             }
         } catch (ElementIsUnbindableException e) {
-            throw new ClassIsUnbindableException(e);
+            throw new ClassIsUnbindableException("Method "+method.getName()+" can not be binded",e);
         }
     }
 

@@ -16,6 +16,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface Handles {
+
+    static final long UNREACHABLE_NEGATIVE_PRIORITY = (long) Integer.MIN_VALUE - 1;
+
     public Class<? extends Event> value();
 
     public Class<? extends TranslatorStrategy> translator() default TranslatorStrategy.class;

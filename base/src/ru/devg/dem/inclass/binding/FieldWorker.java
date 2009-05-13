@@ -42,7 +42,7 @@ final class FieldWorker extends AbstractBinder {
                 return bindField(field, desc);
             } else if (field.getAnnotation(HandlesOrphans.class) != null) {
                 BindableElementDescriptor desc =
-                        new BindableElementDescriptor(Event.class, (long) Integer.MIN_VALUE - 1, TranslatorStrategy.class);
+                        new BindableElementDescriptor(Event.class, Handles.UNREACHABLE_NEGATIVE_PRIORITY, TranslatorStrategy.class);
                 return bindField(field, desc);
             } else {
                 return null;
