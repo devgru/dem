@@ -26,6 +26,15 @@ public abstract class BoundedHandler<E extends Event>
         return bound;
     }
 
+    @SuppressWarnings("unchecked")
+    public final boolean handleIfPossible(Event event) {
+        boolean canHandle = bound.isInstance(event);
+        if (canHandle) {
+            handle((E) event);
+        }
+        return canHandle;
+    }
+
 
     /**
      * This function returns a simple bounded instance of your handler.
@@ -45,15 +54,6 @@ public abstract class BoundedHandler<E extends Event>
                 handler.handle(e);
             }
         };
-    }
-
-    @SuppressWarnings("unchecked")
-    public final boolean handleIfPossible(Event event) {
-        boolean canHandle = bound.isInstance(event);
-        if (canHandle) {
-            handle((E) event);
-        }
-        return canHandle;
     }
 
 
