@@ -13,16 +13,16 @@ import java.rmi.server.UnicastRemoteObject;
 public final class BindableHandler<E extends RemoteEvent>
         extends UnicastRemoteObject implements RemoteHandler<E> {
 
-    private final Handler<? super E> h;
+    private final Handler<? super E> target;
 
     public BindableHandler(Handler<? super E> target) throws RemoteException {
         super();
-        this.h = target;
+        this.target = target;
     }
 
     public void handleRemote(E event) throws RemoteException {
         try {
-            h.handle(event);
+            target.handle(event);
         } catch (Exception e) {
             throw new RemoteException("Handling failed", e);
         }
