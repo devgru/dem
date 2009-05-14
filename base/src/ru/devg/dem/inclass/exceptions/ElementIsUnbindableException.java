@@ -5,9 +5,6 @@ package ru.devg.dem.inclass.exceptions;
  * @since 0.179
  */
 public class ElementIsUnbindableException extends Exception {
-    public ElementIsUnbindableException() {
-        super();
-    }
 
     public ElementIsUnbindableException(Throwable cause) {
         super(cause);
@@ -17,7 +14,4 @@ public class ElementIsUnbindableException extends Exception {
         super(message);
     }
 
-    public ElementIsUnbindableException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

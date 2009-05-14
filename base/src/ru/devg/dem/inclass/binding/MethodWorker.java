@@ -45,7 +45,7 @@ final class MethodWorker extends AbstractBinder {
                 return null;
             }
         } catch (ElementIsUnbindableException e) {
-            throw new ClassIsUnbindableException("Method "+method.getName()+" can not be binded",e);
+            throw new ClassIsUnbindableException(e);
         }
     }
 

@@ -56,12 +56,9 @@ final class FieldWorker extends AbstractBinder {
         TypeFilter halfResult;
 
         try {
-            boolean oldAccessible = field.isAccessible();
             field.setAccessible(true);
-            field.get(target);
-            field.setAccessible(oldAccessible);
-        } catch (IllegalAccessException e) {
-            throw new FieldIsUnbindableException("field " + field.getName() + " is inaccessible. Probably it's not public.", e);
+        } catch (SecurityException e) {
+            throw new ElementIsUnbindableException(e);
         }
 
         Class<?> type = field.getType();
@@ -71,7 +68,7 @@ final class FieldWorker extends AbstractBinder {
         } else if (Handler.class.isAssignableFrom(type)) {
             halfResult = new FieldHandler(desc.getBound(), field);
         } else {
-            throw new FieldIsUnbindableException("field's type must implement Handler.");
+            throw new FieldIsUnbindableException("Field's type must implement Handler.");
         }
 
         return wrap(desc, halfResult);
