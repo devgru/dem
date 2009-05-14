@@ -26,20 +26,6 @@ public class InclassDispatcherTest {
         h.handle(new BaseEvent());
     }
 
-    @Test
-    public void testBadClass() {
-        ClassIsUnbindableException exc;
-
-        exc = null;
-        try {
-            new InclassDispatcher<BaseEvent>(new ClassWithPrivates());
-        } catch (ClassIsUnbindableException e) {
-            exc = e;
-        } finally {
-            Assert.assertNotNull(exc);
-        }
-    }
-
     private final Collector c = new Collector();
 
     public final class WellFormedClass {
@@ -49,11 +35,5 @@ public class InclassDispatcherTest {
 
     }
 
-    public final class ClassWithPrivates {
-
-        @Handles(SecondLevelEvent2.class)
-        private Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
-
-    }
 
 }
