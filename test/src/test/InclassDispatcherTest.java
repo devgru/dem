@@ -1,6 +1,5 @@
 package test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
@@ -8,7 +7,6 @@ import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Handler;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
-import test.events.SecondLevelEvent2;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
@@ -24,6 +22,8 @@ public class InclassDispatcherTest {
 
         h.handle(new SecondLevelEvent1());
         h.handle(new BaseEvent());
+
+        assert c.getString().length() == 1;
     }
 
     private final Collector c = new Collector();
