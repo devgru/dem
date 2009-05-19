@@ -6,6 +6,11 @@ package ru.devg.dem.inclass.exceptions;
  */
 public final class ClassIsUnbindableException extends Exception {
 
+
+    public ClassIsUnbindableException(String message) {
+        super(message);
+    }
+
     public ClassIsUnbindableException(Throwable cause) {
         super(cause);
     }

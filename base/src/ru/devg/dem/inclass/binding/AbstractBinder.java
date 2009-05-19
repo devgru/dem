@@ -19,11 +19,11 @@ abstract class AbstractBinder {
         this.target = target;
     }
 
-    public abstract void tryBindMembers(List<BindedElement> listToUpdate, Class<?> targetClass)
+    public abstract void tryBindMembers(List<BoundElement> listToUpdate, Class<?> targetClass)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected BindedElement wrap(BindableElementDescriptor desc, TypeFilter halfResult) throws ElementIsUnbindableException {
+    protected BoundElement wrap(BindableElementDescriptor desc, TypeFilter halfResult) throws ElementIsUnbindableException {
         Class<? extends TranslatorStrategy> translator = desc.getTranslatorStrategy();
 
         if (translator != TranslatorStrategy.class) {
@@ -35,6 +35,6 @@ abstract class AbstractBinder {
                 throw new ElementIsUnbindableException(e);
             }
         }
-        return new BindedElement(halfResult, desc.getPriority());
+        return new BoundElement(halfResult, desc.getPriority());
     }
 }

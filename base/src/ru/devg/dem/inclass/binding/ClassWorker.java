@@ -4,7 +4,10 @@ import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.Configuration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -25,7 +28,7 @@ public final class ClassWorker {
         binders.add(new FieldWorker(target));
         binders.add(new MethodWorker(target));
 
-        List<BindedElement> grabbed = new LinkedList<BindedElement>();
+        List<BoundElement> grabbed = new LinkedList<BoundElement>();
 
         Class clazz = target.getClass();
         while (clazz != Object.class) {
@@ -35,26 +38,26 @@ public final class ClassWorker {
             clazz = clazz.getSuperclass();
         }
 
-        Collections.sort(grabbed, new MembersComparator());
+        if (strictPrioritization) {
+            BoundElement previousElement = grabbed.get(0);
+            for (int i = 1; i < grabbed.size(); i++) {
+                BoundElement element = grabbed.get(i);
+                if (previousElement.compareTo(element) == 0 && strictPrioritization) {
+                    throw new ClassIsUnbindableException("you required strict prioritization, but some " +
+                            "methods or fields have same priority. It was: " + element + " and " + previousElement);
+                }
+            }
+        }
+        Collections.sort(grabbed);
         return grabResult(grabbed);
     }
 
-    private List<TypeFilter<?>> grabResult(List<BindedElement> entries) {
+    private List<TypeFilter<?>> grabResult(List<BoundElement> entries) {
         List<TypeFilter<?>> grabbed = new LinkedList<TypeFilter<?>>();
-        for (BindedElement entry : entries) {
+        for (BoundElement entry : entries) {
             grabbed.add(entry.getFilter());
         }
         return grabbed;
     }
 
-    private final class MembersComparator implements Comparator<BindedElement> {
-        public int compare(BindedElement o1, BindedElement o2) {
-            int result = o1.compareTo(o2);
-            if (result == 0 && strictPrioritization) {
-                throw new RuntimeException("you required strict prioritization, but you have prodivded some" +
-                        "methods or fields with same priority. It was:" + o1 + " and " + o2);
-            }
-            return result;
-        }
-    }
 }

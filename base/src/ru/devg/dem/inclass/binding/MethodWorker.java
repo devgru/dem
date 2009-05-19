@@ -23,14 +23,14 @@ final class MethodWorker extends AbstractBinder {
         super(target);
     }
 
-    public void tryBindMembers(List<BindedElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
+    public void tryBindMembers(List<BoundElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Method method : targetClass.getMethods()) {
-            BindedElement filter = tryBindMethod(method);
+            BoundElement filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
     }
 
-    private BindedElement tryBindMethod(Method method) throws ClassIsUnbindableException {
+    private BoundElement tryBindMethod(Method method) throws ClassIsUnbindableException {
         try {
             if (method.getAnnotation(Handles.class) != null) {
                 Handles annotation = method.getAnnotation(Handles.class);
@@ -49,7 +49,7 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BindedElement bindMethod(Method method, BindableElementDescriptor desc) throws ElementIsUnbindableException {
+    private BoundElement bindMethod(Method method, BindableElementDescriptor desc) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
@@ -61,48 +61,41 @@ final class MethodWorker extends AbstractBinder {
             if (argClass != desc.getBound()) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
-            halfResult = new MethodInvoker(argClass, method);
+            halfResult = new MethodInvoker(argClass, method, true);
         } else {
-            halfResult = new NoParamMethodInvoker(desc.getBound(), method);
+            halfResult = new MethodInvoker(desc.getBound(), method, false);
         }
 
         return wrap(desc, halfResult);
     }
 
-    private class NoParamMethodInvoker extends BoundedHandler {
-        private final Method method;
-
-        @SuppressWarnings("unchecked")
-        private NoParamMethodInvoker(Class<?> bound, Method m) {
-            super(bound);
-            method = m;
-        }
-
-        public void handle(Event event) {
-            try {
-                method.invoke(target);
-            } catch (IllegalAccessException ignored) {
-            } catch (InvocationTargetException ignored) {
-            }
-        }
-    }
-
     private class MethodInvoker extends BoundedHandler {
         private final Method method;
+        private final boolean passEventToMethod;
 
         @SuppressWarnings("unchecked")
-        private MethodInvoker(Class<?> bound, Method method) {
+        private MethodInvoker(Class<?> bound, Method method, boolean passEventToMethod) {
             super(bound);
             assert method != null;
             this.method = method;
+            this.passEventToMethod = passEventToMethod;
         }
 
         public void handle(Event event) {
             try {
-                method.invoke(target, event);
+                if(passEventToMethod){
+                    method.invoke(target, event);
+                } else {
+                    method.invoke(target);
+                }
             } catch (IllegalAccessException ignored) {
             } catch (InvocationTargetException ignored) {
             }
+        }
+
+        @Override
+        public String toString() {
+            return "method "+ method.getName();
         }
     }
 

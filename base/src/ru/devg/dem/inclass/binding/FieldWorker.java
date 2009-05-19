@@ -24,14 +24,14 @@ final class FieldWorker extends AbstractBinder {
         super(target);
     }
 
-    public void tryBindMembers(List<BindedElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
+    public void tryBindMembers(List<BoundElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Field field : targetClass.getDeclaredFields()) {
-            BindedElement entry = tryBindField(field);
+            BoundElement entry = tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }
     }
 
-    private BindedElement tryBindField(Field field) throws ClassIsUnbindableException {
+    private BoundElement tryBindField(Field field) throws ClassIsUnbindableException {
         try {
             if (field.getAnnotation(Handles.class) != null) {
                 Handles annotation = field.getAnnotation(Handles.class);
@@ -52,7 +52,7 @@ final class FieldWorker extends AbstractBinder {
         }
     }
 
-    private BindedElement bindField(Field field, BindableElementDescriptor desc) throws ElementIsUnbindableException {
+    private BoundElement bindField(Field field, BindableElementDescriptor desc) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         try {
@@ -93,6 +93,11 @@ final class FieldWorker extends AbstractBinder {
         @SuppressWarnings("unchecked")
         public void handle(Event event) {
             getHandler().handle(event);
+        }
+
+        @Override
+        public String toString() {
+            return "field " + field.getName();
         }
     }
 
