@@ -7,7 +7,7 @@ package ru.devg.dem.quanta;
  *
  * @author Devgru &lt;java@devg.ru&gt;
  * @see Handler
- * @since 0.1751
+ * @since 0.15
  */
 public interface Event {
 }
