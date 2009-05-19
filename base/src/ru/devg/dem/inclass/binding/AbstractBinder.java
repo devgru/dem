@@ -23,18 +23,18 @@ abstract class AbstractBinder {
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected BoundElement wrap(BindableElementDescriptor desc, TypeFilter halfResult) throws ElementIsUnbindableException {
+    protected BoundElement wrap(BindableElement desc, TypeFilter filterToWrap) throws ElementIsUnbindableException {
         Class<? extends TranslatorStrategy> translator = desc.getTranslatorStrategy();
 
-        if (translator != TranslatorStrategy.class) {
+        if (translator != BindableElement.WITHOUT_TRANSLATOR) {
             try {
-                halfResult = new ExternalTranslator(halfResult, desc.getBound(), translator.newInstance());
+                filterToWrap = new ExternalTranslator(filterToWrap, desc.getBound(), translator.newInstance());
             } catch (InstantiationException e) {
                 throw new ElementIsUnbindableException(e);
             } catch (IllegalAccessException e) {
                 throw new ElementIsUnbindableException(e);
             }
         }
-        return new BoundElement(halfResult, desc.getPriority());
+        return new BoundElement(filterToWrap, desc.getPriority());
     }
 }

@@ -9,7 +9,6 @@ import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.stuff.NoopHandler;
-import ru.devg.dem.translating.TranslatorStrategy;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -35,14 +34,10 @@ final class FieldWorker extends AbstractBinder {
         try {
             if (field.getAnnotation(Handles.class) != null) {
                 Handles annotation = field.getAnnotation(Handles.class);
-                Class<? extends Event> bound = annotation.value();
-                int priority = annotation.priority();
-                BindableElementDescriptor desc =
-                        new BindableElementDescriptor(bound, priority, annotation.translator());
-                return bindField(field, desc);
+                BindableElement element = new BindableElement(annotation);
+                return bindField(field, element);
             } else if (field.getAnnotation(HandlesOrphans.class) != null) {
-                BindableElementDescriptor desc =
-                        new BindableElementDescriptor(Event.class, Handles.UNREACHABLE_NEGATIVE_PRIORITY, TranslatorStrategy.class);
+                BindableElement desc = BindableElement.ORPHAN_HANDLER;
                 return bindField(field, desc);
             } else {
                 return null;
@@ -52,7 +47,7 @@ final class FieldWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindField(Field field, BindableElementDescriptor desc) throws ElementIsUnbindableException {
+    private BoundElement bindField(Field field, BindableElement element) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         try {
@@ -66,12 +61,12 @@ final class FieldWorker extends AbstractBinder {
         if (TypeFilter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
-            halfResult = new FieldHandler(desc.getBound(), field);
+            halfResult = new FieldHandler(element.getBound(), field);
         } else {
-            throw new FieldIsUnbindableException("Field's type must implement Handler.");
+            throw new FieldIsUnbindableException("field's type must implement Handler.");
         }
 
-        return wrap(desc, halfResult);
+        return wrap(element, halfResult);
     }
 
     private abstract class AbstractFieldHandler implements TypeFilter {

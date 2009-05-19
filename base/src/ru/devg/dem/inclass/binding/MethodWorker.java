@@ -34,12 +34,11 @@ final class MethodWorker extends AbstractBinder {
         try {
             if (method.getAnnotation(Handles.class) != null) {
                 Handles annotation = method.getAnnotation(Handles.class);
-                BindableElementDescriptor desc =
-                        new BindableElementDescriptor(annotation.value(), annotation.priority(), annotation.translator());
+                BindableElement desc =
+                        new BindableElement(annotation);
                 return bindMethod(method, desc);
             } else if (method.getAnnotation(HandlesOrphans.class) != null) {
-                BindableElementDescriptor desc =
-                        new BindableElementDescriptor(Event.class, Handles.UNREACHABLE_NEGATIVE_PRIORITY, null);
+                BindableElement desc = BindableElement.ORPHAN_HANDLER;
                 return bindMethod(method, desc);
             } else {
                 return null;
@@ -49,7 +48,7 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindMethod(Method method, BindableElementDescriptor desc) throws ElementIsUnbindableException {
+    private BoundElement bindMethod(Method method, BindableElement desc) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
