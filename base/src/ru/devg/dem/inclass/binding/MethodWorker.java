@@ -19,7 +19,7 @@ import java.util.List;
  */
 final class MethodWorker extends AbstractBinder {
 
-    MethodWorker(Object target) {
+    public MethodWorker(Object target) {
         super(target);
     }
 

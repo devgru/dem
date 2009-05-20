@@ -19,7 +19,7 @@ abstract class AbstractBinder {
         this.target = target;
     }
 
-    public abstract void tryBindMembers(List<BoundElement> listToUpdate, Class<?> targetClass)
+    abstract void tryBindMembers(List<BoundElement> listToUpdate, Class<?> targetClass)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
