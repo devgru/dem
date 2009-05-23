@@ -48,7 +48,7 @@ public class InclassDispatcherTest {
         @Handles(SecondLevelEvent1.class)
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
-        @Handles(SecondLevelEvent1.class, translator = TranslatorStrategy.class,priority = 0)
+        @Handles(value=SecondLevelEvent1.class, translator = TranslatorStrategy.class,priority = 0)
         public Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
     }

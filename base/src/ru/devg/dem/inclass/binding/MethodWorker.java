@@ -3,7 +3,6 @@ package ru.devg.dem.inclass.binding;
 import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.Handles;
-import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
@@ -36,9 +35,6 @@ final class MethodWorker extends AbstractBinder {
                 Handles annotation = method.getAnnotation(Handles.class);
                 BindableElement desc =
                         new BindableElement(annotation);
-                return bindMethod(method, desc);
-            } else if (method.getAnnotation(HandlesOrphans.class) != null) {
-                BindableElement desc = BindableElement.ORPHAN_HANDLER;
                 return bindMethod(method, desc);
             } else {
                 return null;

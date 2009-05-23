@@ -2,7 +2,6 @@ package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.Handles;
-import ru.devg.dem.inclass.HandlesOrphans;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
@@ -36,9 +35,6 @@ final class FieldWorker extends AbstractBinder {
                 Handles annotation = field.getAnnotation(Handles.class);
                 BindableElement element = new BindableElement(annotation);
                 return bindField(field, element);
-            } else if (field.getAnnotation(HandlesOrphans.class) != null) {
-                BindableElement desc = BindableElement.ORPHAN_HANDLER;
-                return bindField(field, desc);
             } else {
                 return null;
             }
@@ -70,13 +66,13 @@ final class FieldWorker extends AbstractBinder {
     }
 
     private abstract class AbstractFieldHandler implements TypeFilter {
-        protected final Field field;
+        final Field field;
 
         private AbstractFieldHandler(Field field) {
             this.field = field;
         }
 
-        protected Handler getHandler() {
+        Handler getHandler() {
             try {
                 Object rawHandler = field.get(target);
                 return (Handler) rawHandler;

@@ -38,6 +38,7 @@ public final class ClassWorker {
             clazz = clazz.getSuperclass();
         }
 
+        Collections.sort(grabbed);
         if (strictPrioritization) {
             BoundElement previousElement = grabbed.get(0);
             for (int i = 1; i < grabbed.size(); i++) {
@@ -48,7 +49,6 @@ public final class ClassWorker {
                 }
             }
         }
-        Collections.sort(grabbed);
         return grabResult(grabbed);
     }
 

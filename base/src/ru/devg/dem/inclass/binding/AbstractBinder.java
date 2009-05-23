@@ -13,7 +13,7 @@ import java.util.List;
  * @since 0.177
  */
 abstract class AbstractBinder {
-    protected final Object target;
+    final Object target;
 
     AbstractBinder(Object target) {
         this.target = target;
@@ -23,7 +23,7 @@ abstract class AbstractBinder {
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected BoundElement wrap(BindableElement desc, TypeFilter filterToWrap) throws ElementIsUnbindableException {
+    BoundElement wrap(BindableElement desc, TypeFilter filterToWrap) throws ElementIsUnbindableException {
         Class<? extends TranslatorStrategy> translator = desc.getTranslatorStrategy();
 
         if (translator != BindableElement.WITHOUT_TRANSLATOR) {

@@ -2,7 +2,6 @@ package ru.devg.dem.bundles;
 
 import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.quanta.Event;
-import ru.devg.dem.quanta.Handler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,22 +33,11 @@ public final class Dispatcher<E extends Event>
     private final List<BoundedHandler<? extends E>> handlers =
             new LinkedList<BoundedHandler<? extends E>>();
 
-    //orphans
-
-    private Handler<Event> handlerForOrphans = null;
-
-    public void setHandlerForOrphans(Handler<Event> handlerForOrphans) {
-        this.handlerForOrphans = handlerForOrphans;
-    }
-
     //vv
 
     public void handle(E event) {
         for (BoundedHandler<?> binder : handlers) {
             if (binder.handleIfPossible(event)) return;
-        }
-        if (handlerForOrphans != null) {
-            handlerForOrphans.handle(event);
         }
     }
 

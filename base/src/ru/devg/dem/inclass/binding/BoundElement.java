@@ -20,10 +20,6 @@ final class BoundElement implements Comparable<BoundElement> {
         return filter;
     }
 
-    public Long getPriority() {
-        return priority;
-    }
-
     public int compareTo(BoundElement o) {
         return o.priority.compareTo(priority);
     }
