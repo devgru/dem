@@ -14,6 +14,7 @@ import java.util.List;
  */
 abstract class AbstractBinder {
     final Object target;
+    static final Class<TranslatorStrategy> WITHOUT_TRANSLATOR = TranslatorStrategy.class;
 
     AbstractBinder(Object target) {
         this.target = target;
@@ -23,18 +24,18 @@ abstract class AbstractBinder {
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    BoundElement wrap(BindableElement desc, TypeFilter filterToWrap) throws ElementIsUnbindableException {
-        Class<? extends TranslatorStrategy> translator = desc.getTranslatorStrategy();
+    BoundElement wrap(BindableElement element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
+        Class<? extends TranslatorStrategy> translator = element.getTranslatorStrategy();
 
-        if (translator != BindableElement.WITHOUT_TRANSLATOR) {
+        if (translator != WITHOUT_TRANSLATOR) {
             try {
-                filterToWrap = new ExternalTranslator(filterToWrap, desc.getBound(), translator.newInstance());
+                filterToWrap = new ExternalTranslator(filterToWrap, element.getBound(), translator.newInstance());
             } catch (InstantiationException e) {
                 throw new ElementIsUnbindableException(e);
             } catch (IllegalAccessException e) {
                 throw new ElementIsUnbindableException(e);
             }
         }
-        return new BoundElement(filterToWrap, desc.getPriority());
+        return new BoundElement(filterToWrap, element.getPriority());
     }
 }

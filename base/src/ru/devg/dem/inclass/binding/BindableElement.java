@@ -10,8 +10,6 @@ import ru.devg.dem.inclass.Handles;
  */
 final class BindableElement {
 
-    static final Class<TranslatorStrategy> WITHOUT_TRANSLATOR = TranslatorStrategy.class;
-
     private final Class<? extends Event> bound;
     private final Class<? extends TranslatorStrategy> translatorStrategy;
     private final long priority;
