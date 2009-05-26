@@ -31,11 +31,10 @@ final class MethodWorker extends AbstractBinder {
 
     private BoundElement tryBindMethod(Method method) throws ClassIsUnbindableException {
         try {
-            if (method.getAnnotation(Handles.class) != null) {
+            if (method.isAnnotationPresent(Handles.class)) {
                 Handles annotation = method.getAnnotation(Handles.class);
-                BindableElement desc =
-                        new BindableElement(annotation);
-                return bindMethod(method, desc);
+                BindableElement element = new BindableElement(annotation);
+                return bindMethod(method, element);
             } else {
                 return null;
             }
@@ -44,7 +43,7 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindMethod(Method method, BindableElement desc) throws ElementIsUnbindableException {
+    private BoundElement bindMethod(Method method, BindableElement element) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
@@ -53,15 +52,15 @@ final class MethodWorker extends AbstractBinder {
             throw new MethodIsUnbindableException("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != desc.getBound()) {
+            if (argClass != element.getBound()) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method, true);
         } else {
-            halfResult = new MethodInvoker(desc.getBound(), method, false);
+            halfResult = new MethodInvoker(element.getBound(), method, false);
         }
 
-        return wrap(desc, halfResult);
+        return wrap(element, halfResult);
     }
 
     private class MethodInvoker extends BoundedHandler {

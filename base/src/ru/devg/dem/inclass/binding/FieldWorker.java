@@ -31,7 +31,7 @@ final class FieldWorker extends AbstractBinder {
 
     private BoundElement tryBindField(Field field) throws ClassIsUnbindableException {
         try {
-            if (field.getAnnotation(Handles.class) != null) {
+            if (field.isAnnotationPresent(Handles.class)) {
                 Handles annotation = field.getAnnotation(Handles.class);
                 BindableElement element = new BindableElement(annotation);
                 return bindField(field, element);
