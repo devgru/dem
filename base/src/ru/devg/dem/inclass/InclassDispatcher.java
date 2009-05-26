@@ -6,7 +6,6 @@ import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
-import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -21,12 +20,12 @@ public final class InclassDispatcher<E extends Event>
     private final boolean broadcastMode;
 
     public InclassDispatcher(Object handler) throws ClassIsUnbindableException {
-        this(handler, EnumSet.noneOf(Configuration.class));
+        this(handler, new InclassDispatcherConfiguration(false, false));
     }
 
-    public InclassDispatcher(Object handler, EnumSet<Configuration> config) throws ClassIsUnbindableException {
+    public InclassDispatcher(Object handler, InclassDispatcherConfiguration config) throws ClassIsUnbindableException {
         handlers = new ClassWorker(handler, config).bindClassElements();
-        broadcastMode = config.contains(Configuration.broadcast);
+        broadcastMode = config.broadcast;
     }
 
     public final void handle(E event) {

@@ -1,8 +1,8 @@
 package ru.devg.dem.inclass.binding;
 
+import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.translating.TranslatorStrategy;
-import ru.devg.dem.inclass.Handles;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -19,7 +19,7 @@ final class BindableElement {
     }
 
     private BindableElement(Class<? extends Event> bound, long priority,
-                           Class<? extends TranslatorStrategy> translatorStrategy) {
+                            Class<? extends TranslatorStrategy> translatorStrategy) {
         this.bound = bound;
         this.priority = priority;
         this.translatorStrategy = translatorStrategy;

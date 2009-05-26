@@ -1,11 +1,9 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.Configuration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,14 +14,26 @@ import java.util.List;
 public final class ClassWorker {
     private final Object target;
     private final boolean strictPrioritization;
+    private final List<AbstractBinder> binders =
+            new LinkedList<AbstractBinder>();
 
-    public ClassWorker(Object target, EnumSet<Configuration> config) {
+
+    public ClassWorker(Object target, ClassWorkerConfiguration config) {
         this.target = target;
-        strictPrioritization = config.contains(Configuration.strictPrioritization);
+        strictPrioritization = config.strictPrioritization;
+        this.binders.add(new FieldWorker(target));
+        this.binders.add(new MethodWorker(target));
+    }
+
+
+    public ClassWorker(Object target, ClassWorkerConfiguration config, List<? extends AbstractBinder> binders) {
+        this.target = target;
+        strictPrioritization = config.strictPrioritization;
+        this.binders.addAll(binders);
     }
 
     public List<TypeFilter<?>> bindClassElements() throws ClassIsUnbindableException {
-        List<AbstractBinder> binders = new LinkedList<AbstractBinder>();
+//        List<AbstractBinder> binders = new LinkedList<AbstractBinder>();
 
         binders.add(new FieldWorker(target));
         binders.add(new MethodWorker(target));

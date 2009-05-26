@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
-import ru.devg.dem.inclass.Configuration;
+import ru.devg.dem.inclass.InclassDispatcherConfiguration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.translating.TranslatorStrategy;
@@ -11,8 +11,6 @@ import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
-
-import java.util.EnumSet;
 
 import junit.framework.Assert;
 
@@ -28,7 +26,7 @@ public class InclassDispatcherTest {
 
         ClassIsUnbindableException exc = null;
         try {
-            new InclassDispatcher<BaseEvent>(d, EnumSet.of(Configuration.strictPrioritization));
+            new InclassDispatcher<BaseEvent>(d, new InclassDispatcherConfiguration(true,false));
         } catch (ClassIsUnbindableException e) {
             exc = e;
         } finally {

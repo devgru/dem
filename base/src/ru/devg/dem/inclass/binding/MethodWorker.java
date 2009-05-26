@@ -77,7 +77,7 @@ final class MethodWorker extends AbstractBinder {
 
         public void handle(Event event) {
             try {
-                if(passEventToMethod){
+                if (passEventToMethod) {
                     method.invoke(target, event);
                 } else {
                     method.invoke(target);
@@ -89,7 +89,7 @@ final class MethodWorker extends AbstractBinder {
 
         @Override
         public String toString() {
-            return "method "+ method.getName();
+            return "method " + method.getName();
         }
     }
 

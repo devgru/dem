@@ -12,19 +12,19 @@ import java.util.List;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.177
  */
-abstract class AbstractBinder {
-    final Object target;
-    static final Class<TranslatorStrategy> WITHOUT_TRANSLATOR = TranslatorStrategy.class;
+public abstract class AbstractBinder {
+    protected final Object target;
+    protected static final Class<TranslatorStrategy> WITHOUT_TRANSLATOR = TranslatorStrategy.class;
 
-    AbstractBinder(Object target) {
+    protected AbstractBinder(Object target) {
         this.target = target;
     }
 
-    abstract void tryBindMembers(List<BoundElement> listToUpdate, Class<?> targetClass)
+    public abstract void tryBindMembers(List<BoundElement> listToFill, Class<?> targetClass)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    BoundElement wrap(BindableElement element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
+    protected final BoundElement wrap(BindableElement element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
         Class<? extends TranslatorStrategy> translator = element.getTranslatorStrategy();
 
         if (translator != WITHOUT_TRANSLATOR) {
