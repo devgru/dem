@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -33,33 +33,31 @@ public final class ClassWorker {
     }
 
     public List<TypeFilter<?>> bindClassElements() throws ClassIsUnbindableException {
-//        List<AbstractBinder> binders = new LinkedList<AbstractBinder>();
+        List<BoundElement> elements = new LinkedList<BoundElement>();
 
-        binders.add(new FieldWorker(target));
-        binders.add(new MethodWorker(target));
-
-        List<BoundElement> grabbed = new LinkedList<BoundElement>();
-
-        Class clazz = target.getClass();
-        while (clazz != Object.class) {
+        Class targetClass = target.getClass();
+        while (targetClass != Object.class) {
             for (AbstractBinder binder : binders) {
-                binder.tryBindMembers(grabbed, clazz);
+                binder.tryBindMembers(elements, targetClass);
+                for(Class oneOfInterfaces : targetClass.getInterfaces()){
+                    binder.tryBindMembers(elements, oneOfInterfaces);
+                }
             }
-            clazz = clazz.getSuperclass();
+            targetClass = targetClass.getSuperclass();
         }
 
-        Collections.sort(grabbed);
+        Collections.sort(elements);
         if (strictPrioritization) {
-            BoundElement previousElement = grabbed.get(0);
-            for (int i = 1; i < grabbed.size(); i++) {
-                BoundElement element = grabbed.get(i);
+            BoundElement previousElement = elements.get(0);
+            for (int i = 1; i < elements.size(); i++) {
+                BoundElement element = elements.get(i);
                 if (previousElement.compareTo(element) == 0 && strictPrioritization) {
                     throw new ClassIsUnbindableException("you required strict prioritization, but some " +
                             "methods or fields have same priority. It was: " + element + " and " + previousElement);
                 }
             }
         }
-        return grabResult(grabbed);
+        return grabResult(elements);
     }
 
     private List<TypeFilter<?>> grabResult(List<BoundElement> entries) {

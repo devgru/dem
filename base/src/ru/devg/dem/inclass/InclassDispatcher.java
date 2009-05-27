@@ -1,7 +1,7 @@
 package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.binding.ClassWorker;
+import ru.devg.dem.inclass.ClassWorker;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;

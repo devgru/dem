@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass;
 
-import ru.devg.dem.inclass.binding.ClassWorkerConfiguration;
+import ru.devg.dem.inclass.ClassWorkerConfiguration;
 
 /**
  * Created by IntelliJ IDEA.

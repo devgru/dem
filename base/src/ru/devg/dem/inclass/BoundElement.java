@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
 

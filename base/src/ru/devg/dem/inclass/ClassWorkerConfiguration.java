@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 /**
  * Inclass dispatcher configuration. May be passed to

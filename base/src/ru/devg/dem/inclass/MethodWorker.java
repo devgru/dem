@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.bounding.TypeFilter;
@@ -33,8 +33,7 @@ final class MethodWorker extends AbstractBinder {
         try {
             if (method.isAnnotationPresent(Handles.class)) {
                 Handles annotation = method.getAnnotation(Handles.class);
-                BindableElement element = new BindableElement(annotation);
-                return bindMethod(method, element);
+                return bindMethod(method, annotation);
             } else {
                 return null;
             }
@@ -43,7 +42,7 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindMethod(Method method, BindableElement element) throws ElementIsUnbindableException {
+    private BoundElement bindMethod(Method method, Handles element) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
@@ -52,12 +51,12 @@ final class MethodWorker extends AbstractBinder {
             throw new MethodIsUnbindableException("method shouldn't have more than 1 parameter.");
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != element.getBound()) {
+            if (argClass != element.value()) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method, true);
         } else {
-            halfResult = new MethodInvoker(element.getBound(), method, false);
+            halfResult = new MethodInvoker(element.value(), method, false);
         }
 
         return wrap(element, halfResult);

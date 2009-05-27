@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.Handles;
@@ -33,8 +33,7 @@ final class FieldWorker extends AbstractBinder {
         try {
             if (field.isAnnotationPresent(Handles.class)) {
                 Handles annotation = field.getAnnotation(Handles.class);
-                BindableElement element = new BindableElement(annotation);
-                return bindField(field, element);
+                return bindField(field, annotation);
             } else {
                 return null;
             }
@@ -43,7 +42,7 @@ final class FieldWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindField(Field field, BindableElement element) throws ElementIsUnbindableException {
+    private BoundElement bindField(Field field, Handles element) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         try {
@@ -57,7 +56,7 @@ final class FieldWorker extends AbstractBinder {
         if (TypeFilter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
-            halfResult = new FieldHandler(element.getBound(), field);
+            halfResult = new FieldHandler(element.value(), field);
         } else {
             throw new FieldIsUnbindableException("field's type must implement Handler.");
         }

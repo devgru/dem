@@ -1,4 +1,4 @@
-package ru.devg.dem.inclass.binding;
+package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
@@ -24,18 +24,18 @@ public abstract class AbstractBinder {
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected final BoundElement wrap(BindableElement element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
-        Class<? extends TranslatorStrategy> translator = element.getTranslatorStrategy();
+    protected final BoundElement wrap(Handles element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
+        Class<? extends TranslatorStrategy> translator = element.translator();
 
         if (translator != WITHOUT_TRANSLATOR) {
             try {
-                filterToWrap = new ExternalTranslator(filterToWrap, element.getBound(), translator.newInstance());
+                filterToWrap = new ExternalTranslator(filterToWrap, element.value(), translator.newInstance());
             } catch (InstantiationException e) {
                 throw new ElementIsUnbindableException(e);
             } catch (IllegalAccessException e) {
                 throw new ElementIsUnbindableException(e);
             }
         }
-        return new BoundElement(filterToWrap, element.getPriority());
+        return new BoundElement(filterToWrap, element.priority());
     }
 }
