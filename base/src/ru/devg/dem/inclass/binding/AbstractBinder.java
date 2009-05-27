@@ -1,8 +1,9 @@
-package ru.devg.dem.inclass;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.translating.ExternalTranslator;
 import ru.devg.dem.translating.TranslatorStrategy;
 
@@ -20,22 +21,20 @@ public abstract class AbstractBinder {
         this.target = target;
     }
 
-    public abstract void tryBindMembers(List<BoundElement> listToFill, Class<?> targetClass)
+    public abstract void tryBindMembers(List<FilterWithPriority> listToFill, Class<?> targetClass)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
-    protected final BoundElement wrap(Handles element, TypeFilter filterToWrap) throws ElementIsUnbindableException {
-        Class<? extends TranslatorStrategy> translator = element.translator();
+    protected final FilterWithPriority wrap(Handles annotation, TypeFilter filterToWrap) throws ElementIsUnbindableException {
+        Class<? extends TranslatorStrategy> translator = annotation.translator();
 
         if (translator != WITHOUT_TRANSLATOR) {
             try {
-                filterToWrap = new ExternalTranslator(filterToWrap, element.value(), translator.newInstance());
-            } catch (InstantiationException e) {
-                throw new ElementIsUnbindableException(e);
-            } catch (IllegalAccessException e) {
+                filterToWrap = new ExternalTranslator(filterToWrap, annotation.value(), translator.newInstance());
+            } catch (Exception e) {
                 throw new ElementIsUnbindableException(e);
             }
         }
-        return new BoundElement(filterToWrap, element.priority());
+        return new FilterWithPriority(filterToWrap, annotation.priority());
     }
 }

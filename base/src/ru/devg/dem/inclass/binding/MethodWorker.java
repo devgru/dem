@@ -1,11 +1,11 @@
-package ru.devg.dem.inclass;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.BoundedHandler;
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.inclass.exceptions.MethodIsUnbindableException;
+import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.quanta.Event;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,18 +22,17 @@ final class MethodWorker extends AbstractBinder {
         super(target);
     }
 
-    public void tryBindMembers(List<BoundElement> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
+    public void tryBindMembers(List<FilterWithPriority> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
         for (Method method : targetClass.getMethods()) {
-            BoundElement filter = tryBindMethod(method);
+            FilterWithPriority filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
     }
 
-    private BoundElement tryBindMethod(Method method) throws ClassIsUnbindableException {
+    private FilterWithPriority tryBindMethod(Method method) throws ClassIsUnbindableException {
         try {
             if (method.isAnnotationPresent(Handles.class)) {
-                Handles annotation = method.getAnnotation(Handles.class);
-                return bindMethod(method, annotation);
+                return bindMethod(method);
             } else {
                 return null;
             }
@@ -42,24 +41,26 @@ final class MethodWorker extends AbstractBinder {
         }
     }
 
-    private BoundElement bindMethod(Method method, Handles element) throws ElementIsUnbindableException {
+    private FilterWithPriority bindMethod(Method method) throws ElementIsUnbindableException {
         TypeFilter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;
+        Handles annotation = method.getAnnotation(Handles.class);
         if (argsCount > 1) {
             throw new MethodIsUnbindableException("method shouldn't have more than 1 parameter.");
+            //todo here I should implement the event-to-array translation
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != element.value()) {
+            if (argClass != annotation.value()) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method, true);
         } else {
-            halfResult = new MethodInvoker(element.value(), method, false);
+            halfResult = new MethodInvoker(annotation.value(), method, false);
         }
 
-        return wrap(element, halfResult);
+        return wrap(annotation, halfResult);
     }
 
     private class MethodInvoker extends BoundedHandler {

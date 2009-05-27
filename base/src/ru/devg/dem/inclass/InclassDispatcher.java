@@ -1,8 +1,8 @@
 package ru.devg.dem.inclass;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.ClassWorker;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.binding.ClassWorker;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
@@ -15,22 +15,19 @@ import java.util.List;
 public final class InclassDispatcher<E extends Event>
         implements Handler<E> {
 
-    private final List<TypeFilter<?>> handlers;
-
-    private final boolean broadcastMode;
+    private final List<? extends TypeFilter> handlers;
 
     public InclassDispatcher(Object handler) throws ClassIsUnbindableException {
-        this(handler, new InclassDispatcherConfiguration(false, false));
+        this(handler, new ClassWorkerConfiguration(false));
     }
 
-    public InclassDispatcher(Object handler, InclassDispatcherConfiguration config) throws ClassIsUnbindableException {
+    public InclassDispatcher(Object handler, ClassWorkerConfiguration  config) throws ClassIsUnbindableException {
         handlers = new ClassWorker(handler, config).bindClassElements();
-        broadcastMode = config.broadcast;
     }
 
     public final void handle(E event) {
         for (TypeFilter binder : handlers) {
-            if (binder.handleIfPossible(event) && !broadcastMode) return;
+            if (binder.handleIfPossible(event)) return;
         }
     }
 

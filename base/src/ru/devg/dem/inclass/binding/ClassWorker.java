@@ -1,7 +1,8 @@
-package ru.devg.dem.inclass;
+package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.ClassWorkerConfiguration;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -32,40 +33,33 @@ public final class ClassWorker {
         this.binders.addAll(binders);
     }
 
-    public List<TypeFilter<?>> bindClassElements() throws ClassIsUnbindableException {
-        List<BoundElement> elements = new LinkedList<BoundElement>();
+    public List<? extends TypeFilter> bindClassElements() throws ClassIsUnbindableException {
+        List<FilterWithPriority> elements = new LinkedList<FilterWithPriority>();
 
         Class targetClass = target.getClass();
         while (targetClass != Object.class) {
             for (AbstractBinder binder : binders) {
                 binder.tryBindMembers(elements, targetClass);
-                for(Class oneOfInterfaces : targetClass.getInterfaces()){
+                /*for (Class oneOfInterfaces : targetClass.getInterfaces()) {
+                    todo what about interfaces? still nothing
                     binder.tryBindMembers(elements, oneOfInterfaces);
-                }
+                }*/
             }
             targetClass = targetClass.getSuperclass();
         }
 
         Collections.sort(elements);
         if (strictPrioritization) {
-            BoundElement previousElement = elements.get(0);
+            FilterWithPriority previousElement = elements.get(0);
             for (int i = 1; i < elements.size(); i++) {
-                BoundElement element = elements.get(i);
+                FilterWithPriority element = elements.get(i);
                 if (previousElement.compareTo(element) == 0 && strictPrioritization) {
                     throw new ClassIsUnbindableException("you required strict prioritization, but some " +
                             "methods or fields have same priority. It was: " + element + " and " + previousElement);
                 }
             }
         }
-        return grabResult(elements);
-    }
-
-    private List<TypeFilter<?>> grabResult(List<BoundElement> entries) {
-        List<TypeFilter<?>> grabbed = new LinkedList<TypeFilter<?>>();
-        for (BoundElement entry : entries) {
-            grabbed.add(entry.getFilter());
-        }
-        return grabbed;
+        return elements;
     }
 
 }

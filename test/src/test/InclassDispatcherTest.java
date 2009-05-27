@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
-import ru.devg.dem.inclass.InclassDispatcherConfiguration;
+import ru.devg.dem.inclass.ClassWorkerConfiguration;
 import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.translating.TranslatorStrategy;
@@ -19,6 +19,7 @@ import junit.framework.Assert;
  * @since 0.176
  */
 public class InclassDispatcherTest {
+
     @Test
     public void simpleTest() throws ClassIsUnbindableException {
         WellFormedClass d = new WellFormedClass();
@@ -26,7 +27,7 @@ public class InclassDispatcherTest {
 
         ClassIsUnbindableException exc = null;
         try {
-            new InclassDispatcher<BaseEvent>(d, new InclassDispatcherConfiguration(true,false));
+            new InclassDispatcher<BaseEvent>(d, new ClassWorkerConfiguration(true));
         } catch (ClassIsUnbindableException e) {
             exc = e;
         } finally {
