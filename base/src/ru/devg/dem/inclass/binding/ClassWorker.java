@@ -1,8 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.inclass.ClassWorkerConfiguration;
+import ru.devg.dem.inclass.ClassIsUnbindableException;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,22 +13,19 @@ import java.util.List;
  */
 public final class ClassWorker {
     private final Object target;
-    private final boolean strictPrioritization;
     private final List<AbstractBinder> binders =
             new LinkedList<AbstractBinder>();
 
 
-    public ClassWorker(Object target, ClassWorkerConfiguration config) {
+    public ClassWorker(Object target) {
         this.target = target;
-        strictPrioritization = config.strictPrioritization;
         this.binders.add(new FieldWorker(target));
         this.binders.add(new MethodWorker(target));
     }
 
 
-    public ClassWorker(Object target, ClassWorkerConfiguration config, List<? extends AbstractBinder> binders) {
+    public ClassWorker(Object target, List<? extends AbstractBinder> binders) {
         this.target = target;
-        strictPrioritization = config.strictPrioritization;
         this.binders.addAll(binders);
     }
 
@@ -49,16 +45,6 @@ public final class ClassWorker {
         }
 
         Collections.sort(elements);
-        if (strictPrioritization) {
-            FilterWithPriority previousElement = elements.get(0);
-            for (int i = 1; i < elements.size(); i++) {
-                FilterWithPriority element = elements.get(i);
-                if (previousElement.compareTo(element) == 0 && strictPrioritization) {
-                    throw new ClassIsUnbindableException("you required strict prioritization, but some " +
-                            "methods or fields have same priority. It was: " + element + " and " + previousElement);
-                }
-            }
-        }
         return elements;
     }
 

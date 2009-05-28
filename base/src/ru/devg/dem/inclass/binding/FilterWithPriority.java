@@ -7,7 +7,8 @@ import ru.devg.dem.quanta.Event;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.175
  */
-final class FilterWithPriority implements Comparable<FilterWithPriority>,TypeFilter {
+final class FilterWithPriority
+        implements Comparable<FilterWithPriority>, TypeFilter {
 
     private final TypeFilter filter;
     private final Long priority;

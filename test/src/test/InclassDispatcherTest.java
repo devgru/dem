@@ -3,8 +3,7 @@ package test;
 import org.junit.Test;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.InclassDispatcher;
-import ru.devg.dem.inclass.ClassWorkerConfiguration;
-import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
+import ru.devg.dem.inclass.ClassIsUnbindableException;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.translating.TranslatorStrategy;
 import test.events.BaseEvent;
@@ -27,7 +26,7 @@ public class InclassDispatcherTest {
 
         ClassIsUnbindableException exc = null;
         try {
-            new InclassDispatcher<BaseEvent>(d, new ClassWorkerConfiguration(true));
+            new InclassDispatcher<BaseEvent>(d,true);
         } catch (ClassIsUnbindableException e) {
             exc = e;
         } finally {

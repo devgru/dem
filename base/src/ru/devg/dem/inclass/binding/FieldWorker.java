@@ -1,10 +1,10 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
-import ru.devg.dem.inclass.exceptions.FieldIsUnbindableException;
+import ru.devg.dem.inclass.ClassIsUnbindableException;
 import ru.devg.dem.inclass.Handles;
+import ru.devg.dem.inclass.binding.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.binding.exceptions.FieldIsUnbindableException;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 import ru.devg.dem.stuff.NoopHandler;

@@ -1,9 +1,9 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.TypeFilter;
-import ru.devg.dem.inclass.exceptions.ClassIsUnbindableException;
-import ru.devg.dem.inclass.exceptions.ElementIsUnbindableException;
+import ru.devg.dem.inclass.ClassIsUnbindableException;
 import ru.devg.dem.inclass.Handles;
+import ru.devg.dem.inclass.binding.exceptions.ElementIsUnbindableException;
 import ru.devg.dem.translating.ExternalTranslator;
 import ru.devg.dem.translating.TranslatorStrategy;
 
