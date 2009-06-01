@@ -55,9 +55,9 @@ final class MethodWorker extends AbstractBinder {
             if (argClass.isAssignableFrom(annotation.value())) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
-            halfResult = new MethodInvoker(argClass, method, true);
+            halfResult = new MethodInvoker(argClass, method, argsCount);
         } else {
-            halfResult = new MethodInvoker(annotation.value(), method, false);
+            halfResult = new MethodInvoker(annotation.value(), method, argsCount);
         }
 
         return wrap(annotation, halfResult);
@@ -65,19 +65,19 @@ final class MethodWorker extends AbstractBinder {
 
     private class MethodInvoker extends BoundedHandler {
         private final Method method;
-        private final boolean passEventToMethod;
+        private final int argsCount;
 
         @SuppressWarnings("unchecked")
-        private MethodInvoker(Class<?> bound, Method method, boolean passEventToMethod) {
+        private MethodInvoker(Class<?> bound, Method method, int argsCount) {
             super(bound);
             assert method != null;
             this.method = method;
-            this.passEventToMethod = passEventToMethod;
+            this.argsCount = argsCount;
         }
 
         public void handle(Event event) {
             try {
-                if (passEventToMethod) {
+                if (argsCount == 1) {
                     method.invoke(target, event);
                 } else {
                     method.invoke(target);
