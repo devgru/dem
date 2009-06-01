@@ -36,6 +36,7 @@ public final class InclassDispatcher<E extends Event>
                 throw new ClassIsUnbindableException("you required strict prioritization, but some " +
                         "methods or fields have same priority. It was: " + element + " and " + previousElement);
             }
+            previousElement = element;
         }
     }
 
