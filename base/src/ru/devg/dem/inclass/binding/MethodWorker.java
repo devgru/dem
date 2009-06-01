@@ -23,7 +23,7 @@ final class MethodWorker extends AbstractBinder {
     }
 
     public void tryBindMembers(List<FilterWithPriority> grabbed, Class<?> targetClass) throws ClassIsUnbindableException {
-        for (Method method : targetClass.getMethods()) {
+        for (Method method : targetClass.getDeclaredMethods()) {
             FilterWithPriority filter = tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
@@ -52,7 +52,7 @@ final class MethodWorker extends AbstractBinder {
             //todo here I should implement the event-to-array translation
         } else if (argsCount == 1) {
             Class<?> argClass = types[0];
-            if (argClass != annotation.value()) {
+            if (argClass.isAssignableFrom(annotation.value())) {
                 throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
             }
             halfResult = new MethodInvoker(argClass, method, true);
@@ -83,7 +83,9 @@ final class MethodWorker extends AbstractBinder {
                     method.invoke(target);
                 }
             } catch (IllegalAccessException ignored) {
+                //todo
             } catch (InvocationTargetException ignored) {
+                //todo
             }
         }
 
