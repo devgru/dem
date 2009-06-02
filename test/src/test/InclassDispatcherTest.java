@@ -26,7 +26,7 @@ public class InclassDispatcherTest {
 
         ClassIsUnbindableException exc = null;
         try {
-            new InclassDispatcher<BaseEvent>(d,true);
+            new InclassDispatcher<BaseEvent>(d, true);
         } catch (ClassIsUnbindableException e) {
             exc = e;
         } finally {

@@ -27,12 +27,11 @@ public final class InclassDispatcher<E extends Event>
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void ensureStrictPrioritization() throws ClassIsUnbindableException {
-        Comparable previousElement = (Comparable) handlers.get(0);
+        Object previousElement = handlers.get(0);
         for (int i = 1; i < handlers.size(); i++) {
-            Comparable element = (Comparable) handlers.get(i);
-            if (previousElement.compareTo(element) == 0) {
+            Object element = handlers.get(i);
+            if (element.equals(previousElement)) {
                 throw new ClassIsUnbindableException("you required strict prioritization, but some " +
                         "methods or fields have same priority. It was: " + element + " and " + previousElement);
             }

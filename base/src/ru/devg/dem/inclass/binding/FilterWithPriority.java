@@ -32,17 +32,13 @@ final class FilterWithPriority
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof FilterWithPriority) {
-            FilterWithPriority be = (FilterWithPriority) obj;
-            return filter.equals(be.filter) && priority.equals(be.priority);
-        }
-        return false;
+        return obj instanceof FilterWithPriority &&
+                priority.equals(((FilterWithPriority) obj).priority);
     }
 
     public int hashCode() {
         int result;
         result = filter.hashCode();
-        result = 31 * result + priority.hashCode();
         return result;
     }
 
