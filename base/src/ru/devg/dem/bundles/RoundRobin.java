@@ -6,6 +6,7 @@ import ru.devg.dem.quanta.Handler;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Collection;
 
 /**
  * RoundRobin is a handler structure, that uses round-robin algorythm.
@@ -36,6 +37,14 @@ public final class RoundRobin<E extends Event>
             addHandler(handler);
         }
     }
+
+
+    public RoundRobin(Collection<? extends Handler<E>> handlers) {
+        for (Handler<E> handler : handlers) {
+            addHandler(handler);
+        }
+    }
+
 
     /**
      * This method won't have any effect if broadcaster is

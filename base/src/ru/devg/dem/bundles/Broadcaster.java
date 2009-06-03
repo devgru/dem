@@ -4,6 +4,7 @@ import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
 
 import java.util.LinkedList;
+import java.util.Collection;
 
 /**
  * Broadcaster is a bundle of handlers. On
@@ -20,6 +21,11 @@ public final class Broadcaster<E extends Event>
             new LinkedList<Handler<? super E>>();
 
     public Broadcaster(Handler<? super E>... handlers) {
+        for (Handler<? super E> handler : handlers) {
+            addHandler(handler);
+        }
+    }
+    public Broadcaster(Collection<? extends Handler<? super E>> handlers) {
         for (Handler<? super E> handler : handlers) {
             addHandler(handler);
         }
