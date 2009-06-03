@@ -1,9 +1,10 @@
 package ru.devg.dem.inclass;
 
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.inclass.binding.ClassWorker;
 import ru.devg.dem.quanta.Event;
 import ru.devg.dem.quanta.Handler;
+import ru.devg.dem.bundles.Dispatcher;
 
 import java.util.List;
 
@@ -14,20 +15,21 @@ import java.util.List;
 public final class InclassDispatcher<E extends Event>
         implements Handler<E> {
 
-    private final List<? extends TypeFilter> handlers;
+    private final Dispatcher<Event> handlers;
 
     public InclassDispatcher(Object handler) throws ClassIsUnbindableException {
         this(handler, false);
     }
 
     public InclassDispatcher(Object handler, boolean strictPrioritization) throws ClassIsUnbindableException {
-        handlers = new ClassWorker(handler).bindClassElements();
+        List<? extends Filter<?>> list = new ClassWorker(handler).bindClassElements();
         if (strictPrioritization) {
-            ensureStrictPrioritization();
+            ensureStrictPrioritization(list);
         }
+        handlers = new Dispatcher<Event>(list);
     }
 
-    private void ensureStrictPrioritization() throws ClassIsUnbindableException {
+    private void ensureStrictPrioritization(List<? extends Filter> handlers) throws ClassIsUnbindableException {
         Object previousElement = handlers.get(0);
         for (int i = 1; i < handlers.size(); i++) {
             Object element = handlers.get(i);
@@ -40,10 +42,7 @@ public final class InclassDispatcher<E extends Event>
     }
 
     public final void handle(E event) {
-        for (TypeFilter binder : handlers) {
-            if (binder.handleIfPossible(event)) return;
-        }
+        handlers.handle(event);
     }
-
 
 }

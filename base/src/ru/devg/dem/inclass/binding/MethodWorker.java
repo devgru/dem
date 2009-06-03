@@ -1,7 +1,7 @@
 package ru.devg.dem.inclass.binding;
 
 import ru.devg.dem.bounding.BoundedHandler;
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.inclass.ClassIsUnbindableException;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.binding.exceptions.ElementIsUnbindableException;
@@ -42,7 +42,7 @@ final class MethodWorker extends AbstractBinder {
     }
 
     private FilterWithPriority bindMethod(Method method) throws ElementIsUnbindableException {
-        TypeFilter halfResult;
+        Filter halfResult;
 
         Class<?>[] types = method.getParameterTypes();
         int argsCount = types.length;

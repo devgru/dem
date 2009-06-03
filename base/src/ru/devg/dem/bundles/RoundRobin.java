@@ -38,13 +38,11 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-
     public RoundRobin(Collection<? extends Handler<E>> handlers) {
         for (Handler<E> handler : handlers) {
             addHandler(handler);
         }
     }
-
 
     /**
      * This method won't have any effect if broadcaster is

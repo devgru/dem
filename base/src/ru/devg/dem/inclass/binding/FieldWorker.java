@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.inclass.ClassIsUnbindableException;
 import ru.devg.dem.inclass.Handles;
 import ru.devg.dem.inclass.binding.exceptions.ElementIsUnbindableException;
@@ -42,7 +42,7 @@ final class FieldWorker extends AbstractBinder {
     }
 
     private FilterWithPriority bindField(Field field) throws ElementIsUnbindableException {
-        TypeFilter halfResult;
+        Filter halfResult;
 
         try {
             field.setAccessible(true);
@@ -53,7 +53,7 @@ final class FieldWorker extends AbstractBinder {
         Class<?> type = field.getType();
 
         Handles annotation = field.getAnnotation(Handles.class);
-        if (TypeFilter.class.isAssignableFrom(type)) {
+        if (Filter.class.isAssignableFrom(type)) {
             halfResult = new FilteredFieldHandler(field);
         } else if (Handler.class.isAssignableFrom(type)) {
             halfResult = new FieldHandler(annotation.value(), field);
@@ -64,7 +64,7 @@ final class FieldWorker extends AbstractBinder {
         return wrap(annotation, halfResult);
     }
 
-    private abstract class AbstractFieldHandler implements TypeFilter {
+    private abstract class AbstractFieldHandler implements Filter {
         final Field field;
 
         private AbstractFieldHandler(Field field) {
@@ -114,7 +114,7 @@ final class FieldWorker extends AbstractBinder {
         }
 
         public boolean handleIfPossible(Event event) {
-            TypeFilter filter = (TypeFilter) getHandler();
+            Filter filter = (Filter) getHandler();
             return filter.handleIfPossible(event);
         }
 

@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.quanta.Event;
 
 /**
@@ -8,12 +8,12 @@ import ru.devg.dem.quanta.Event;
  * @since 0.175
  */
 final class FilterWithPriority
-        implements Comparable<FilterWithPriority>, TypeFilter {
+        implements Comparable<FilterWithPriority>, Filter<Event> {
 
-    private final TypeFilter filter;
+    private final Filter filter;
     private final Long priority;
 
-    public FilterWithPriority(TypeFilter filter, long priority) {
+    public FilterWithPriority(Filter filter, long priority) {
         this.filter = filter;
         this.priority = priority;
     }

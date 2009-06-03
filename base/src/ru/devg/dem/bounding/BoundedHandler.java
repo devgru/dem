@@ -14,7 +14,7 @@ import ru.devg.dem.quanta.Handler;
  * @since 0.15
  */
 public abstract class BoundedHandler<E extends Event>
-        implements TypeFilter<E> {
+        implements Filter<E> {
 
     private final Class<E> bound;
 

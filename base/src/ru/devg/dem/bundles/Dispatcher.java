@@ -1,6 +1,6 @@
 package ru.devg.dem.bundles;
 
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.quanta.Event;
 
 import java.util.LinkedList;
@@ -15,43 +15,37 @@ import java.util.Collection;
  * @since 0.16
  */
 public final class Dispatcher<E extends Event>
-        implements HandlingBundle<E, TypeFilter<? extends E>> {
+        implements HandlingBundle<E, Filter<? extends E>> {
 
-    public Dispatcher(TypeFilter<? extends E>... handlers) {
-        for (TypeFilter<? extends E> handler : handlers) {
+    private final List<Filter<? extends E>> handlers =
+            new LinkedList<Filter<? extends E>>();
+
+    public Dispatcher(Filter<? extends E>... handlers) {
+        for (Filter<? extends E> handler : handlers) {
             addHandler(handler);
         }
     }
 
-    public Dispatcher(Collection<? extends TypeFilter<? extends E>> handlers) {
-        for (TypeFilter<? extends E> handler : handlers) {
+    public Dispatcher(Collection<? extends Filter<? extends E>> handlers) {
+        for (Filter<? extends E> handler : handlers) {
             addHandler(handler);
         }
     }
-
-    // fields
-
-    private final List<TypeFilter<? extends E>> handlers =
-            new LinkedList<TypeFilter<? extends E>>();
-
-    //vv
 
     public void handle(E event) {
-        for (TypeFilter<?> binder : handlers) {
-            if (binder.handleIfPossible(event)) return;
+        for (Filter<?> handler : handlers) {
+            if (handler.handleIfPossible(event)) return;
         }
     }
 
-    //adding
-
-    public void addHandler(TypeFilter<? extends E> newOne) {
-        assert newOne != null;
-        handlers.add(newOne);
+    public void addHandler(Filter<? extends E> handler) {
+        assert handler != null;
+        handlers.add(handler);
     }
 
 
-    public void removeHandler(TypeFilter<? extends E> newOne) {
-        handlers.remove(newOne);
+    public void removeHandler(Filter<? extends E> handler) {
+        handlers.remove(handler);
     }
 
 }

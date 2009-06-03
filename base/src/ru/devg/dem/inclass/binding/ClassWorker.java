@@ -1,6 +1,6 @@
 package ru.devg.dem.inclass.binding;
 
-import ru.devg.dem.bounding.TypeFilter;
+import ru.devg.dem.bounding.Filter;
 import ru.devg.dem.inclass.ClassIsUnbindableException;
 
 import java.util.Collections;
@@ -29,7 +29,7 @@ public final class ClassWorker {
         this.binders.addAll(binders);
     }
 
-    public List<? extends TypeFilter> bindClassElements() throws ClassIsUnbindableException {
+    public List<? extends Filter<?>> bindClassElements() throws ClassIsUnbindableException {
         List<FilterWithPriority> elements = new LinkedList<FilterWithPriority>();
 
         Class targetClass = target.getClass();
