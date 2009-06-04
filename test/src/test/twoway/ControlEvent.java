@@ -1,6 +1,6 @@
 package test.twoway;
 
-import ru.devg.dem.quanta.Event;
+import dem.quanta.Event;
 
 /**
  * @author Devgru devgru@mail.ru

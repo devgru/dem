@@ -1,6 +1,6 @@
 package test.handlers;
 
-import ru.devg.dem.quanta.Handler;
+import dem.quanta.Handler;
 import test.events.CollectedEvent;
 
 /**

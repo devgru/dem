@@ -1,6 +1,6 @@
 package test.events;
 
-import ru.devg.dem.quanta.Event;
+import dem.quanta.Event;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

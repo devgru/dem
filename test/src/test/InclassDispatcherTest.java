@@ -1,11 +1,11 @@
 package test;
 
 import org.junit.Test;
-import ru.devg.dem.inclass.Handles;
-import ru.devg.dem.inclass.InclassDispatcher;
-import ru.devg.dem.inclass.ClassIsUnbindableException;
-import ru.devg.dem.quanta.Handler;
-import ru.devg.dem.translating.TranslatorStrategy;
+import dem.inclass.Handles;
+import dem.inclass.InclassDispatcher;
+import dem.inclass.ClassIsUnbindableException;
+import dem.quanta.Handler;
+import dem.translating.TranslatorStrategy;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.handlers.BaseHandler;

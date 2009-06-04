@@ -1,7 +1,7 @@
 package test.twoway;
 
 import org.junit.Assert;
-import ru.devg.dem.processing.BiConnector;
+import dem.processing.BiConnector;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

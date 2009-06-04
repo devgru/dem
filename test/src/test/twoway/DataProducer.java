@@ -1,6 +1,6 @@
 package test.twoway;
 
-import ru.devg.dem.processing.BiConnector;
+import dem.processing.BiConnector;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
