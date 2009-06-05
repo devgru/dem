@@ -1,9 +1,9 @@
 package test.twoway;
 
 import org.junit.Test;
-import ru.devg.dem.processing.BiConnector;
-import ru.devg.dem.processing.external.BiProcessorStrategy;
-import ru.devg.dem.processing.external.ExternalBiProcessor;
+import dem.processing.BiConnector;
+import dem.processing.external.BiProcessorStrategy;
+import dem.processing.external.ExternalBiProcessor;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

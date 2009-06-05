@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
-import ru.devg.dem.bounding.BoundedHandler;
-import ru.devg.dem.quanta.Event;
-import ru.devg.dem.quanta.Handler;
+import dem.bounding.BoundedHandler;
+import dem.quanta.Event;
+import dem.quanta.Handler;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
 package test.handlers;
 
-import ru.devg.dem.translating.Translator;
+import dem.translating.Translator;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
 
