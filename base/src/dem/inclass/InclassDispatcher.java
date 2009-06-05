@@ -30,7 +30,7 @@ public final class InclassDispatcher<E extends Event>
     }
 
 
-    private void ensureStrictPrioritization(List<? extends Filter> handlers) throws ClassIsUnbindableException {
+    private static void ensureStrictPrioritization(List<? extends Filter> handlers) throws ClassIsUnbindableException {
         Object previousElement = handlers.get(0);
         for (int i = 1; i < handlers.size(); i++) {
             Object element = handlers.get(i);
