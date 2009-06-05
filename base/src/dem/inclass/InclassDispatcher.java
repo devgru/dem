@@ -2,10 +2,9 @@ package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
-import dem.inclass.binding.AbstractBinder;
 import dem.inclass.binding.ClassWorker;
 import dem.quanta.Event;
-import dem.quanta.Handler;
+import dem.processing.MutableBypasser;
 
 import java.util.List;
 
@@ -14,9 +13,7 @@ import java.util.List;
  * @since 0.17
  */
 public final class InclassDispatcher<E extends Event>
-        implements Handler<E> {
-
-    private final Dispatcher<Event> handlers;
+        extends MutableBypasser<E> {
 
     public InclassDispatcher(Object target) throws ClassIsUnbindableException {
         this(target, false);
@@ -25,21 +22,11 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization) throws ClassIsUnbindableException {
         List<? extends Filter<?>> list =
                 new ClassWorker(target).bindClassElements();
+
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
-        handlers = new Dispatcher<Event>(list);
-    }
-
-    public InclassDispatcher(Object target, boolean strictPrioritization, List<? extends AbstractBinder> binders)
-            throws ClassIsUnbindableException { //todo remove AB dependency
-
-        List<? extends Filter<?>> list =
-                new ClassWorker(target, binders).bindClassElements();
-        if (strictPrioritization) {
-            ensureStrictPrioritization(list);
-        }
-        handlers = new Dispatcher<Event>(list);
+        setHandler(new Dispatcher<Event>(list));
     }
 
 
@@ -53,10 +40,6 @@ public final class InclassDispatcher<E extends Event>
             }
             previousElement = element;
         }
-    }
-
-    public final void handle(E event) {
-        handlers.handle(event);
     }
 
 }

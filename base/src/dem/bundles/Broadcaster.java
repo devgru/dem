@@ -3,8 +3,8 @@ package dem.bundles;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 
-import java.util.LinkedList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Broadcaster is a bundle of handlers. On
@@ -25,6 +25,7 @@ public final class Broadcaster<E extends Event>
             addHandler(handler);
         }
     }
+
     public Broadcaster(Collection<? extends Handler<? super E>> handlers) {
         for (Handler<? super E> handler : handlers) {
             addHandler(handler);

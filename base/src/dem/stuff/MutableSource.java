@@ -18,11 +18,11 @@ public class MutableSource<E extends Event> extends Source<E> {
         super(new MutableHandler<E>(target));
     }
 
-    public void setHandler(Handler<? super E> handler) {
+    public final void setHandler(Handler<? super E> handler) {
         ((MutableHandler<E>) target).setHandler(handler);
     }
 
-    public Handler<? super E> getHandler() {
+    public final Handler<? super E> getHandler() {
         return ((MutableHandler<E>) target).getHandler();
     }
 

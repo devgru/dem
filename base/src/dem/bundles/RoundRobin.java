@@ -3,10 +3,10 @@ package dem.bundles;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Collection;
 
 /**
  * RoundRobin is a handler structure, that uses round-robin algorythm.

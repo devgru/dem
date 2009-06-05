@@ -3,9 +3,9 @@ package dem.bundles;
 import dem.bounding.Filter;
 import dem.quanta.Event;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Collection;
 
 /**
  * Dispatcher is a handler bundle that passes
