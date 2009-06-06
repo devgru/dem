@@ -4,7 +4,7 @@ import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
 import dem.inclass.binding.ClassWorker;
 import dem.quanta.Event;
-import dem.processing.MutableBypasser;
+import dem.stuff.LateInitSource;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @since 0.17
  */
 public final class InclassDispatcher<E extends Event>
-        extends MutableBypasser<E> {
+        extends LateInitSource<E> {
 
     public InclassDispatcher(Object target) throws ClassIsUnbindableException {
         this(target, false);
