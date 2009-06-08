@@ -6,12 +6,12 @@ import dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
- * @version 0.183
+ * @since 0.183
  */
-public class LateInitSource<E extends Event>
+public class DelayedInitializationSource<E extends Event>
         extends Source<E> {
 
-    public LateInitSource() {
+    public DelayedInitializationSource() {
         super(new MutableHandler<E>());
     }
 
@@ -20,7 +20,7 @@ public class LateInitSource<E extends Event>
         if (mutableHandler.getHandler() == null) {
             mutableHandler.setHandler(handler);
         } else {
-            throw new RuntimeException("This source is already initiated");
+            throw new RuntimeException("This source is already initialized");
         }
     }
 }

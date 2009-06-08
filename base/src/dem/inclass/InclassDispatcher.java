@@ -4,7 +4,7 @@ import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
 import dem.inclass.binding.ClassWorker;
 import dem.quanta.Event;
-import dem.stuff.LateInitSource;
+import dem.stuff.DelayedInitializationSource;
 
 import java.util.List;
 
@@ -13,13 +13,17 @@ import java.util.List;
  * @since 0.17
  */
 public final class InclassDispatcher<E extends Event>
-        extends LateInitSource<E> {
+        extends DelayedInitializationSource<E> {
 
-    public InclassDispatcher(Object target) throws ClassIsUnbindableException {
+    public InclassDispatcher(Object target)
+            throws ClassIsUnbindableException {
+
         this(target, false);
     }
 
-    public InclassDispatcher(Object target, boolean strictPrioritization) throws ClassIsUnbindableException {
+    public InclassDispatcher(Object target, boolean strictPrioritization)
+            throws ClassIsUnbindableException {
+
         List<? extends Filter<?>> list =
                 new ClassWorker(target).bindClassElements();
 
@@ -29,8 +33,9 @@ public final class InclassDispatcher<E extends Event>
         setHandler(new Dispatcher<Event>(list));
     }
 
+    private static void ensureStrictPrioritization(List<? extends Filter> handlers)
+            throws ClassIsUnbindableException {
 
-    private static void ensureStrictPrioritization(List<? extends Filter> handlers) throws ClassIsUnbindableException {
         Object previousElement = handlers.get(0);
         for (int i = 1; i < handlers.size(); i++) {
             Object element = handlers.get(i);

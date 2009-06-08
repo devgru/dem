@@ -13,21 +13,28 @@ import java.util.List;
  */
 public final class ClassWorker {
 
-    private final Object target;
+    private static final List<? extends AbstractBinder> defaultBinders;
 
-    private final List<AbstractBinder> binders =
-            new LinkedList<AbstractBinder>();
+    static {
+        List<AbstractBinder> binders =
+                new LinkedList<AbstractBinder>();
+        binders.add(new FieldWorker());
+        binders.add(new MethodWorker());
 
-    public ClassWorker(Object target) {
-        this.target = target;
-        this.binders.add(new FieldWorker());
-        this.binders.add(new MethodWorker());
+        defaultBinders = binders;
     }
 
+    private final Object target;
+
+    private final List<? extends AbstractBinder> binders;
+
+    public ClassWorker(Object target) {
+        this(target, defaultBinders);
+    }
 
     public ClassWorker(Object target, List<? extends AbstractBinder> binders) {
         this.target = target;
-        this.binders.addAll(binders);
+        this.binders = binders;
     }
 
     public List<? extends Filter<?>> bindClassElements() throws ClassIsUnbindableException {
