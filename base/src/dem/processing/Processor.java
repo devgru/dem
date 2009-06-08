@@ -15,7 +15,7 @@ public abstract class Processor<E extends Event>
         super(target);
     }
 
-    public void handle(E event){
+    public void handle(E event) {
         fire(event);
     }
 }

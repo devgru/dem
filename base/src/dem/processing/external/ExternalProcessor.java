@@ -12,7 +12,7 @@ public final class ExternalProcessor<E extends Event> extends Processor<E> {
 
     private final ProcessorStrategy<E> ps;
 
-    protected ExternalProcessor(Handler<? super E> target, ProcessorStrategy<E> ps) {
+    public ExternalProcessor(Handler<? super E> target, ProcessorStrategy<E> ps) {
         super(target);
         this.ps = ps;
     }

@@ -1,6 +1,8 @@
 package dem.processing;
 
 import dem.quanta.Event;
+import dem.processing.external.ExternalProcessor;
+import dem.processing.external.ProcessorStrategy;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -11,22 +13,26 @@ public abstract class BiProcessor<LEFT extends Event, RIGHT extends Event> {
     public BiProcessor(final BiConnector<RIGHT, LEFT> left,
                        final BiConnector<LEFT, RIGHT> right) {
 
-        BiConnector.bind(right, new BiConnector<RIGHT, LEFT>() {
-            public void handle(LEFT event) {
-                if (fireLeft(event)) left.handle(event);
+        right.setHandler(new ExternalProcessor<LEFT>(left,new ProcessorStrategy<LEFT>() {
+            public boolean process(LEFT event) {
+                return fireLeft(event);
             }
-        });
+        }));
 
-        BiConnector.bind(left, new BiConnector<LEFT, RIGHT>() {
-            public void handle(RIGHT event) {
-                if (fireRight(event)) right.handle(event);
+        left.setHandler(new ExternalProcessor<RIGHT>(right,new ProcessorStrategy<RIGHT>() {
+            public boolean process(RIGHT event) {
+                return fireRight(event);
             }
-        });
+        }));
 
     }
 
-    protected abstract boolean fireLeft(LEFT event);
+    protected boolean fireLeft(LEFT event) {
+        return true;
+    }
 
-    protected abstract boolean fireRight(RIGHT event);
+    protected boolean fireRight(RIGHT event) {
+        return true;
+    }
 
 }

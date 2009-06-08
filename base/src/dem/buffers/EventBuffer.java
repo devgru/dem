@@ -50,7 +50,7 @@ public final class EventBuffer<E extends Event>
      * Also, it calls {@link EventBuffer#reset()}, so it
      * isn't applicable for broadcasting to multiple handlers.
      * If you want to broadcast events, use any
-     * {@link dem.bundles handler from multi}.
+     * {@link dem.bundles handler bundle}.
      *
      * @see dem.bundles.Broadcaster
      * @see dem.bundles.Dispatcher

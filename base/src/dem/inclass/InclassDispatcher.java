@@ -4,6 +4,7 @@ import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
 import dem.inclass.binding.ClassWorker;
 import dem.quanta.Event;
+import dem.quanta.Handler;
 import dem.stuff.DelayedInitializationSource;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 0.17
  */
 public final class InclassDispatcher<E extends Event>
-        extends DelayedInitializationSource<E> {
+        extends DelayedInitializationSource<E> implements Handler<E> {
 
     public InclassDispatcher(Object target)
             throws ClassIsUnbindableException {
@@ -47,4 +48,7 @@ public final class InclassDispatcher<E extends Event>
         }
     }
 
+    public void handle(E event) {
+        fire(event);
+    }
 }
