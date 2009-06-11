@@ -7,10 +7,10 @@ import dem.quanta.Handler;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.182
  */
-public abstract class BiProcessor<LEFT extends Event, RIGHT extends Event> {
+public abstract class BiProcessor<L extends Event, R extends Event> {
 
-    public BiProcessor(final BiConnector<RIGHT, LEFT> left,
-                       final BiConnector<LEFT, RIGHT> right) {
+    public BiProcessor(final BiConnector<R, L> left,
+                       final BiConnector<L, R> right) {
 
         LeftProcessor leftProcessor = new LeftProcessor(left);
         RightProcessor rightProcessor = new RightProcessor(right);
@@ -23,16 +23,16 @@ public abstract class BiProcessor<LEFT extends Event, RIGHT extends Event> {
 
     }
 
-    protected boolean fireLeft(LEFT event) {
+    protected boolean fireLeft(L event) {
         return true;
     }
 
-    protected boolean fireRight(RIGHT event) {
+    protected boolean fireRight(R event) {
         return true;
     }
 
-    private abstract static class CommonProcessor<X extends Event>
-            extends Processor<X> {
+    private abstract static class CommonProcessor<E extends Event>
+            extends Processor<E> {
 
         private CommonProcessor<?> pair = null;
         protected boolean alive = true;
@@ -43,34 +43,38 @@ public abstract class BiProcessor<LEFT extends Event, RIGHT extends Event> {
 
         private void die() {
             alive = false;
+            pair = null;
         }
 
-        protected CommonProcessor(Handler<? super X> target) {
+        protected CommonProcessor(Handler<? super E> target) {
             super(target);
         }
 
         protected void finalize() throws Throwable {
             super.finalize();
-            pair.die();
+            if (pair != null) {
+                pair.die();
+                pair = null;
+            }
         }
     }
 
-    private class LeftProcessor extends CommonProcessor<LEFT> {
-        public LeftProcessor(BiConnector<RIGHT, LEFT> left) {
+    private class LeftProcessor extends CommonProcessor<L> {
+        public LeftProcessor(BiConnector<R, L> left) {
             super(left);
         }
 
-        public void handle(LEFT event) {
+        public void handle(L event) {
             if (alive && fireLeft(event)) fire(event);
         }
     }
 
-    private class RightProcessor extends CommonProcessor<RIGHT> {
-        public RightProcessor(BiConnector<LEFT, RIGHT> right) {
+    private class RightProcessor extends CommonProcessor<R> {
+        public RightProcessor(BiConnector<L, R> right) {
             super(right);
         }
 
-        public void handle(RIGHT event) {
+        public void handle(R event) {
             if (alive && fireRight(event)) fire(event);
         }
     }
