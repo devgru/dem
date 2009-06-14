@@ -2,12 +2,13 @@ package dem.processing;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.182
  */
-public abstract class BiProcessor<L extends Event, R extends Event> {
+public class BiProcessor<L extends Event, R extends Event> {
 
     public BiProcessor(final BiConnector<R, L> left,
                        final BiConnector<L, R> right) {
@@ -32,7 +33,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     }
 
     private abstract static class CommonProcessor<E extends Event>
-            extends Processor<E> {
+            extends Source<E> implements Handler<E> {
 
         private CommonProcessor<?> pair = null;
         protected boolean alive = true;
