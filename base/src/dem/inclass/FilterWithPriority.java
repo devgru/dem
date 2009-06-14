@@ -1,4 +1,4 @@
-package dem.inclass.binding;
+package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;

@@ -1,9 +1,9 @@
-package dem.inclass.binding;
+package dem.inclass;
 
 import dem.bounding.Filter;
-import dem.inclass.ClassIsUnbindableException;
+import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.inclass.Handles;
-import dem.inclass.binding.exceptions.ElementIsUnbindableException;
+import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.translating.ExternalTranslator;
 import dem.translating.TranslatorStrategy;
 

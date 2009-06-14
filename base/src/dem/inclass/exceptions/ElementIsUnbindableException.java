@@ -1,4 +1,4 @@
-package dem.inclass.binding.exceptions;
+package dem.inclass.exceptions;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

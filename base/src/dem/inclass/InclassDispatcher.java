@@ -2,7 +2,7 @@ package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
-import dem.inclass.binding.ClassWorker;
+import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.stuff.DelayedInitializationSource;
@@ -18,7 +18,6 @@ public final class InclassDispatcher<E extends Event>
 
     public InclassDispatcher(Object target)
             throws ClassIsUnbindableException {
-
         this(target, false);
     }
 
@@ -27,6 +26,24 @@ public final class InclassDispatcher<E extends Event>
 
         List<? extends Filter<?>> list =
                 new ClassWorker(target).bindClassElements();
+
+        if (strictPrioritization) {
+            ensureStrictPrioritization(list);
+        }
+        setHandler(new Dispatcher<Event>(list));
+    }
+
+    public InclassDispatcher(Object target, List<? extends AbstractBinder> binders)
+            throws ClassIsUnbindableException {
+
+        this(target, false, binders);
+    }
+
+    public InclassDispatcher(Object target, boolean strictPrioritization, List<? extends AbstractBinder> binders)
+            throws ClassIsUnbindableException {
+
+        List<? extends Filter<?>> list =
+                new ClassWorker(target, binders).bindClassElements();
 
         if (strictPrioritization) {
             ensureStrictPrioritization(list);

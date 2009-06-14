@@ -1,7 +1,7 @@
-package dem.inclass.binding;
+package dem.inclass;
 
 import dem.bounding.Filter;
-import dem.inclass.ClassIsUnbindableException;
+import dem.inclass.exceptions.ClassIsUnbindableException;
 
 import java.util.Collections;
 import java.util.LinkedList;
