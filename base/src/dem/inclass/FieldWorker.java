@@ -77,9 +77,12 @@ final class FieldWorker extends AbstractBinder {
             Handler getHandler() {
                 try {
                     Object rawHandler = field.get(target);
+                    if(rawHandler == null){
+                        return new NoopHandler();
+                    }
                     return (Handler) rawHandler;
-                } catch (IllegalAccessException ignored) {
-                    return new NoopHandler();
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
             }
 

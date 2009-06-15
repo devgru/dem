@@ -16,8 +16,7 @@ public class BiProcessor<L extends Event, R extends Event> {
         LeftProcessor leftProcessor = new LeftProcessor(left);
         RightProcessor rightProcessor = new RightProcessor(right);
 
-        leftProcessor.setPair(rightProcessor);
-        rightProcessor.setPair(leftProcessor);
+        CommonProcessor.bind(leftProcessor, rightProcessor);
 
         left.setHandler(rightProcessor);
         right.setHandler(leftProcessor);
@@ -38,8 +37,9 @@ public class BiProcessor<L extends Event, R extends Event> {
         private CommonProcessor<?> pair = null;
         protected boolean alive = true;
 
-        public void setPair(CommonProcessor<?> pair) {
-            this.pair = pair;
+        public static void bind(CommonProcessor<?> pair1,CommonProcessor<?> pair2) {
+            pair1.pair = pair2;
+            pair2.pair = pair1;
         }
 
         private void die() {
