@@ -13,4 +13,9 @@ public abstract class Executer<CO extends Context, C extends Command<CO>>
     }
 
     public abstract CO getContext();
+
+    @Override
+    public String toString() {
+        return "Executer (context is " + getContext() + ")";
+    }
 }
