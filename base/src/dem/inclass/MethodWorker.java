@@ -94,7 +94,7 @@ final class MethodWorker extends AbstractBinder {
 
             @Override
             public String toString() {
-                return "method " + method.getName();
+                return "Method handler (method is " + method.getName() + ")";
             }
         }
 

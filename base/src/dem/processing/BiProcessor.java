@@ -8,7 +8,7 @@ import dem.quanta.Source;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.182
  */
-public class BiProcessor<L extends Event, R extends Event> {
+public abstract class BiProcessor<L extends Event, R extends Event> {
 
     public BiProcessor(final BiConnector<R, L> left,
                        final BiConnector<L, R> right) {
@@ -18,8 +18,8 @@ public class BiProcessor<L extends Event, R extends Event> {
 
         CommonProcessor.bind(leftProcessor, rightProcessor);
 
-        left.setHandler(rightProcessor);
-        right.setHandler(leftProcessor);
+        left.setTarget(rightProcessor);
+        right.setTarget(leftProcessor);
 
     }
 
@@ -37,7 +37,7 @@ public class BiProcessor<L extends Event, R extends Event> {
         private CommonProcessor<?> pair = null;
         protected boolean alive = true;
 
-        public static void bind(CommonProcessor<?> pair1,CommonProcessor<?> pair2) {
+        public static void bind(CommonProcessor<?> pair1, CommonProcessor<?> pair2) {
             pair1.pair = pair2;
             pair2.pair = pair1;
         }
@@ -79,4 +79,5 @@ public class BiProcessor<L extends Event, R extends Event> {
             if (alive && fireRight(event)) fire(event);
         }
     }
+
 }

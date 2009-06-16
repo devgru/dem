@@ -19,13 +19,9 @@ public final class EventBuffer<E extends Event>
 
     private boolean locked = false;
 
-    //Constructors
-
     public EventBuffer(Handler<? super E> target) {
         super(target);
     }
-
-    //Locking
 
     public final boolean lock() {
         boolean wasFree = !locked;
@@ -41,8 +37,6 @@ public final class EventBuffer<E extends Event>
         events.clear();
         locked = false;
     }
-
-    //Specific methods
 
     /**
      * Fires all collected events to {@link dem.quanta.Handler target}
@@ -63,8 +57,6 @@ public final class EventBuffer<E extends Event>
         reset();
     }
 
-    //Handling
-
     public final void handle(E event) {
         if (!locked) {
             assert event != null;
@@ -72,10 +64,13 @@ public final class EventBuffer<E extends Event>
         }
     }
 
-    //Collection functionality
-
     public final void export(Collection<? super E> target) {
         target.addAll(events);
+    }
+
+    @Override
+    public String toString() {
+        return "Event buffer (events: " + events + "; target is " + target + ")";
     }
 
 }

@@ -27,4 +27,9 @@ public final class EventCollectionHandler<E extends Event>
         }
     }
 
+    @Override
+    public String toString() {
+        return "Event-collection handler (target is " + target + ")";
+    }
+
 }

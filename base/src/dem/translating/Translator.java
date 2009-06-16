@@ -21,4 +21,10 @@ public abstract class Translator<TO extends Event, FROM extends Event>
     public final void handle(FROM event) {
         target.handle(translate(event));
     }
+
+    @Override
+    public String toString() {
+        return "Event translator (target is " + target + "; bound is " + getBoundClass() + ")";
+    }
+
 }

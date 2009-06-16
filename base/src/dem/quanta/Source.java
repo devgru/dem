@@ -16,4 +16,10 @@ public abstract class Source<E extends Event> {
         assert event != null;
         target.handle(event);
     }
+
+    @Override
+    public String toString() {
+        return "Source (target is " + target + ")";
+    }
+
 }

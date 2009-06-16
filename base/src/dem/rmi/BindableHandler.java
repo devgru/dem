@@ -27,4 +27,9 @@ public final class BindableHandler<E extends RemoteEvent>
             throw new RemoteException("Handling failed", e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Bindable handler (target is " + target + ")";
+    }
 }

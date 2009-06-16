@@ -96,4 +96,10 @@ public final class RoundRobin<E extends Event>
         if (handlersToRemove.contains(h)) return;
         handlersToRemove.add(h);
     }
+
+    @Override
+    public String toString() {
+        return "Round-robin dispatcher (targets: " + handlers + ")";
+    }
+
 }

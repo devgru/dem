@@ -17,4 +17,10 @@ public final class NoopTranslator<TO extends Event, FROM extends TO>
     public TO translate(FROM event) {
         return event;
     }
+
+    @Override
+    public String toString() {
+        return "No-operation " + super.toString();
+    }
+
 }

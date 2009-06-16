@@ -16,6 +16,8 @@ import java.util.List;
 public final class InclassDispatcher<E extends Event>
         extends DelayedInitializationSource<E> implements Handler<E> {
 
+    private final Object object;
+
     public InclassDispatcher(Object target)
             throws ClassIsUnbindableException {
         this(target, false);
@@ -24,13 +26,15 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization)
             throws ClassIsUnbindableException {
 
+        object = target;
+
         List<? extends Filter<?>> list =
                 new ClassWorker(target).bindClassElements();
 
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
-        setHandler(new Dispatcher<Event>(list));
+        setTarget(new Dispatcher<Event>(list));
     }
 
     public InclassDispatcher(Object target, List<? extends AbstractBinder> binders)
@@ -42,13 +46,15 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization, List<? extends AbstractBinder> binders)
             throws ClassIsUnbindableException {
 
+        object = target;
+
         List<? extends Filter<?>> list =
                 new ClassWorker(target, binders).bindClassElements();
 
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
-        setHandler(new Dispatcher<Event>(list));
+        setTarget(new Dispatcher<Event>(list));
     }
 
     private static void ensureStrictPrioritization(List<? extends Filter> handlers)
@@ -68,4 +74,10 @@ public final class InclassDispatcher<E extends Event>
     public void handle(E event) {
         fire(event);
     }
+
+    @Override
+    public String toString() {
+        return "In-class dispatcher(target is " + object + "; handlers are contained in " + target + ")";
+    }
+
 }

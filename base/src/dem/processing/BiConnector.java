@@ -18,9 +18,9 @@ public abstract class BiConnector<SENDS extends Event, HANDLES extends Event>
         super(target);
     }
 
-    public static <A extends Event, B extends Event>
-    void bind(BiConnector<A, B> a, BiConnector<B, A> b) {
-        a.setHandler(b);
-        b.setHandler(a);
+    @Override
+    public String toString() {
+        return "Bi-connector (target is " + super.toString() + ")";
     }
+
 }

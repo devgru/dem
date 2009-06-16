@@ -21,4 +21,9 @@ public final class ExternalTranslator<TO extends Event, FROM extends Event>
     public TO translate(FROM event) {
         return strategy.translate(event);
     }
+
+    @Override
+    public String toString() {
+        return "External " + super.toString();
+    }
 }

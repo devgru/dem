@@ -28,4 +28,10 @@ public final class ExternalBiProcessor<LEFT extends Event, RIGHT extends Event>
     protected boolean fireRight(RIGHT event) {
         return strategy.processRight(event);
     }
+
+    @Override
+    public String toString() {
+        return "External bi-processor (strategy is " + strategy + ")";
+    }
+
 }

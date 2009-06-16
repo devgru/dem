@@ -15,12 +15,18 @@ public class DelayedInitializationSource<E extends Event>
         super(new MutableHandler<E>());
     }
 
-    protected void setHandler(Handler<? super E> handler) {
+    protected void setTarget(Handler<? super E> handler) {
         MutableHandler<E> mutableHandler = (MutableHandler<E>) this.target;
-        if (mutableHandler.getHandler() == null) {
-            mutableHandler.setHandler(handler);
+        if (mutableHandler.getTarget() == null) {
+            mutableHandler.setTarget(handler);
         } else {
             throw new RuntimeException("This source is already initialized");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Delayed-initialization " + super.toString();
+    }
+
 }

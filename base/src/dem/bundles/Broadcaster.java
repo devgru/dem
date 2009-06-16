@@ -47,4 +47,10 @@ public final class Broadcaster<E extends Event>
     public void removeHandler(Handler<? super E> handler) {
         handlers.remove(handler);
     }
+
+    @Override
+    public String toString() {
+        return "Broadcaster (targets: " + handlers + ")";
+    }
+
 }

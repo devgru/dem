@@ -49,4 +49,9 @@ public final class Dispatcher<E extends Event>
         handlers.remove(handler);
     }
 
+    @Override
+    public String toString() {
+        return "Dispatcher (targets: " + handlers + ")";
+    }
+
 }

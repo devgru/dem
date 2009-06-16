@@ -1,11 +1,11 @@
 package dem.inclass;
 
+import dem.bounding.Filter;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.inclass.exceptions.FieldIsUnbindableException;
-import dem.bounding.Filter;
-import dem.quanta.Handler;
 import dem.quanta.Event;
+import dem.quanta.Handler;
 import dem.stuff.NoopHandler;
 
 import java.lang.reflect.Field;
@@ -77,7 +77,7 @@ final class FieldWorker extends AbstractBinder {
             Handler getHandler() {
                 try {
                     Object rawHandler = field.get(target);
-                    if(rawHandler == null){
+                    if (rawHandler == null) {
                         return new NoopHandler();
                     }
                     return (Handler) rawHandler;
@@ -93,7 +93,7 @@ final class FieldWorker extends AbstractBinder {
 
             @Override
             public String toString() {
-                return "field " + field.getName();
+                return "Field handler (field is " + field + ")";
             }
         }
 

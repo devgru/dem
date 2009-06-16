@@ -9,7 +9,7 @@ import dem.quanta.Source;
  * @since 0.179
  */
 public final class ExceptionCatcher<E extends Event>
-        extends Source<E> implements Handler<E>{
+        extends Source<E> implements Handler<E> {
 
     private final Handler<ExceptionEvent> hole;
 
@@ -30,6 +30,11 @@ public final class ExceptionCatcher<E extends Event>
                 hole.handle(new ExceptionEvent(e));
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Exception catcher (target is " + target + "; exception hole is" + hole + ")";
     }
 
 }
