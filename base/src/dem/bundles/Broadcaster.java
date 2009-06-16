@@ -33,6 +33,7 @@ public final class Broadcaster<E extends Event>
     }
 
     public void handle(E event) {
+        assert event != null;
         for (Handler<? super E> handler : handlers) {
             handler.handle(event);
         }

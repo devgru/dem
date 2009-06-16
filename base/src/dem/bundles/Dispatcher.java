@@ -33,6 +33,7 @@ public final class Dispatcher<E extends Event>
     }
 
     public void handle(E event) {
+        assert event != null;
         for (Filter<?> handler : handlers) {
             if (handler.handleIfPossible(event)) return;
         }
