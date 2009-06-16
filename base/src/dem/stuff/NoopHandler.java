@@ -12,4 +12,9 @@ public final class NoopHandler<E extends Event>
 
     public void handle(E event) {
     }
+
+    @Override
+    public String toString() {
+        return "No-operation handler";
+    }
 }

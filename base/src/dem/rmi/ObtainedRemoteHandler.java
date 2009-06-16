@@ -9,7 +9,8 @@ import java.rmi.RemoteException;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.179
  */
-public final class ObtainedRemoteHandler<E extends RemoteEvent> implements Handler<E> {
+public final class ObtainedRemoteHandler<E extends RemoteEvent>
+        implements Handler<E> {
 
     private final RemoteHandler<E> rh;
 
@@ -24,4 +25,10 @@ public final class ObtainedRemoteHandler<E extends RemoteEvent> implements Handl
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Obtained remote handler (target is " + rh + ")";
+    }
+
 }

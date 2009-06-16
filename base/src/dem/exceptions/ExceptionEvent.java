@@ -16,4 +16,10 @@ public final class ExceptionEvent implements RemoteEvent {
     public Throwable getException() {
         return exception;
     }
+
+    @Override
+    public String toString() {
+        return "Event, containing exception (" + exception + ")";
+    }
+
 }

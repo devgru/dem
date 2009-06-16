@@ -19,13 +19,9 @@ public final class EventBuffer<E extends Event>
 
     private boolean locked = false;
 
-    //Constructors
-
     public EventBuffer(Handler<? super E> target) {
         super(target);
     }
-
-    //Locking
 
     public final boolean lock() {
         boolean wasFree = !locked;
@@ -42,15 +38,13 @@ public final class EventBuffer<E extends Event>
         locked = false;
     }
 
-    //Specific methods
-
     /**
      * Fires all collected events to {@link dem.quanta.Handler target}
      * you provide.
      * Also, it calls {@link EventBuffer#reset()}, so it
      * isn't applicable for broadcasting to multiple handlers.
      * If you want to broadcast events, use any
-     * {@link dem.bundles handler from multi}.
+     * {@link dem.bundles handler bundle}.
      *
      * @see dem.bundles.Broadcaster
      * @see dem.bundles.Dispatcher
@@ -63,19 +57,20 @@ public final class EventBuffer<E extends Event>
         reset();
     }
 
-    //Handling
-
-    public final void handle(E boundedEvent) {
+    public final void handle(E event) {
         if (!locked) {
-            assert boundedEvent != null;
-            events.add(boundedEvent);
+            assert event != null;
+            events.add(event);
         }
     }
 
-    //Collection functionality
-
     public final void export(Collection<? super E> target) {
         target.addAll(events);
+    }
+
+    @Override
+    public String toString() {
+        return "Event buffer (events: " + events + "; target is " + target + ")";
     }
 
 }

@@ -57,8 +57,17 @@ public abstract class BoundedHandler<E extends Event>
             public void handle(E event) {
                 handler.handle(event);
             }
+
+            @Override
+            public String toString() {
+                return "Bounded handler (bound is " + getBoundClass() + "; target is " + handler + ")";
+            }
         };
     }
 
+    @Override
+    public String toString() {
+        return "Bounded handler (bound is " + bound + ")";
+    }
 
 }

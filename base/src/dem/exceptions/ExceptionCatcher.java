@@ -1,15 +1,15 @@
 package dem.exceptions;
 
-import dem.processing.Processor;
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.179
  */
 public final class ExceptionCatcher<E extends Event>
-        extends Processor<E> {
+        extends Source<E> implements Handler<E> {
 
     private final Handler<ExceptionEvent> hole;
 
@@ -30,6 +30,11 @@ public final class ExceptionCatcher<E extends Event>
                 hole.handle(new ExceptionEvent(e));
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Exception catcher (target is " + target + "; exception hole is" + hole + ")";
     }
 
 }

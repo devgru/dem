@@ -23,7 +23,6 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
 
         fire(new ControlEvent());
         fire(new ControlEvent());
-
         Assert.assertTrue(i == 2);
     }
 }

@@ -3,9 +3,9 @@ package dem.bundles;
 import dem.bounding.Filter;
 import dem.quanta.Event;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Collection;
 
 /**
  * Dispatcher is a handler bundle that passes
@@ -33,6 +33,7 @@ public final class Dispatcher<E extends Event>
     }
 
     public void handle(E event) {
+        assert event != null;
         for (Filter<?> handler : handlers) {
             if (handler.handleIfPossible(event)) return;
         }
@@ -46,6 +47,11 @@ public final class Dispatcher<E extends Event>
 
     public void removeHandler(Filter<? extends E> handler) {
         handlers.remove(handler);
+    }
+
+    @Override
+    public String toString() {
+        return "Dispatcher (targets: " + handlers + ")";
     }
 
 }

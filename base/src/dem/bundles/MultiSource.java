@@ -23,4 +23,9 @@ public abstract class MultiSource<E extends Event, H extends Handler>
     public final void removeHandler(H handler) {
         ((HandlingBundle<E, H>) target).removeHandler(handler);
     }
+
+    @Override
+    public String toString() {
+        return "Multi-source (targets: " + target + ")";
+    }
 }

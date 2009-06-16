@@ -20,11 +20,11 @@ public class Runner {
 
             int i = 0;
 
-            protected boolean processLeft(DataEvent event) {
+            public boolean processLeft(DataEvent event) {
                 return ++i % 2 == 0;
             }
 
-            protected boolean processRight(ControlEvent event) {
+            public boolean processRight(ControlEvent event) {
                 return true;
             }
         };

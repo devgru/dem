@@ -9,26 +9,31 @@ import dem.quanta.Handler;
  */
 public class MutableHandler<E extends Event> implements Handler<E> {
 
-    private Handler<? super E> handler = null;
+    private Handler<? super E> target = null;
 
     public MutableHandler() {
     }
 
-    public MutableHandler(Handler<? super E> handler) {
-        setHandler(handler);
+    public MutableHandler(Handler<? super E> target) {
+        setTarget(target);
     }
 
-    public Handler<? super E> getHandler() {
-        return handler;
+    public Handler<? super E> getTarget() {
+        return target;
     }
 
-    public void setHandler(Handler<? super E> handler) {
-        this.handler = handler;
+    public void setTarget(Handler<? super E> target) {
+        this.target = target;
     }
 
     public void handle(E event) {
-        if (handler != null) {
-            handler.handle(event);
+        if (target != null) {
+            target.handle(event);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Mutable handler (current target is " + target + ")";
     }
 }

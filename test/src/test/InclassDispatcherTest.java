@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
-import dem.inclass.ClassIsUnbindableException;
+import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
 import dem.translating.TranslatorStrategy;
 import test.events.BaseEvent;
