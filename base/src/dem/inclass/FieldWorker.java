@@ -107,7 +107,6 @@ final class FieldWorker extends AbstractBinder {
             }
 
             public boolean handleIfPossible(Event event) {
-
                 boolean isInstance = bound.isInstance(event);
                 if (isInstance) handle(event);
                 return isInstance;
