@@ -18,6 +18,11 @@ public final class EventCollectionHandler<E extends Event>
     public void handle(EventCollection<E> eventCollection) {
         assert eventCollection != null;
         for (E event : eventCollection) {
+            /**
+             * we need this assertion because {@link EventCollection}
+             * uses no check of null events
+             */
+            assert event != null;
             fire(event);
         }
     }

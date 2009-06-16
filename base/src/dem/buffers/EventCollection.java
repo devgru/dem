@@ -12,4 +12,5 @@ import java.util.LinkedList;
 public class EventCollection<E extends Event>
         extends LinkedList<E> implements RemoteEvent {
 
+
 }

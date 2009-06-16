@@ -65,10 +65,10 @@ public final class EventBuffer<E extends Event>
 
     //Handling
 
-    public final void handle(E boundedEvent) {
+    public final void handle(E event) {
         if (!locked) {
-            assert boundedEvent != null;
-            events.add(boundedEvent);
+            assert event != null;
+            events.add(event);
         }
     }
 
