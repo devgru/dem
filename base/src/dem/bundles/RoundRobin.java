@@ -77,7 +77,6 @@ public final class RoundRobin<E extends Event>
 
     private void rewindIfNeeded() {
         if (handlers.size() != 0 && !storedIterator.hasNext()) {
-//            storedIterator = handlers.listIterator();
             while (storedIterator.hasPrevious()) {
                 storedIterator.previous();
             }
