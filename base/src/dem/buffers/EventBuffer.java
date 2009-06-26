@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
+ * Event buffer is class, designed to collect events and manage this collections.
+ *
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.176
  */
@@ -23,23 +25,37 @@ public final class EventBuffer<E extends Event>
         super(target);
     }
 
+    /**
+     * Locks buffer.
+     *
+     * @return <code>true</code> if buffer was free and it is locked;<br>
+     *         <code>false</code> if buffer already was locked
+     */
     public final boolean lock() {
         boolean wasFree = !locked;
         locked = true;
         return wasFree;
     }
 
+    /**
+     * Checks if buffer is locked.
+     *
+     * @return <code>true</code> if buffer is locked, <code>false</code> otherwise
+     */
     public final boolean isLocked() {
         return locked;
     }
 
+    /**
+     * Removes all events from buffer and unlocks it.
+     */
     public final void reset() {
         events.clear();
         locked = false;
     }
 
     /**
-     * Fires all collected events to {@link dem.quanta.Handler target}
+     * Fires all collected events to {@link Handler target}
      * you provide.
      * Also, it calls {@link EventBuffer#reset()}, so it
      * isn't applicable for broadcasting to multiple handlers.
@@ -64,6 +80,11 @@ public final class EventBuffer<E extends Event>
         }
     }
 
+    /**
+     * Adds all collected events to target.
+     *
+     * @param target collection, that will contain all collected events.
+     */
     public final void export(Collection<? super E> target) {
         target.addAll(events);
     }
