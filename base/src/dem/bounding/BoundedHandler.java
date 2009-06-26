@@ -6,7 +6,7 @@ import dem.quanta.Handler;
 /**
  * Bounded handlers are required when we must have
  * some info about the bound class {@link E}. For example, it's used
- * a lot in the {@link dem.bundles Structures} section.
+ * a lot in the {@link dem.bundles Bundles} section.
  * <p/>
  * Bounded handlers are strong filters.
  *
