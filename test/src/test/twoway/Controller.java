@@ -2,6 +2,7 @@ package test.twoway;
 
 import org.junit.Assert;
 import dem.processing.BiConnector;
+import dem.processing.BiProcessor;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -16,6 +17,8 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
         i++;
     }
 
+    BiProcessor bp;
+
     public void start() {
         fire(new ControlEvent());
         fire(new ControlEvent());
@@ -23,6 +26,15 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
 
         fire(new ControlEvent());
         fire(new ControlEvent());
+        Assert.assertTrue(i == 2);
+
+        assert bp.check();
+        bp.hangup();
+        assert !bp.check();
+
+        fire(new ControlEvent());
+        fire(new ControlEvent());
+
         Assert.assertTrue(i == 2);
     }
 }

@@ -3,3 +3,4 @@ out
 *.ipr
 *.iml
 *.jar
+base/bugs.xml

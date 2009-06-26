@@ -30,9 +30,13 @@ public class Runner {
         };
 
 
-        new ExternalBiProcessor<DataEvent, ControlEvent>(controller, dataProducer, strategy);
+
+        controller.bp = new ExternalBiProcessor<DataEvent, ControlEvent>(controller, dataProducer, strategy);
 
         controller.start();
+
+        System.gc();
+        System.gc();
     }
 
 
