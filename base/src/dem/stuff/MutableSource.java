@@ -22,12 +22,12 @@ public class MutableSource<E extends Event> extends Source<E> {
         ((MutableHandler<E>) target).setTarget(handler);
     }
 
-    public final Handler<? super E> getHandler() {
+    public final Handler<? super E> getTarget() {
         return ((MutableHandler<E>) target).getTarget();
     }
 
     @Override
     public String toString() {
-        return "Mutable source (current target is " + getHandler() + ")";
+        return "Mutable source (current target is " + getTarget() + ")";
     }
 }

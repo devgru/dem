@@ -28,9 +28,9 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
         fire(new ControlEvent());
         Assert.assertTrue(i == 2);
 
-        assert bp.check();
+        Assert.assertTrue( bp.check());
         bp.hangup();
-        assert !bp.check();
+        Assert.assertFalse( bp.check());
 
         fire(new ControlEvent());
         fire(new ControlEvent());

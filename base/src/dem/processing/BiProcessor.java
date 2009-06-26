@@ -17,15 +17,15 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     public BiProcessor(final BiConnector<R, L> left,
                        final BiConnector<L, R> right) {
 
-        CommonProcessor<L> leftProcessor = new CommonProcessor<L>(left){
+        CommonProcessor<L> leftProcessor = new CommonProcessor<L>(left) {
             public void handle(L event) {
-                if(alive && fireLeft(event)) fire(event);
+                if (alive && fireLeft(event)) fire(event);
             }
         };
 
-        CommonProcessor<R> rightProcessor = new CommonProcessor<R>(right){
+        CommonProcessor<R> rightProcessor = new CommonProcessor<R>(right) {
             public void handle(R event) {
-                if(alive && fireRight(event)) fire(event);
+                if (alive && fireRight(event)) fire(event);
             }
         };
 
@@ -36,7 +36,15 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     }
 
     public boolean check() {
-        return left != null;
+        boolean leftClear = left.getTarget() == null;
+        boolean rightClear = right.getTarget() == null;
+        if (leftClear != rightClear) {
+            left.setTarget(null);
+            right.setTarget(null);
+            return false;
+        } else {
+            return leftClear;
+        }
     }
 
     public boolean hangup() {
