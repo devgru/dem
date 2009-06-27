@@ -27,7 +27,7 @@ public abstract class BoundedHandler<E extends Event>
     }
 
     @SuppressWarnings("unchecked")
-    public final boolean handleIfPossible(Event event) {
+    public boolean handleIfPossible(Event event) {
         /**
          * <code>assert event != null;</code> not required because {@link Class#isInstance(Object)}
          * returns <code>false</code> on null values
