@@ -43,7 +43,7 @@ public final class ClassWorker {
         Class targetClass = target.getClass();
         while (targetClass != Object.class) {
             for (AbstractBinder binder : binders) {
-                binder.tryBindMembers(target, elements);
+                binder.tryBindMembers(target, elements, targetClass);
                 /*for (Class oneOfInterfaces : targetClass.getInterfaces()) {
                     todo what about interfaces? still nothing
                     binder.tryBindMembers(elements, oneOfInterfaces);

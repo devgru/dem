@@ -17,9 +17,9 @@ import java.util.List;
  */
 final class MethodWorker extends AbstractBinder {
 
-    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed) throws ClassIsUnbindableException {
+    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed, Class<?> clz) throws ClassIsUnbindableException {
         Context context = new Context(target);
-        for (Method method : target.getClass().getDeclaredMethods()) {
+        for (Method method : clz.getDeclaredMethods()) {
             FilterWithPriority filter = context.tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }

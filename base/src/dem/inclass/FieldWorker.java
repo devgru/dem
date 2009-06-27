@@ -17,9 +17,9 @@ import java.util.List;
  */
 final class FieldWorker extends AbstractBinder {
 
-    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed) throws ClassIsUnbindableException {
+    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed, Class<?> clz) throws ClassIsUnbindableException {
         Context worker = new Context(target);
-        for (Field field : target.getClass().getDeclaredFields()) {
+        for (Field field : clz.getDeclaredFields()) {
             FilterWithPriority entry = worker.tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }

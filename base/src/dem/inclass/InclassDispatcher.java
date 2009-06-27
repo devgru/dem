@@ -77,7 +77,7 @@ public final class InclassDispatcher<E extends Event>
 
     @Override
     public String toString() {
-        return "In-class dispatcher(target is " + object + "; handlers are contained in " + target + ")";
+        return "In-class dispatcher (target is " + object + "; handlers are contained in " + target + ")";
     }
 
 }

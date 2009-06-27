@@ -16,7 +16,7 @@ public abstract class AbstractBinder {
 
     protected static final Class<TranslatorStrategy> WITHOUT_TRANSLATOR = TranslatorStrategy.class;
 
-    public abstract void tryBindMembers(Object target, List<FilterWithPriority> listToFill)
+    public abstract void tryBindMembers(Object target, List<FilterWithPriority> listToFill, Class<?> clz)
             throws ClassIsUnbindableException;
 
     @SuppressWarnings("unchecked")
