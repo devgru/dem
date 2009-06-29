@@ -3,9 +3,9 @@ package test;
 import org.junit.Test;
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
+import dem.inclass.Prioritized;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
-import dem.translating.TranslatorStrategy;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.handlers.BaseHandler;
@@ -36,7 +36,7 @@ public class InclassDispatcherTest {
         h.handle(new SecondLevelEvent1());
         h.handle(new BaseEvent());
 
-        assert c.getString().length() == 1;
+        Assert.assertTrue(c.getString().length() == 2);
     }
 
     private final Collector c = new Collector();
@@ -46,8 +46,14 @@ public class InclassDispatcherTest {
         @Handles(SecondLevelEvent1.class)
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
-        @Handles(value=SecondLevelEvent1.class, translator = TranslatorStrategy.class,priority = 0)
-        public Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
+
+        @Handles(SecondLevelEvent1.class)
+        public Handler<SecondLevelEvent1> samePriority = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
+
+
+        @Handles(SecondLevelEvent1.class)
+        @Prioritized(5)
+        public Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "S1");
 
     }
 

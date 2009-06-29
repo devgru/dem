@@ -37,19 +37,14 @@ public final class InclassDispatcher<E extends Event>
         setTarget(new Dispatcher<Event>(list));
     }
 
-    public InclassDispatcher(Object target, List<? extends AbstractBinder> binders)
-            throws ClassIsUnbindableException {
-
-        this(target, false, binders);
-    }
-
-    public InclassDispatcher(Object target, boolean strictPrioritization, List<? extends AbstractBinder> binders)
+    public InclassDispatcher(Object target, boolean strictPrioritization,
+                             List<? extends AbstractBinder> binders, List<? extends Wrapper> wrappers)
             throws ClassIsUnbindableException {
 
         object = target;
 
         List<? extends Filter<?>> list =
-                new ClassWorker(target, binders).bindClassElements();
+                new ClassWorker(target, binders, wrappers).bindClassElements();
 
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
