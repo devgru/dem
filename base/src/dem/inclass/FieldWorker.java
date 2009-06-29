@@ -6,6 +6,7 @@ import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.inclass.exceptions.FieldIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.stuff.Log;
 import dem.stuff.NoopHandler;
 
 import java.lang.reflect.Field;
@@ -93,7 +94,7 @@ final class FieldWorker extends AbstractBinder {
 
             @Override
             public String toString() {
-                return "Field handler (field is " + field + ")";
+                return "Field handler\n" + Log.offset("field is " + field);
             }
         }
 

@@ -2,6 +2,7 @@ package dem.bundles;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;
+import dem.stuff.Log;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -51,7 +52,8 @@ public final class Dispatcher<E extends Event>
 
     @Override
     public String toString() {
-        return "Dispatcher (targets: " + handlers + ")";
+        return "Dispatcher\n" +
+                Log.offset("targets:")+"\n" + Log.offset(Log.describe(handlers),2);
     }
 
 }

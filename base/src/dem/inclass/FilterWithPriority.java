@@ -2,6 +2,7 @@ package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;
+import dem.stuff.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -44,6 +45,7 @@ final class FilterWithPriority
 
     @Override
     public String toString() {
-        return "[" + filter.toString() + "; priority = " + priority + "]";
+        return "Filter with priority\n" +
+                Log.offset(filter.toString() + "\npriority = " + priority);
     }
 }

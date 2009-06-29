@@ -6,6 +6,7 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.stuff.DelayedInitializationSource;
+import dem.stuff.Log;
 
 import java.util.List;
 
@@ -77,7 +78,9 @@ public final class InclassDispatcher<E extends Event>
 
     @Override
     public String toString() {
-        return "In-class dispatcher (target is " + object + "; handlers are contained in " + target + ")";
+        return "In-class dispatcher\n" +
+                Log.offset("target is " + object + "\n" +
+                 "handlers are contained in " + target);
     }
 
 }
