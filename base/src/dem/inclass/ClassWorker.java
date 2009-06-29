@@ -39,10 +39,6 @@ public final class ClassWorker {
 
     private final List<? extends Wrapper> wrappers;
 
-    public ClassWorker(Object target) {
-        this(target, DEFAULT_BINDERS, DEFAULT_WRAPPERS);
-    }
-
     public ClassWorker(Object target, List<? extends AbstractBinder> binders, List<? extends Wrapper> wrappers) {
         this.target = target;
         this.binders = binders;

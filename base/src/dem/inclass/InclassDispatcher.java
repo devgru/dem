@@ -26,29 +26,29 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization)
             throws ClassIsUnbindableException {
 
-        object = target;
-
         List<? extends Filter<?>> list =
-                new ClassWorker(target).bindClassElements();
+                new ClassWorker(target, ClassWorker.DEFAULT_BINDERS, ClassWorker.DEFAULT_WRAPPERS).bindClassElements();
 
-        if (strictPrioritization) {
-            ensureStrictPrioritization(list);
-        }
-        setTarget(new Dispatcher<Event>(list));
+        object = target;
+        close(strictPrioritization, list);
     }
 
     public InclassDispatcher(Object target, boolean strictPrioritization,
                              List<? extends AbstractBinder> binders, List<? extends Wrapper> wrappers)
             throws ClassIsUnbindableException {
 
-        object = target;
-
         List<? extends Filter<?>> list =
                 new ClassWorker(target, binders, wrappers).bindClassElements();
 
+        object = target;
+        close(strictPrioritization, list);
+    }
+
+    private void close(boolean strictPrioritization, List<? extends Filter<?>> list) throws ClassIsUnbindableException {
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
+
         setTarget(new Dispatcher<Event>(list));
     }
 
