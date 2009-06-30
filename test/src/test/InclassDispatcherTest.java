@@ -3,6 +3,7 @@ package test;
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
 import dem.inclass.Prioritized;
+import dem.inclass.SuppressExceptions;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
 import junit.framework.Assert;
@@ -21,6 +22,8 @@ public class InclassDispatcherTest {
 
     @Test
     public void simpleTest() throws ClassIsUnbindableException {
+        c.clear();
+
         WellFormedClass d = new WellFormedClass();
         Handler<BaseEvent> h = new InclassDispatcher<BaseEvent>(d);
 
@@ -76,6 +79,35 @@ public class InclassDispatcherTest {
 
         public void x() {
         }
+    }
+
+    @Test
+    public void testExceptions() throws ClassIsUnbindableException {
+        c.clear();
+
+        class A {
+            @SuppressExceptions
+            @Prioritized(1)
+            @Handles(SecondLevelEvent1.class)
+            public Handler<SecondLevelEvent1> b = new Handler<SecondLevelEvent1>(){
+
+                public void handle(SecondLevelEvent1 event) {
+                    throw new RuntimeException();
+                }
+            };
+
+            @Handles(SecondLevelEvent1.class)
+            public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "a");
+        }
+
+
+        Handler<SecondLevelEvent1> h = new InclassDispatcher<SecondLevelEvent1>(new A());
+
+
+        Assert.assertTrue(c.getString().length() ==0);
+        h.handle(new SecondLevelEvent1());
+        Assert.assertTrue(c.getString().length() ==1);
+
     }
 
 

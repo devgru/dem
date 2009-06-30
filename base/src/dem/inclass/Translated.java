@@ -10,10 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by IntelliJ IDEA.
- * User: devgru
- * Date: 29.06.2009
- * Time: 12:51:51
+ * @author Devgru &lt;java@devg.ru&gt;
+ * @since 0.183
  */
 
 @Retention(RetentionPolicy.RUNTIME)

@@ -28,7 +28,10 @@ public final class InclassDispatcher<E extends Event>
             throws ClassIsUnbindableException {
 
         List<? extends Filter<?>> list =
-                new ClassWorker(target, ClassWorker.DEFAULT_BINDERS, ClassWorker.DEFAULT_WRAPPERS).bindClassElements();
+                new ClassWorker(target,
+                        ClassWorker.DEFAULT_BINDERS,
+                        ClassWorker.DEFAULT_WRAPPERS
+                ).bindClassElements();
 
         object = target;
         close(strictPrioritization, list);
@@ -45,7 +48,8 @@ public final class InclassDispatcher<E extends Event>
         close(strictPrioritization, list);
     }
 
-    private void close(boolean strictPrioritization, List<? extends Filter<?>> list) throws ClassIsUnbindableException {
+    private void close(boolean strictPrioritization, List<? extends Filter<?>> list)
+            throws ClassIsUnbindableException {
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
@@ -61,7 +65,8 @@ public final class InclassDispatcher<E extends Event>
             Object element = handlers.get(i);
             if (element.equals(previousElement)) {
                 throw new ClassIsUnbindableException("you required strict prioritization, but some " +
-                        "methods or fields have same priority. It was: " + element + " and " + previousElement);
+                        "methods or fields have same priority. " +
+                        "It was: " + element + " and " + previousElement);
             }
             previousElement = element;
         }
@@ -75,7 +80,7 @@ public final class InclassDispatcher<E extends Event>
     public String toString() {
         return "In-class dispatcher\n" +
                 Log.offset("target is " + object + "\n" +
-                 "handlers are contained in " + target);
+                        "handlers are contained in " + target);
     }
 
 }

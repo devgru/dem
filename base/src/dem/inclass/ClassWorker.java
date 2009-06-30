@@ -29,6 +29,7 @@ public final class ClassWorker {
                 new LinkedList<Wrapper>();
         wrappers.add(new PriorityWrapper());
         wrappers.add(new TranslatingWrapper());
+        wrappers.add(new ExceptionsSuppressiveWrapper());
 
         DEFAULT_WRAPPERS = Collections.unmodifiableList(wrappers);
     }
