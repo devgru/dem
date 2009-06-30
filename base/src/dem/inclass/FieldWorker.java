@@ -9,6 +9,7 @@ import dem.quanta.Handler;
 import dem.stuff.Log;
 import dem.stuff.NoopHandler;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -16,12 +17,14 @@ import java.util.List;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.176
  */
-final class FieldWorker extends AbstractBinder {
+final class FieldWorker implements AbstractBinder {
 
-    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed, Class<?> clz) throws ClassIsUnbindableException {
+    public void tryBindMembers(Object target, List<AnnotatedFilter> grabbed, Class<?> clz)
+            throws ClassIsUnbindableException {
+
         Context worker = new Context(target);
         for (Field field : clz.getDeclaredFields()) {
-            FilterWithPriority entry = worker.tryBindField(field);
+            AnnotatedFilter entry = worker.tryBindField(field);
             if (entry != null) grabbed.add(entry);
         }
     }
@@ -33,7 +36,7 @@ final class FieldWorker extends AbstractBinder {
             this.target = target;
         }
 
-        FilterWithPriority tryBindField(Field field) throws ClassIsUnbindableException {
+        AnnotatedFilter tryBindField(Field field) throws ClassIsUnbindableException {
             try {
                 if (field.isAnnotationPresent(Handles.class)) {
                     return bindField(field);
@@ -45,8 +48,8 @@ final class FieldWorker extends AbstractBinder {
             }
         }
 
-        private FilterWithPriority bindField(Field field) throws ElementIsUnbindableException {
-            Filter halfResult;
+        private AnnotatedFilter bindField(Field field) throws ElementIsUnbindableException {
+            final AnnotatedFilter result;
 
             try {
                 field.setAccessible(true);
@@ -58,21 +61,25 @@ final class FieldWorker extends AbstractBinder {
 
             Handles annotation = field.getAnnotation(Handles.class);
             if (Filter.class.isAssignableFrom(type)) {
-                halfResult = new FilteredFieldHandler(field);
+                result = new FilteredFieldHandler(field);
             } else if (Handler.class.isAssignableFrom(type)) {
-                halfResult = new FieldHandler(annotation.value(), field);
+                result = new FieldHandler(annotation.value(), field);
             } else {
                 throw new FieldIsUnbindableException("field's type must implement Handler.");
             }
 
-            return wrap(annotation, halfResult);
+            return result;
         }
 
-        private abstract class AbstractFieldHandler implements Filter {
+        private abstract class AbstractFieldHandler implements AnnotatedFilter {
             final Field field;
 
             private AbstractFieldHandler(Field field) {
                 this.field = field;
+            }
+
+            public AnnotatedElement getAnnotatedElement() {
+                return field;
             }
 
             Handler getHandler() {

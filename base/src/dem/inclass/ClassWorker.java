@@ -2,6 +2,7 @@ package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.inclass.exceptions.ClassIsUnbindableException;
+import dem.inclass.exceptions.ElementIsUnbindableException;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -13,7 +14,8 @@ import java.util.List;
  */
 public final class ClassWorker {
 
-    private static final List<? extends AbstractBinder> defaultBinders;
+    public static final List<? extends AbstractBinder> DEFAULT_BINDERS;
+    public static final List<? extends Wrapper> DEFAULT_WRAPPERS;
 
     static {
         List<AbstractBinder> binders =
@@ -21,39 +23,64 @@ public final class ClassWorker {
         binders.add(new FieldWorker());
         binders.add(new MethodWorker());
 
-        defaultBinders = binders;
+        DEFAULT_BINDERS = Collections.unmodifiableList(binders);
+
+        List<Wrapper> wrappers =
+                new LinkedList<Wrapper>();
+        wrappers.add(new PriorityWrapper());
+        wrappers.add(new TranslatingWrapper());
+
+        DEFAULT_WRAPPERS = Collections.unmodifiableList(wrappers);
     }
 
     private final Object target;
 
     private final List<? extends AbstractBinder> binders;
 
-    public ClassWorker(Object target) {
-        this(target, defaultBinders);
-    }
+    private final List<? extends Wrapper> wrappers;
 
-    public ClassWorker(Object target, List<? extends AbstractBinder> binders) {
+    public ClassWorker(Object target, List<? extends AbstractBinder> binders, List<? extends Wrapper> wrappers) {
         this.target = target;
         this.binders = binders;
+        this.wrappers = wrappers;
     }
 
     public List<? extends Filter<?>> bindClassElements() throws ClassIsUnbindableException {
-        List<FilterWithPriority> elements = new LinkedList<FilterWithPriority>();
+        List<AnnotatedFilter> elements = new LinkedList<AnnotatedFilter>();
 
         Class targetClass = target.getClass();
-        while (targetClass != Object.class) {
-            for (AbstractBinder binder : binders) {
+        for (AbstractBinder binder : binders) {
+            while (targetClass != Object.class) {
                 binder.tryBindMembers(target, elements, targetClass);
-                /*for (Class oneOfInterfaces : targetClass.getInterfaces()) {
-                    todo what about interfaces? still nothing
-                    binder.tryBindMembers(elements, oneOfInterfaces);
-                }*/
+                targetClass = targetClass.getSuperclass();
             }
-            targetClass = targetClass.getSuperclass();
         }
 
-        Collections.sort(elements);
-        return elements;
+        List<FilterWithPriority> elementsWithPriority
+                = new LinkedList<FilterWithPriority>();
+
+        try {
+            for (AnnotatedFilter element : elements) {
+                elementsWithPriority.add(wrap(element));
+            }
+        } catch (ElementIsUnbindableException e) {
+            throw new ClassIsUnbindableException(e);
+        }
+
+        Collections.sort(elementsWithPriority);
+        return elementsWithPriority;
+    }
+
+
+    public FilterWithPriority wrap(AnnotatedFilter filterToWrap) throws ElementIsUnbindableException {
+
+        FilterWithPriority filterWithPriority = new FilterWithPriority(filterToWrap);
+
+        for (Wrapper wrapper : wrappers) {
+            wrapper.wrap(filterToWrap.getAnnotatedElement(), filterWithPriority);
+        }
+        return filterWithPriority;
+
     }
 
 }

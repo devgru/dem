@@ -1,17 +1,18 @@
 package test;
 
+import org.junit.Test;
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
+import dem.inclass.Prioritized;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
-import dem.translating.TranslatorStrategy;
-import junit.framework.Assert;
-import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.events.SecondLevelEvent2;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
+
+import junit.framework.Assert;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -23,6 +24,7 @@ public class InclassDispatcherTest {
     public void simpleTest() throws ClassIsUnbindableException {
         WellFormedClass d = new WellFormedClass();
         Handler<BaseEvent> h = new InclassDispatcher<BaseEvent>(d);
+
         ClassIsUnbindableException exc = null;
         try {
             new InclassDispatcher<BaseEvent>(d, true);
@@ -35,12 +37,7 @@ public class InclassDispatcherTest {
         h.handle(new SecondLevelEvent1());
         h.handle(new BaseEvent());
 
-        Assert.assertTrue(c.getString().length() == 4);
-
-        Handler<BaseEvent> h2 = new InclassDispatcher<BaseEvent>(new Child());
-        System.out.println(h2);
-        h2.handle(new SecondLevelEvent1());
-        Assert.assertTrue(c.getString().length() == 8);
+        assert c.getString().length() == 1;
     }
 
     private final Collector c = new Collector();
@@ -50,8 +47,13 @@ public class InclassDispatcherTest {
         @Handles(SecondLevelEvent1.class)
         public Handler<SecondLevelEvent1> a = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
 
-        @Handles(value = SecondLevelEvent1.class, translator = TranslatorStrategy.class, priority = 0)
-        public Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
+        @Handles(SecondLevelEvent1.class)
+        public Handler<SecondLevelEvent1> samePriority = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "SLE1");
+
+
+        @Handles(SecondLevelEvent1.class)
+        @Prioritized(5)
+        public Handler<SecondLevelEvent1> b = new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "S1");
 
     }
 

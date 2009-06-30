@@ -11,35 +11,53 @@ import dem.stuff.Log;
 final class FilterWithPriority
         implements Comparable<FilterWithPriority>, Filter<Event> {
 
-    private final Filter filter;
-    private final Long priority;
+    private Filter filter;
 
-    public FilterWithPriority(Filter filter, long priority) {
+    private Long priority;
+
+    FilterWithPriority(Filter filter) {
         this.filter = filter;
+        this.priority = 0L;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public Long getPriority() {
+        return priority;
+    }
+
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
+    public void setPriority(Long priority) {
         this.priority = priority;
     }
 
+
     public boolean handleIfPossible(Event event) {
-        return filter.handleIfPossible(event);
+        return getFilter().handleIfPossible(event);
     }
 
-    @SuppressWarnings("unchecked")
     public void handle(Event event) {
-        filter.handle(event);
+        getFilter().handleIfPossible(event);
     }
 
     public int compareTo(FilterWithPriority o) {
-        return o.priority.compareTo(priority);
+        return o.getPriority().compareTo(getPriority());
     }
 
     public boolean equals(Object obj) {
         return obj instanceof FilterWithPriority &&
-                priority.equals(((FilterWithPriority) obj).priority);
+                getPriority().equals(((FilterWithPriority) obj).getPriority());
     }
 
     public int hashCode() {
         int result;
-        result = filter.hashCode();
+        result = getFilter().hashCode();
         return result;
     }
 

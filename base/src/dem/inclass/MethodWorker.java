@@ -1,12 +1,12 @@
 package dem.inclass;
 
 import dem.bounding.BoundedHandler;
-import dem.bounding.Filter;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.inclass.exceptions.MethodIsUnbindableException;
 import dem.quanta.Event;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -15,12 +15,14 @@ import java.util.List;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.176
  */
-final class MethodWorker extends AbstractBinder {
+final class MethodWorker implements AbstractBinder {
 
-    public void tryBindMembers(Object target, List<FilterWithPriority> grabbed, Class<?> clz) throws ClassIsUnbindableException {
+    public void tryBindMembers(Object target, List<AnnotatedFilter> grabbed, Class<?> clz)
+            throws ClassIsUnbindableException {
+
         Context context = new Context(target);
         for (Method method : clz.getDeclaredMethods()) {
-            FilterWithPriority filter = context.tryBindMethod(method);
+            AnnotatedFilter filter = context.tryBindMethod(method);
             if (filter != null) grabbed.add(filter);
         }
     }
@@ -32,7 +34,7 @@ final class MethodWorker extends AbstractBinder {
             this.target = target;
         }
 
-        FilterWithPriority tryBindMethod(Method method) throws ClassIsUnbindableException {
+        AnnotatedFilter tryBindMethod(Method method) throws ClassIsUnbindableException {
             try {
                 if (method.isAnnotationPresent(Handles.class)) {
                     return bindMethod(method);
@@ -44,8 +46,8 @@ final class MethodWorker extends AbstractBinder {
             }
         }
 
-        private FilterWithPriority bindMethod(Method method) throws ElementIsUnbindableException {
-            Filter halfResult;
+        private AnnotatedFilter bindMethod(Method method) throws ElementIsUnbindableException {
+            final AnnotatedFilter result;
 
             Class<?>[] types = method.getParameterTypes();
             int argsCount = types.length;
@@ -58,15 +60,15 @@ final class MethodWorker extends AbstractBinder {
                 if (argClass.isAssignableFrom(annotation.value())) {
                     throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
                 }
-                halfResult = new MethodInvoker(argClass, method, argsCount);
+                result = new MethodInvoker(argClass, method, argsCount);
             } else {
-                halfResult = new MethodInvoker(annotation.value(), method, argsCount);
+                result = new MethodInvoker(annotation.value(), method, argsCount);
             }
 
-            return wrap(annotation, halfResult);
+            return result;
         }
 
-        private class MethodInvoker extends BoundedHandler {
+        private class MethodInvoker extends BoundedHandler implements AnnotatedFilter {
             private final Method method;
             private final int argsCount;
 
@@ -95,6 +97,10 @@ final class MethodWorker extends AbstractBinder {
             @Override
             public String toString() {
                 return "Method handler (method is " + method.getName() + ")";
+            }
+
+            public AnnotatedElement getAnnotatedElement() {
+                return method;
             }
         }
 
