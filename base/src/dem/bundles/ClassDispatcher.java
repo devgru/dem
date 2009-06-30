@@ -2,7 +2,6 @@ package dem.bundles;
 
 import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
-import dem.quanta.Handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +18,7 @@ public final class ClassDispatcher<E extends Event>
 
     public ClassDispatcher(Class<E> bound) {
         super(bound);
-        classTree = new ClassTree<E>(bound);
+        classTree = new ClassTree<E>(null);
     }
 
     @Override
@@ -40,50 +39,50 @@ public final class ClassDispatcher<E extends Event>
 
     private static class ClassTree<E extends Event> extends BoundedHandler<E> {
 
-        private Handler<E> target = null;
+        private BoundedHandler<E> target = null;
 
         protected final Map<Class<? extends E>, ClassTree<? extends E>> subclasses
                 = new HashMap<Class<? extends E>, ClassTree<? extends E>>();
 
-        public ClassTree(Class<E> bound) {
-            super(bound);
-        }
+        public <B extends E> void add(BoundedHandler<B> handler) {
+            Class<B> beta = handler.getBoundClass();
+            for (ClassTree<? extends E> subtree  : subclasses.values()) {
+                Class<? extends E> alpha = subtree.getBoundClass();
 
-        public <X extends E> void add(Handler<X> target, Class<X> bound) {
-            for (Map.Entry<Class<? extends E>, ClassTree<? extends E>> ctx : subclasses.entrySet()) {
-                ClassTree<? extends E> ct = ctx.getValue();
-                if (ct.getBoundClass().isAssignableFrom(bound)) {
-                    if (bound.equals(ct.getBoundClass())) {
-                        throw new RuntimeException();//todo specify
-                    } else {
-                        subclasses.put(bound, new ClassTree<X>(target, bound));
-                        break;
-                    }
-                } else if (bound.isAssignableFrom(ct.getBoundClass())) {
-                    subclasses.remove(ct.getBoundClass());
-                    ClassTree<X> value = new ClassTree<X>(target, bound);
-                    addSubtree((ClassTree<X>) ct, value);
-                    subclasses.put(bound, value);
+                if (alpha.equals(beta)) {
+                    //same classes - shit
+                    throw new RuntimeException();//todo specify
+                } else if (alpha.isAssignableFrom(beta)) {
+                    //alpha is a parent - simply add alpha to beta subclasses
+                    ClassTree<? super B> subtree2 = (ClassTree<? super B>) subtree;
+                    subtree2.subclasses.put(beta, new ClassTree<B>(handler));
+                    return;
+
+                } else if (beta.isAssignableFrom(alpha)) {
+                    ClassTree<? extends B> subtree2 = (ClassTree<? extends B>) subtree;
+
+                    ClassTree<B> value = new ClassTree<B>(handler);
+                    value.add(subtree2.target);
+                    subclasses.remove(alpha);
+                    subclasses.put(beta, value);
+                    return;
                 }
             }
+            subclasses.put(beta,new ClassTree<B>(handler));
         }
 
-        private <M extends E> void addSubtree(ClassTree<M> ct, ClassTree<M> value) {
-            value.add(ct.target, ct.getBoundClass());
-        }
-
-        public ClassTree(Handler<E> target, Class<E> bound) {
-            super(bound);
+        public ClassTree(BoundedHandler<E> target) {
+            super(target.getBoundClass());
             this.target = target;
         }
 
         public void handle(E event) {
-            target.handle(event);
+            target.handle(event);//todo rewrite
         }
 
         @Override
         public boolean handleIfPossible(Event event) {
-            return super.handleIfPossible(event);
+            return super.handleIfPossible(event);//todo rewrite!
         }
     }
 }
