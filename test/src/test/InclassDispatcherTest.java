@@ -1,18 +1,17 @@
 package test;
 
-import org.junit.Test;
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
 import dem.inclass.Prioritized;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
+import junit.framework.Assert;
+import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.events.SecondLevelEvent2;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
-
-import junit.framework.Assert;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -37,7 +36,13 @@ public class InclassDispatcherTest {
         h.handle(new SecondLevelEvent1());
         h.handle(new BaseEvent());
 
-        assert c.getString().length() == 1;
+        Assert.assertTrue(c.getString().length() == 2);
+
+        Handler<BaseEvent> h2 = new InclassDispatcher<BaseEvent>(new Child());
+        System.out.println(h2);
+        h2.handle(new SecondLevelEvent1());
+        Assert.assertTrue(c.getString().length() == 6);
+
     }
 
     private final Collector c = new Collector();
@@ -69,7 +74,7 @@ public class InclassDispatcherTest {
         public Handler<SecondLevelEvent2> a = new BaseHandler<SecondLevelEvent2>(c, SecondLevelEvent2.class, "SLE2");
 
 
-        public void x(){
+        public void x() {
         }
     }
 
