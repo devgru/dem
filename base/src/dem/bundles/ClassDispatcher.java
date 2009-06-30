@@ -4,8 +4,8 @@ import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -32,7 +32,7 @@ public final class ClassDispatcher<E extends Event>
         handleIfPossible(event);
     }
 
-    public void addHandler(BoundedHandler<? extends E> handler){
+    public void addHandler(BoundedHandler<? extends E> handler) {
     }
 
     public void removeHandler(BoundedHandler<? extends E> handler) {
@@ -42,11 +42,34 @@ public final class ClassDispatcher<E extends Event>
 
         private Handler<E> target = null;
 
-        protected final List<ClassTree> subclasses
-                = new LinkedList<ClassTree>();
+        protected final Map<Class<? extends E>, ClassTree<? extends E>> subclasses
+                = new HashMap<Class<? extends E>, ClassTree<? extends E>>();
 
         public ClassTree(Class<E> bound) {
             super(bound);
+        }
+
+        public <X extends E> void add(Handler<X> target, Class<X> bound) {
+            for (Map.Entry<Class<? extends E>, ClassTree<? extends E>> ctx : subclasses.entrySet()) {
+                ClassTree<? extends E> ct = ctx.getValue();
+                if (ct.getBoundClass().isAssignableFrom(bound)) {
+                    if (bound.equals(ct.getBoundClass())) {
+                        throw new RuntimeException();//todo specify
+                    } else {
+                        subclasses.put(bound, new ClassTree<X>(target, bound));
+                        break;
+                    }
+                } else if (bound.isAssignableFrom(ct.getBoundClass())) {
+                    subclasses.remove(ct.getBoundClass());
+                    ClassTree<X> value = new ClassTree<X>(target, bound);
+                    addSubtree((ClassTree<X>) ct, value);
+                    subclasses.put(bound, value);
+                }
+            }
+        }
+
+        private <M extends E> void addSubtree(ClassTree<M> ct, ClassTree<M> value) {
+            value.add(ct.target, ct.getBoundClass());
         }
 
         public ClassTree(Handler<E> target, Class<E> bound) {
