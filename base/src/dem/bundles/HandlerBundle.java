@@ -26,7 +26,7 @@ public interface HandlerBundle<H extends Handler> {
      * @throws IllegalArgumentException <em>should be</em> thrown
      *                                  if handler is <code>null</code>.
      */
-    public void addHandler(H handler) throws IllegalArgumentException;
+    public boolean addHandler(H handler) throws IllegalArgumentException;
 
     /**
      * Removes handler from {@link HandlerBundle bundle}.
@@ -36,6 +36,6 @@ public interface HandlerBundle<H extends Handler> {
      *
      * @param handler handler to add
      */
-    public void removeHandler(H handler);
+    public boolean removeHandler(H handler);
 
 }

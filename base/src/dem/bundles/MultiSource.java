@@ -16,12 +16,12 @@ public abstract class MultiSource<E extends Event, H extends Handler>
         super(target);
     }
 
-    public final void addHandler(H handler) throws IllegalArgumentException {
-        ((HandlingBundle<E, H>) target).addHandler(handler);
+    public final boolean addHandler(H handler) throws IllegalArgumentException {
+        return ((HandlingBundle<E, H>) target).addHandler(handler);
     }
 
-    public final void removeHandler(H handler) {
-        ((HandlingBundle<E, H>) target).removeHandler(handler);
+    public final boolean removeHandler(H handler) {
+        return ((HandlingBundle<E, H>) target).removeHandler(handler);
     }
 
     @Override

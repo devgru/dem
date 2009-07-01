@@ -8,11 +8,15 @@ import test.events.CollectedEvent;
  * @since 0.176
  */
 public class Collector implements Handler<CollectedEvent> {
-    private final StringBuilder sb = new StringBuilder();
+    private StringBuilder sb = new StringBuilder();
 
     public void handle(CollectedEvent event) {
         sb.append(event.getString());
         System.out.println(event.getString() + " handled");
+    }
+
+    public void clear(){
+        sb  = new StringBuilder();
     }
 
     public String getString() {

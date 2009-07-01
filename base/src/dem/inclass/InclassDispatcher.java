@@ -6,6 +6,7 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.stuff.DelayedInitializationSource;
+import dem.stuff.Log;
 
 import java.util.List;
 
@@ -26,34 +27,33 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization)
             throws ClassIsUnbindableException {
 
+        List<? extends Filter<?>> list =
+                new ClassWorker(target,
+                        ClassWorker.DEFAULT_BINDERS,
+                        ClassWorker.DEFAULT_WRAPPERS
+                ).bindClassElements();
+
         object = target;
+        close(strictPrioritization, list);
+    }
+
+    public InclassDispatcher(Object target, boolean strictPrioritization,
+                             List<? extends AbstractBinder> binders, List<? extends Wrapper> wrappers)
+            throws ClassIsUnbindableException {
 
         List<? extends Filter<?>> list =
-                new ClassWorker(target).bindClassElements();
+                new ClassWorker(target, binders, wrappers).bindClassElements();
 
+        object = target;
+        close(strictPrioritization, list);
+    }
+
+    private void close(boolean strictPrioritization, List<? extends Filter<?>> list)
+            throws ClassIsUnbindableException {
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
-        setTarget(new Dispatcher<Event>(list));
-    }
 
-    public InclassDispatcher(Object target, List<? extends AbstractBinder> binders)
-            throws ClassIsUnbindableException {
-
-        this(target, false, binders);
-    }
-
-    public InclassDispatcher(Object target, boolean strictPrioritization, List<? extends AbstractBinder> binders)
-            throws ClassIsUnbindableException {
-
-        object = target;
-
-        List<? extends Filter<?>> list =
-                new ClassWorker(target, binders).bindClassElements();
-
-        if (strictPrioritization) {
-            ensureStrictPrioritization(list);
-        }
         setTarget(new Dispatcher<Event>(list));
     }
 
@@ -65,7 +65,8 @@ public final class InclassDispatcher<E extends Event>
             Object element = handlers.get(i);
             if (element.equals(previousElement)) {
                 throw new ClassIsUnbindableException("you required strict prioritization, but some " +
-                        "methods or fields have same priority. It was: " + element + " and " + previousElement);
+                        "methods or fields have same priority. " +
+                        "It was: " + element + " and " + previousElement);
             }
             previousElement = element;
         }
@@ -77,7 +78,9 @@ public final class InclassDispatcher<E extends Event>
 
     @Override
     public String toString() {
-        return "In-class dispatcher (target is " + object + "; handlers are contained in " + target + ")";
+        return "In-class dispatcher\n" +
+                Log.offset("target is " + object + "\n" +
+                        "handlers are contained in " + target);
     }
 
 }

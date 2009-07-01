@@ -34,6 +34,7 @@ public class MutableHandler<E extends Event> implements Handler<E> {
 
     @Override
     public String toString() {
-        return "Mutable handler (current target is " + target + ")";
+        return "Mutable handler\n" +
+                Log.offset("current target is " + target);
     }
 }

@@ -11,10 +11,10 @@ import dem.stuff.MutableSource;
  */
 public abstract class BiProcessor<L extends Event, R extends Event> {
 
-    public final BiConnector<R, L> left;
-    public final BiConnector<L, R> right;
+    private final BiConnector<R, L> left;
+    private final BiConnector<L, R> right;
 
-    public BiProcessor(final BiConnector<R, L> left,
+    protected BiProcessor(final BiConnector<R, L> left,
                        final BiConnector<L, R> right) {
 
         CommonProcessor<L> leftProcessor = new CommonProcessor<L>(left) {
@@ -43,7 +43,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
             right.setTarget(null);
             return false;
         } else {
-            return leftClear;
+            return !leftClear;
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     private abstract static class CommonProcessor<E extends Event>
             extends Source<E> implements Handler<E> {
 
-        protected boolean alive = true;
+        boolean alive = true;
 
         protected CommonProcessor(Handler<? super E> target) {
             super(target);
