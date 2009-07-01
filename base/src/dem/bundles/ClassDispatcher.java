@@ -131,7 +131,7 @@ public final class ClassDispatcher<E extends Event>
 
             for (ClassTree<? extends E> classTree : subclasses.values()) {
                 boolean result = classTree.handleIfPossible(event);
-                if (result) return tr   ue;
+                if (result) return true;
             }
 
             return target != null && target.handleIfPossible(event);
