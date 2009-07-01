@@ -63,7 +63,8 @@ public final class ClassDispatcher<E extends Event>
                 boolean b = target == null;
                 if (b) {
                     target = bh;
-                }return b;
+                }
+                return b;
             } else if (getBoundClass().isAssignableFrom(beta)) {
                 for (ClassTree<? extends E> subtree : subclasses.values()) {
                     Class<? extends E> alpha = subtree.getBoundClass();
@@ -99,21 +100,14 @@ public final class ClassDispatcher<E extends Event>
                 for (ClassTree<? extends E> subtree : subclasses.values()) {
                     Class<? extends E> alpha = subtree.getBoundClass();
 
-                    if (alpha == beta) {
-                        //same classes
-                        subtree.target = null;
-                        return true;
-                    } else if (alpha.isAssignableFrom(beta)) {
+                    if (alpha.isAssignableFrom(beta)) {
                         //alpha is a parent - simply add alpha to beta subclasses
                         ClassTree<? super B> subtree2 = (ClassTree<? super B>) subtree;
-                        subtree2.remove(handler);
-                        return true;
+                        return subtree2.remove(handler);
                     }
                 }
-                return false;
-            } else {
-                return false;
             }
+            return false;
         }
 
         public void handle(E event) {
