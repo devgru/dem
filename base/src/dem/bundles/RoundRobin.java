@@ -3,10 +3,7 @@ package dem.bundles;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * RoundRobin is a handler structure, that uses round-robin algorythm.
@@ -29,8 +26,8 @@ public final class RoundRobin<E extends Event>
     private ListIterator<Handler<E>> storedIterator
             = handlers.listIterator();
 
-    private final List<Handler<E>> handlersToRemove
-            = new LinkedList<Handler<E>>();
+    private final Set<Handler<E>> handlersToRemove
+            = new HashSet<Handler<E>>();
 
     public RoundRobin(Handler<E>... handlers) {
         for (Handler<E> handler : handlers) {
@@ -61,7 +58,7 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-    private synchronized Handler<E> next() {
+    private Handler<E> next() {
         Handler<E> handler = null;
         while (handlers.size() > 0 && handler == null) {
             handler = storedIterator.next();
@@ -81,17 +78,19 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-    public synchronized void addHandler(Handler<E> handler) {
+    public synchronized boolean addHandler(Handler<E> handler) {
         assert handler != null;
         storedIterator.add(handler);
         storedIterator.previous();
+        return true;
     }
 
-    public synchronized void removeHandler(Handler<E> h) {
-        if (h == null) return;
-        if (!handlers.contains(h)) return;
-        if (handlersToRemove.contains(h)) return;
-        handlersToRemove.add(h);
+    public synchronized boolean removeHandler(Handler<E> h) {
+        if (h == null) return false;
+        if (!handlers.contains(h)) return false;
+        if (handlersToRemove.contains(h)) return false;
+
+        return handlersToRemove.add(h);
     }
 
     @Override

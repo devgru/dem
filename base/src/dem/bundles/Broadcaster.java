@@ -4,7 +4,8 @@ import dem.quanta.Event;
 import dem.quanta.Handler;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Set;
+import java.util.LinkedHashSet;
 
 /**
  * Broadcaster is a bundle of handlers. On
@@ -17,8 +18,8 @@ import java.util.LinkedList;
 public final class Broadcaster<E extends Event>
         implements HandlingBundle<E, Handler<? super E>> {
 
-    private final LinkedList<Handler<? super E>> handlers =
-            new LinkedList<Handler<? super E>>();
+    private final Set<Handler<? super E>> handlers =
+            new LinkedHashSet<Handler<? super E>>();
 
     public Broadcaster(Handler<? super E>... handlers) {
         for (Handler<? super E> handler : handlers) {
@@ -39,13 +40,13 @@ public final class Broadcaster<E extends Event>
         }
     }
 
-    public void addHandler(Handler<? super E> handler) {
+    public boolean addHandler(Handler<? super E> handler) {
         assert handler != null;
-        handlers.add(handler);
+        return handlers.add(handler);
     }
 
-    public void removeHandler(Handler<? super E> handler) {
-        handlers.remove(handler);
+    public boolean removeHandler(Handler<? super E> handler) {
+        return handlers.remove(handler);
     }
 
     @Override

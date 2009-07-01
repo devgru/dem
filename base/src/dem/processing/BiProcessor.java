@@ -43,7 +43,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
             right.setTarget(null);
             return false;
         } else {
-            return leftClear;
+            return !leftClear;
         }
     }
 

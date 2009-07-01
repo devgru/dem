@@ -4,9 +4,7 @@ import dem.bounding.Filter;
 import dem.quanta.Event;
 import dem.stuff.Log;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Dispatcher is a handler bundle that passes
@@ -18,8 +16,8 @@ import java.util.List;
 public final class Dispatcher<E extends Event>
         implements HandlingBundle<E, Filter<? extends E>> {
 
-    private final List<Filter<? extends E>> handlers =
-            new LinkedList<Filter<? extends E>>();
+    private final Set<Filter<? extends E>> handlers =
+            new LinkedHashSet<Filter<? extends E>>();
 
     public Dispatcher(Filter<? extends E>... handlers) {
         for (Filter<? extends E> handler : handlers) {
@@ -40,14 +38,14 @@ public final class Dispatcher<E extends Event>
         }
     }
 
-    public void addHandler(Filter<? extends E> handler) {
+    public boolean addHandler(Filter<? extends E> handler) {
         assert handler != null;
-        handlers.add(handler);
+        return handlers.add(handler);
     }
 
 
-    public void removeHandler(Filter<? extends E> handler) {
-        handlers.remove(handler);
+    public boolean removeHandler(Filter<? extends E> handler) {
+        return handlers.remove(handler);
     }
 
     @Override

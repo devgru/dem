@@ -3,7 +3,6 @@ package dem.stuff;
 import dem.quanta.Handler;
 
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -27,7 +26,7 @@ public final class Log {
         return OFFSETTER + string.replace("\n", "\n"+OFFSETTER );
     }
 
-    public static String describe(List<? extends Handler> handlers) {
+    public static String describe(Iterable<? extends Handler> handlers) {
         StringBuilder sb = new StringBuilder();
         Iterator<? extends Handler> it = handlers.iterator();
         while (it.hasNext()) {
