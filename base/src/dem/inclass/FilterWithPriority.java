@@ -64,6 +64,6 @@ final class FilterWithPriority
     @Override
     public String toString() {
         return "Filter with priority\n" +
-                Log.offset(filter.toString() + "\npriority = " + priority);
+                Log.offset("target is " + filter.toString() + "\npriority = " + priority);
     }
 }

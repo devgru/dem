@@ -4,8 +4,8 @@ import dem.quanta.Event;
 import dem.quanta.Handler;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Broadcaster is a bundle of handlers. On

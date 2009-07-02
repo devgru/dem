@@ -28,6 +28,6 @@ public class MutableSource<E extends Event> extends Source<E> {
 
     @Override
     public String toString() {
-        return "Mutable source (current target is " + getTarget() + ")";
+        return "Mutable source\n" + Log.offset("current target is " + getTarget());
     }
 }

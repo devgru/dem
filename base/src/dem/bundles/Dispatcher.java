@@ -4,7 +4,9 @@ import dem.bounding.Filter;
 import dem.quanta.Event;
 import dem.stuff.Log;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Dispatcher is a handler bundle that passes
@@ -51,7 +53,7 @@ public final class Dispatcher<E extends Event>
     @Override
     public String toString() {
         return "Dispatcher\n" +
-                Log.offset("targets:")+"\n" + Log.offset(Log.describe(handlers),2);
+                Log.offset("targets:" + "\n" + Log.offset(Log.describe(handlers)));
     }
 
 }

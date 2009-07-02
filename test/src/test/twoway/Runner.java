@@ -1,3 +1,4 @@
+
 package test.twoway;
 
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class Runner {
 
         controller.bp = new ExternalBiProcessor<DataEvent, ControlEvent>(controller, dataProducer, strategy);
 
+        System.out.println(controller);
         controller.start();
 
         System.gc();

@@ -3,7 +3,10 @@ package dem.processing;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Source;
+import dem.stuff.Log;
 import dem.stuff.MutableSource;
+
+import java.util.Random;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -15,7 +18,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     private final BiConnector<L, R> right;
 
     protected BiProcessor(final BiConnector<R, L> left,
-                       final BiConnector<L, R> right) {
+                          final BiConnector<L, R> right) {
 
         CommonProcessor<L> leftProcessor = new CommonProcessor<L>(left) {
             public void handle(L event) {
@@ -69,10 +72,20 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
 
         boolean alive = true;
 
-        protected CommonProcessor(Handler<? super E> target) {
+        protected CommonProcessor(BiConnector<?, ? super E> target) {
             super(target);
         }
 
+        private static final Random r = new Random(System.currentTimeMillis());
+
+        @Override
+        public String toString() {
+            if (r.nextInt(10) > 0) {
+                return "CommonProcessor" + Log.offset("target is " + ((BiConnector<?, ?>) target).toString(false));
+            } else {
+                return super.toString();
+            }
+        }
     }
 
     private class Link<E extends Event> extends MutableSource<E> implements Handler<E> {
@@ -93,6 +106,11 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
             main.alive = false;
             pair.alive = false;
             super.finalize();
+        }
+
+        @Override
+        public String toString() {
+            return main.toString();
         }
     }
 

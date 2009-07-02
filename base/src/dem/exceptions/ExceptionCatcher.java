@@ -1,9 +1,9 @@
 package dem.exceptions;
 
+import dem.bounding.Filter;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Source;
-import dem.bounding.Filter;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

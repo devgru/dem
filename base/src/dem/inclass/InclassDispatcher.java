@@ -79,7 +79,7 @@ public final class InclassDispatcher<E extends Event>
     @Override
     public String toString() {
         return "In-class dispatcher\n" +
-                Log.offset("target is " + object + "\n" +
+                Log.offset("object is " + object + "\n" +
                         "handlers are contained in " + target);
     }
 

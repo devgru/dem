@@ -2,6 +2,7 @@ package dem.processing;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.stuff.Log;
 import dem.stuff.MutableSource;
 
 /**
@@ -20,7 +21,13 @@ public abstract class BiConnector<SENDS extends Event, HANDLES extends Event>
 
     @Override
     public String toString() {
-        return "Bi-connector (target is " + super.toString() + ")";
+        return toString(true);
+    }
+
+    public String toString(boolean withTarget) {
+        return "Bi-connector\n" +
+                Log.offset("real class is " + getClass().getName()) +
+                (withTarget ? "\n" + Log.offset("target is " + getTarget()) : "");
     }
 
 }

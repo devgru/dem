@@ -18,12 +18,12 @@ public final class Log {
         if (i == 1) {
             return offset(string);
         } else {
-            return offset(offset(string, i-1));
+            return offset(offset(string, i - 1));
         }
     }
 
     public static String offset(String string) {
-        return OFFSETTER + string.replace("\n", "\n"+OFFSETTER );
+        return OFFSETTER + string.replace("\n", "\n" + OFFSETTER);
     }
 
     public static String describe(Iterable<? extends Handler> handlers) {

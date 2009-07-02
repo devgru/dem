@@ -6,6 +6,8 @@ import dem.inclass.Prioritized;
 import dem.inclass.SuppressExceptions;
 import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
+import dem.stuff.NoopHandler;
+import dem.translating.NoopTranslator;
 import junit.framework.Assert;
 import org.junit.Test;
 import test.events.BaseEvent;
@@ -43,6 +45,7 @@ public class InclassDispatcherTest {
 
         Handler<BaseEvent> h2 = new InclassDispatcher<BaseEvent>(new Child());
         System.out.println(h2);
+        System.out.println(new NoopTranslator<BaseEvent,BaseEvent> (h2,BaseEvent.class));
         h2.handle(new SecondLevelEvent1());
         Assert.assertTrue(c.getString().length() == 6);
 

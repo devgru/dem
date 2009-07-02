@@ -3,6 +3,7 @@ package dem.translating;
 import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.stuff.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -24,7 +25,8 @@ public abstract class Translator<TO extends Event, FROM extends Event>
 
     @Override
     public String toString() {
-        return "Event translator (target is " + target + "; bound is " + getBoundClass() + ")";
+        return "Event translator\n" +
+                Log.offset("target is " + target + "\nbound is " + getBoundClass());
     }
 
 }
