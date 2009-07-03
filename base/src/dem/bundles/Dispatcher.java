@@ -2,7 +2,7 @@ package dem.bundles;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;
-import dem.stuff.Log;
+import dem.quanta.Log;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -53,7 +53,7 @@ public final class Dispatcher<E extends Event>
     @Override
     public String toString() {
         return "Dispatcher\n" +
-                Log.offset("targets:" + "\n" + Log.offset(Log.describe(handlers)));
+                Log.offset("targets:" + "\n" + Log.offset(Log.inline(handlers)));
     }
 
 }

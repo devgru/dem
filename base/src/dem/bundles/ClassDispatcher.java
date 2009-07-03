@@ -2,6 +2,7 @@ package dem.bundles;
 
 import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
+import dem.quanta.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,6 +131,18 @@ public final class ClassDispatcher<E extends Event>
 
             return target != null && target.handleIfPossible(event);
 
+
         }
+
+        @Override
+        public String toString() {
+            return "Class tree\n" + Log.offset("target is " + target + "\n"
+                    + "sublclasses: \n" + Log.offset(Log.inline(subclasses.values())));
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Class dispatcher\n" + Log.offset("classtree is " + classTree);
     }
 }

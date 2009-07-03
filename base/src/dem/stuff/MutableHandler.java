@@ -2,6 +2,7 @@ package dem.stuff;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

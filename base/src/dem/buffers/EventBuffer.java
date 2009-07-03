@@ -2,6 +2,7 @@ package dem.buffers;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 import dem.quanta.Source;
 
 import java.util.Collection;
@@ -91,7 +92,7 @@ public final class EventBuffer<E extends Event>
 
     @Override
     public String toString() {
-        return "Event buffer (events: " + events + "; target is " + target + ")";
+        return "Event buffer\n" + Log.offset("events: " + events + "\n" + " target is " + target);
     }
 
 }

@@ -1,6 +1,4 @@
-package dem.stuff;
-
-import dem.quanta.Handler;
+package dem.quanta;
 
 import java.util.Iterator;
 
@@ -26,9 +24,9 @@ public final class Log {
         return OFFSETTER + string.replace("\n", "\n" + OFFSETTER);
     }
 
-    public static String describe(Iterable<? extends Handler> handlers) {
+    public static String inline(Iterable<?> handlers) {
         StringBuilder sb = new StringBuilder();
-        Iterator<? extends Handler> it = handlers.iterator();
+        Iterator<?> it = handlers.iterator();
         while (it.hasNext()) {
             sb.append(it.next());
             if (it.hasNext()) {

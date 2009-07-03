@@ -1,6 +1,7 @@
 package dem.rmi;
 
 import dem.quanta.Handler;
+import dem.quanta.Log;
 import dem.remote.RemoteEvent;
 
 import java.rmi.RemoteException;
@@ -28,7 +29,8 @@ public final class ObtainedRemoteHandler<E extends RemoteEvent>
 
     @Override
     public String toString() {
-        return "Obtained remote handler (target is " + rh + ")";
+        return "Obtained remote handler\n"+ Log.offset("target is " + rh);
+
     }
 
 }

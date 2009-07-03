@@ -2,6 +2,7 @@ package dem.bounding;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 
 /**
  * Bounded handlers are required when we must have
@@ -67,7 +68,7 @@ public abstract class BoundedHandler<E extends Event>
 
     @Override
     public String toString() {
-        return "Bounded handler (bound is " + bound + ")";
+        return "Bounded handler\n" + Log.offset("bound is " + bound);
     }
 
 }

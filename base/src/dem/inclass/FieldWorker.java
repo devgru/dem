@@ -6,7 +6,7 @@ import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.inclass.exceptions.FieldIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import dem.stuff.Log;
+import dem.quanta.Log;
 import dem.stuff.NoopHandler;
 
 import java.lang.reflect.AnnotatedElement;

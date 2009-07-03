@@ -3,7 +3,7 @@ package dem.translating;
 import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import dem.stuff.Log;
+import dem.quanta.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

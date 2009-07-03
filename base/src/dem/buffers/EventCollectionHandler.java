@@ -3,6 +3,7 @@ package dem.buffers;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Source;
+import dem.quanta.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -29,7 +30,7 @@ public final class EventCollectionHandler<E extends Event>
 
     @Override
     public String toString() {
-        return "Event-collection handler (target is " + target + ")";
+        return "Event-collection handler\n"+ Log.offset("target is " + target);
     }
 
 }

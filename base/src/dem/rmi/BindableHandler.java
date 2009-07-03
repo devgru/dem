@@ -1,6 +1,7 @@
 package dem.rmi;
 
 import dem.quanta.Handler;
+import dem.quanta.Log;
 import dem.remote.RemoteEvent;
 
 import java.rmi.RemoteException;
@@ -30,6 +31,6 @@ public final class BindableHandler<E extends RemoteEvent>
 
     @Override
     public String toString() {
-        return "Bindable handler (target is " + target + ")";
+        return "Bindable handler\n" + Log.offset("target is " + target);
     }
 }

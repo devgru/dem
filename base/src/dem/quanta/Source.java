@@ -19,7 +19,7 @@ public abstract class Source<E extends Event> {
 
     @Override
     public String toString() {
-        return "Source (target is " + target + ")";
+        return "Source\n" + Log.offset("target is " + target);
     }
 
 }

@@ -2,8 +2,8 @@ package dem.processing;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 import dem.quanta.Source;
-import dem.stuff.Log;
 import dem.stuff.MutableSource;
 
 import java.util.Random;
@@ -89,10 +89,10 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
     }
 
     private class Link<E extends Event> extends MutableSource<E> implements Handler<E> {
-        public final CommonProcessor<? super E> main;
+        public final CommonProcessor<E> main;
         public final CommonProcessor<?> pair;
 
-        private Link(CommonProcessor<? super E> main, CommonProcessor<?> pair) {
+        private Link(CommonProcessor<E> main, CommonProcessor<?> pair) {
             setTarget(main);
             this.main = main;
             this.pair = pair;

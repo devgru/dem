@@ -50,5 +50,7 @@ public class ClassDispatcherTest {
         Assert.assertTrue(c.getString().equals("BB1BB"));
 
 
+        System.out.println(cd);
+
     }
 }

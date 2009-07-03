@@ -2,6 +2,7 @@ package dem.bundles;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -51,7 +52,7 @@ public final class Broadcaster<E extends Event>
 
     @Override
     public String toString() {
-        return "Broadcaster (targets: " + handlers + ")";
+        return "Broadcaster\n"+ Log.offset("targets: " + handlers);
     }
 
 }

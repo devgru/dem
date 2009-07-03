@@ -2,6 +2,7 @@ package dem.bundles;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 
 import java.util.*;
 
@@ -95,7 +96,7 @@ public final class RoundRobin<E extends Event>
 
     @Override
     public String toString() {
-        return "Round-robin dispatcher (targets: " + handlers + ")";
+        return "Round-robin dispatcher\n" + Log.offset("handlers:" + Log.offset(Log.inline(handlers)));
     }
 
 }

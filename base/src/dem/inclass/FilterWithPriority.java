@@ -2,7 +2,7 @@ package dem.inclass;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;
-import dem.stuff.Log;
+import dem.quanta.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

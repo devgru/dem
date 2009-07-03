@@ -3,6 +3,7 @@ package dem.processing.external;
 import dem.processing.BiConnector;
 import dem.processing.BiProcessor;
 import dem.quanta.Event;
+import dem.quanta.Log;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -31,7 +32,7 @@ public final class ExternalBiProcessor<LEFT extends Event, RIGHT extends Event>
 
     @Override
     public String toString() {
-        return "External bi-processor (strategy is " + strategy + ")";
+        return "External bi-processor\n" + Log.offset("strategy is " + strategy);
     }
 
 }

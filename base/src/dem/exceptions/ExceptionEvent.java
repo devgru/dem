@@ -1,5 +1,6 @@
 package dem.exceptions;
 
+import dem.quanta.Log;
 import dem.remote.RemoteEvent;
 
 /**
@@ -19,7 +20,7 @@ public final class ExceptionEvent implements RemoteEvent {
 
     @Override
     public String toString() {
-        return "Event, containing exception (" + exception + ")";
+        return "Event, containing exception\n" + Log.offset(" exception is" + exception);
     }
 
 }

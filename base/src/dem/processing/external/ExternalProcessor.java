@@ -2,6 +2,7 @@ package dem.processing.external;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.quanta.Log;
 import dem.quanta.Source;
 
 /**
@@ -24,7 +25,7 @@ public final class ExternalProcessor<E extends Event>
 
     @Override
     public String toString() {
-        return "External processor (target is " + target + "; strategy is " + strategy + ")";
+        return "External processor\n" + Log.offset("target is " + target + "\nstrategy is " + strategy);
     }
 
 }
