@@ -23,6 +23,10 @@ public interface HandlerBundle<H extends Handler> {
      * to bundle more than one time.
      *
      * @param handler handler to add
+     * @return <code>true</code> if and only if this {@link HandlerBundle} guarantees that
+     *         the {@link Handler} was successfully added;<br/>
+     *         <code>false</code> if {@link Handler} was not added or if
+     *         {@link HandlerBundle bundle} already contains this handler.
      * @throws IllegalArgumentException <em>should be</em> thrown
      *                                  if handler is <code>null</code>.
      */
@@ -35,6 +39,10 @@ public interface HandlerBundle<H extends Handler> {
      * all its instances are already removed from bundle.
      *
      * @param handler handler to add
+     * @return <code>true</code> if and only if this {@link HandlerBundle} had removed
+     *         given {@link Handler};                     <br/>
+     *         <code>false</code> if {@link Handler} was not contained or if
+     *         it is null.
      */
     public boolean removeHandler(H handler);
 
