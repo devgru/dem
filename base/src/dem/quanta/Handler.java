@@ -2,7 +2,7 @@ package dem.quanta;
 
 /**
  * Handler is a second <i>quantum</i> of the framework.
- * It was created to provide the alterntive Observer idiom.
+ * It was created to provide the alternative Observer idiom.
  *
  * @author Devgru &lt;java@devg.ru&gt;
  * @see Event

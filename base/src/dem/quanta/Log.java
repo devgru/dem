@@ -7,7 +7,7 @@ import java.util.Iterator;
  * @version 0.0
  */
 public final class Log {
-    private static final String OFFSETTER = " ";
+    private static final String OFFSETTER = "  ";
 
     private Log() {
     }

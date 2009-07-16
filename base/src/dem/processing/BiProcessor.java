@@ -81,7 +81,7 @@ public abstract class BiProcessor<L extends Event, R extends Event> {
         @Override
         public String toString() {
             if (r.nextInt(10) > 0) {
-                return "CommonProcessor" + Log.offset("target is " + ((BiConnector<?, ?>) target).toString(false));
+                return "CommonProcessor\n" + Log.offset("target is " + ((BiConnector<?, ?>) target).toString(false));
             } else {
                 return super.toString();
             }

@@ -7,7 +7,7 @@ import dem.quanta.Log;
 import java.util.*;
 
 /**
- * RoundRobin is a handler structure, that uses round-robin algorythm.
+ * RoundRobin is a handler structure, that uses round-robin algorithm.
  * You have to remember few things about it:
  * <ul>
  * <li>sending event to empty RoundRobin will have no result;</li>
