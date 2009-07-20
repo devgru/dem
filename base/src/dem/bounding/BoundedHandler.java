@@ -46,8 +46,8 @@ public abstract class BoundedHandler<E extends Event>
      * No, it's not a brainfuck, I claim! 01:31, 09.12.2008
      *
      * @param target handler we will bound
-     * @param cls     our bound class
-     * @param <E>     bound type
+     * @param cls    our bound class
+     * @param <E>    bound type
      * @return bounded handler
      */
     public static <E extends Event>
@@ -61,7 +61,7 @@ public abstract class BoundedHandler<E extends Event>
 
             @Override
             public String toString() {
-                return "Bounded handler\n"+Log.offset("bound is " + getBoundClass() + "\ntarget is " + target);
+                return "Bounded handler\n" + Log.offset("bound is " + getBoundClass() + "\ntarget is " + target);
             }
         };
     }
