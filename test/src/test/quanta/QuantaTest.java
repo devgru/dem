@@ -1,4 +1,4 @@
-package test;
+package test.quanta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.176
  */
-public class QuantsTest {
+public class QuantaTest {
     private int countOfSimple = 0;
     private int countOfSmart = 0;
 
@@ -73,6 +73,7 @@ public class QuantsTest {
     }
 
     @SuppressWarnings("unchecked")
+    @Test
     public void testHowWeFail() {
         Exception e = null;
         try {

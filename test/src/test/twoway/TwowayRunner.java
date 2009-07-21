@@ -1,16 +1,19 @@
-
 package test.twoway;
 
 import org.junit.Test;
 import dem.processing.BiConnector;
 import dem.processing.external.BiProcessorStrategy;
 import dem.processing.external.ExternalBiProcessor;
+import test.twoway.DataEvent;
+import test.twoway.ControlEvent;
+import test.twoway.DataProducer;
+import test.twoway.Controller;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.182
  */
-public class Runner {
+public class TwowayRunner {
 
     @Test
     public void main() {

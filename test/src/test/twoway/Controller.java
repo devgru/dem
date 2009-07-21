@@ -17,7 +17,7 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
         i++;
     }
 
-    BiProcessor bp;
+    public BiProcessor bp;
 
     public void start() {
         fire(new ControlEvent());
