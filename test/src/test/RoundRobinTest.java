@@ -10,10 +10,6 @@ import test.events.SecondLevelEvent3;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.176
- */
 public class RoundRobinTest {
     @Test
     public void test() {

@@ -16,10 +16,6 @@ import test.events.SecondLevelEvent2;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.176
- */
 public class InclassDispatcherTest {
 
     @Test

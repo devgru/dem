@@ -4,3 +4,7 @@ out
 *.iml
 *.jar
 base/bugs.xml
+*clover*
+.clover
+.clover*
+

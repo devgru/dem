@@ -2,10 +2,6 @@ package test.twoway;
 
 import dem.processing.BiConnector;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.182
- */
 public class DataProducer extends BiConnector<DataEvent, ControlEvent> {
 
     public void handle(ControlEvent event) {

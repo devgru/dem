@@ -4,10 +4,7 @@ import org.junit.Assert;
 import dem.processing.BiConnector;
 import dem.processing.BiProcessor;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.182
- */
+
 public class Controller extends BiConnector<ControlEvent, DataEvent> {
 
     private int i = 0;

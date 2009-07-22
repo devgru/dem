@@ -3,10 +3,6 @@ package test.handlers;
 import dem.quanta.Handler;
 import test.events.CollectedEvent;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.176
- */
 public class Collector implements Handler<CollectedEvent> {
     private StringBuilder sb = new StringBuilder();
 

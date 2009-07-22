@@ -13,6 +13,7 @@ public final class Log {
     }
 
     public static String offset(String string, int i) {
+        assert string != null;
         if (i == 1) {
             return offset(string);
         } else {
@@ -21,10 +22,12 @@ public final class Log {
     }
 
     public static String offset(String string) {
+        assert string != null;
         return OFFSETTER + string.replace("\n", "\n" + OFFSETTER);
     }
 
     public static String inline(Iterable<?> handlers) {
+        assert handlers != null;
         StringBuilder sb = new StringBuilder();
         Iterator<?> it = handlers.iterator();
         while (it.hasNext()) {

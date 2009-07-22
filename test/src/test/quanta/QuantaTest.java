@@ -10,10 +10,7 @@ import dem.quanta.Handler;
 
 import java.util.Random;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.176
- */
+
 public class QuantaTest {
     private int countOfSimple = 0;
     private int countOfSmart = 0;
@@ -38,6 +35,8 @@ public class QuantaTest {
 
         };
 
+        lazyHandler.toString();
+        smartHandler.toString();
         unknownHandler = smartHandler;
     }
 

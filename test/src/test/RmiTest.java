@@ -24,10 +24,6 @@ import java.rmi.registry.Registry;
 import java.util.Random;
 
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.179
- */
 public class RmiTest {
 
     private static final Registry r;

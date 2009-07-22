@@ -61,7 +61,7 @@ public abstract class BoundedHandler<E extends Event>
 
             @Override
             public String toString() {
-                return "Bounded handler\n" + Log.offset("bound is " + getBoundClass() + "\ntarget is " + target);
+                return "Bounded redirective handler\n" + Log.offset("bound is " + getBoundClass() + "\ntarget is " + target);
             }
         };
     }

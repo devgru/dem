@@ -9,8 +9,6 @@ import test.events.SecondLevelEvent1;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
-/**
- */
 public class ClassDispatcherTest {
 
     @Test

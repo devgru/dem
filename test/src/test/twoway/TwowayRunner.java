@@ -9,10 +9,6 @@ import test.twoway.ControlEvent;
 import test.twoway.DataProducer;
 import test.twoway.Controller;
 
-/**
- * @author Devgru &lt;java@devg.ru&gt;
- * @since 0.182
- */
 public class TwowayRunner {
 
     @Test
