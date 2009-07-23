@@ -1,4 +1,4 @@
-package test;
+package test.bundles;
 
 import dem.bounding.BoundedHandler;
 import dem.bundles.ClassDispatcher;

@@ -4,10 +4,10 @@ import dem.exceptions.ExceptionCatcher;
 import dem.exceptions.ExceptionEvent;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 import test.handlers.Counter;
 
 public class ExceptionsTest {
@@ -57,10 +57,11 @@ public class ExceptionsTest {
         assertEquals(counter.getCount(), 2);
     }
 
-      @Test
+    @Test
     public void testGetException() {
         exceptionCatcher = new ExceptionCatcher<Event>(thrower, new Handler<ExceptionEvent>() {
             public void handle(ExceptionEvent event) {
+                System.out.println(event);
                 assertTrue(event.getException() instanceof RuntimeException);
             }
         });

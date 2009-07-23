@@ -1,4 +1,4 @@
-package test;
+package test.bundles;
 
 import dem.inclass.Handles;
 import dem.inclass.InclassDispatcher;
@@ -75,9 +75,6 @@ public class InclassDispatcherTest {
         @Handles(SecondLevelEvent1.class)
         public Handler<SecondLevelEvent2> a = new BaseHandler<SecondLevelEvent2>(c, SecondLevelEvent2.class, "SLE2");
 
-
-        public void x() {
-        }
     }
 
     @Test

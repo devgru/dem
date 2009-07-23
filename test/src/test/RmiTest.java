@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Assert;
 import dem.quanta.Handler;
 import dem.rmi.BindableHandler;
 import dem.rmi.ObtainedRemoteHandler;
@@ -27,15 +28,18 @@ import java.util.Random;
 public class RmiTest {
 
     private static final Registry r;
-    private static final int PORT = Math.max(new Random().nextInt() % 65536 + 1024, 1999);
+    private static final int PORT = Math.max(new Random().nextInt() % 64512 + 1024, 1999);
     private static final Collector c = new Collector();
 
     static {
+        Registry registry;
         try {
-            r = LocateRegistry.createRegistry(PORT);
+            registry = LocateRegistry.createRegistry(PORT);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            registry = null;
+            Assert.fail();
         }
+        r = registry;
 
     }
 
@@ -60,9 +64,10 @@ public class RmiTest {
             };
             be.handle(event);
             be.handle(event);
+            System.out.println(be);
             assertTrue(c.getString().length() == 2);
         } else {
-            throw new RuntimeException();
+            Assert.fail();
         }
     }
 

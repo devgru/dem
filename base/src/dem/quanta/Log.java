@@ -8,6 +8,7 @@ import java.util.Iterator;
  */
 public final class Log {
     private static final String OFFSETTER = "  ";
+    public static final Log instance = new Log();//probably we will need it once
 
     private Log() {
     }

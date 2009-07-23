@@ -1,4 +1,4 @@
-package test;
+package test.bundles;
 
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -35,6 +35,8 @@ public class RoundRobinTest {
         rrb.handle(new SecondLevelEvent3());
         rrb.handle(new SecondLevelEvent3());
         assertTrue(c.getString().equals("aababaaaaa"));
+
+        System.out.println(rrb.toString());
     }
 
 }
