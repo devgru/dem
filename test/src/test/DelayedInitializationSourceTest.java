@@ -1,8 +1,7 @@
 package test;
 
 import dem.quanta.Event;
-import dem.quanta.Handler;
-import dem.stuff.DelayedInitializationSource;
+import dem.mutables.DelayedInitializationSource;
 import org.junit.Test;
 import org.junit.Assert;
 import test.handlers.Counter;

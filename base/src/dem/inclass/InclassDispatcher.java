@@ -6,7 +6,7 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Log;
-import dem.stuff.DelayedInitializationSource;
+import dem.mutables.DelayedInitializationSource;
 
 import java.util.List;
 
