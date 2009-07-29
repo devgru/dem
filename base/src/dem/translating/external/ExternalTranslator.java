@@ -1,7 +1,8 @@
-package dem.translating;
+package dem.translating.external;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
+import dem.translating.Translator;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

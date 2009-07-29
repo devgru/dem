@@ -1,16 +1,16 @@
 package test.translating;
 
-import org.junit.Test;
+import dem.quanta.Handler;
 import dem.translating.NoopTranslator;
 import dem.translating.Translator;
-import dem.quanta.Handler;
+import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent2;
 import test.handlers.Counter;
 
 public class NoopTranslatorTest {
     @Test
-    public void test(){
+    public void test() {
         Translator<BaseEvent, SecondLevelEvent2> translator;
         Handler<BaseEvent> target = Counter.getCounter();
         translator = new NoopTranslator<BaseEvent, SecondLevelEvent2>(target, SecondLevelEvent2.class);

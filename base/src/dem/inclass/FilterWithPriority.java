@@ -42,8 +42,8 @@ final class FilterWithPriority
         return getFilter().handleIfPossible(event);
     }
 
+    @Deprecated
     public void handle(Event event) {
-        getFilter().handleIfPossible(event);
     }
 
     public int compareTo(FilterWithPriority o) {

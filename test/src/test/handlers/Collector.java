@@ -11,8 +11,8 @@ public class Collector implements Handler<CollectedEvent> {
         System.out.println(event.getString() + " handled");
     }
 
-    public void clear(){
-        sb  = new StringBuilder();
+    public void clear() {
+        sb = new StringBuilder();
     }
 
     public String getString() {

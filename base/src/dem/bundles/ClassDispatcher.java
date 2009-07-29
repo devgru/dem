@@ -92,6 +92,7 @@ public final class ClassDispatcher<E extends Event>
 
         }
 
+        @SuppressWarnings("unchecked")
         public <B extends E> boolean remove(BoundedHandler<B> handler) {
             Class<B> beta = handler.getBoundClass();
             if (beta == getBoundClass()) {
@@ -111,8 +112,8 @@ public final class ClassDispatcher<E extends Event>
             return false;
         }
 
+        @Deprecated
         public void handle(E event) {
-            handleIfPossible(event);
         }
 
         @Override

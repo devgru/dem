@@ -26,11 +26,11 @@ public class LogTest {
 
     @Test(expected = AssertionError.class)
     public void testFailOnNull2() {
-        String offset = Log.offset(null,1);
+        String offset = Log.offset(null, 1);
     }
 
     @Test(expected = AssertionError.class)
-    public void testInlineFail(){
+    public void testInlineFail() {
         Log.inline(null);
     }
 }

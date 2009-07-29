@@ -49,8 +49,8 @@ public final class ClassWorker {
     public List<? extends Filter<?>> bindClassElements() throws ClassIsUnbindableException {
         List<AnnotatedFilter> elements = new LinkedList<AnnotatedFilter>();
 
-        Class targetClass = target.getClass();
         for (AbstractBinder binder : binders) {
+            Class targetClass = target.getClass();
             while (targetClass != Object.class) {
                 binder.tryBindMembers(target, elements, targetClass);
                 targetClass = targetClass.getSuperclass();

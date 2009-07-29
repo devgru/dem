@@ -1,14 +1,14 @@
 package test;
 
-import org.junit.AfterClass;
-import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.Assert;
 import dem.quanta.Handler;
 import dem.rmi.BindableHandler;
 import dem.rmi.ObtainedRemoteHandler;
 import dem.rmi.RemoteHandler;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.CollectedEvent;
 import test.events.RemoteEvent;

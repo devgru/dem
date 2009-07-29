@@ -10,7 +10,7 @@ import dem.quanta.Log;
  * @since 0.175
  */
 public abstract class Translator<TO extends Event, FROM extends Event>
-        extends BoundedHandler<FROM> implements TranslatorStrategy<TO, FROM> {
+        extends BoundedHandler<FROM> {
 
     private final Handler<? super TO> target;
 
@@ -22,6 +22,8 @@ public abstract class Translator<TO extends Event, FROM extends Event>
     public final void handle(FROM event) {
         target.handle(translate(event));
     }
+
+    public abstract TO translate(FROM event);
 
     @Override
     public String toString() {

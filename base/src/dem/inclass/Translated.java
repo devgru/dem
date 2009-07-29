@@ -1,8 +1,8 @@
 package dem.inclass;
 
 import dem.quanta.Event;
-import dem.translating.NoopTranslator;
-import dem.translating.TranslatorStrategy;
+import dem.translating.external.TranslatorStrategy;
+import dem.translating.external.NoopTranslatorStrategy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface Translated {
 
-    public Class<? extends TranslatorStrategy> value() default NoopTranslator.class;
+    public Class<? extends TranslatorStrategy> value() default NoopTranslatorStrategy.class;
 
     public Class<? extends Event> bound() default Event.class;
 

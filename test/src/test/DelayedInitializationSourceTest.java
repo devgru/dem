@@ -1,9 +1,9 @@
 package test;
 
-import dem.quanta.Event;
 import dem.mutables.DelayedInitializationSource;
-import org.junit.Test;
+import dem.quanta.Event;
 import org.junit.Assert;
+import org.junit.Test;
 import test.handlers.Counter;
 
 public class DelayedInitializationSourceTest {
@@ -32,7 +32,7 @@ public class DelayedInitializationSourceTest {
         Assert.assertEquals(counter.getCount(), 1);
     }
 
-        @Test(expected = RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void testDoubleCreationFail() {
         DelayedInitializationSource<Event> dis = new DelayedInitializationSource<Event>() {
             {

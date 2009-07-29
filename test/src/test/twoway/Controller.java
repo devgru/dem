@@ -1,8 +1,8 @@
 package test.twoway;
 
-import org.junit.Assert;
 import dem.processing.BiConnector;
 import dem.processing.BiProcessor;
+import org.junit.Assert;
 
 
 public class Controller extends BiConnector<ControlEvent, DataEvent> {
@@ -25,9 +25,9 @@ public class Controller extends BiConnector<ControlEvent, DataEvent> {
         fire(new ControlEvent());
         Assert.assertTrue(i == 2);
 
-        Assert.assertTrue( bp.check());
+        Assert.assertTrue(bp.check());
         bp.hangup();
-        Assert.assertFalse( bp.check());
+        Assert.assertFalse(bp.check());
 
         fire(new ControlEvent());
         fire(new ControlEvent());

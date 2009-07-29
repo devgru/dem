@@ -1,8 +1,8 @@
 package dem.inclass;
 
 import dem.inclass.exceptions.ElementIsUnbindableException;
-import dem.translating.ExternalTranslator;
-import dem.translating.TranslatorStrategy;
+import dem.translating.external.ExternalTranslator;
+import dem.translating.external.TranslatorStrategy;
 
 import java.lang.reflect.AnnotatedElement;
 
@@ -21,7 +21,7 @@ final class TranslatingWrapper implements Wrapper {
         Class<? extends TranslatorStrategy> translator = translated.value();
         try {
             ExternalTranslator externalTranslator =
-                    new ExternalTranslator(filterWithPriority, translated.bound(), translator.newInstance());
+                    new ExternalTranslator(filterWithPriority.getFilter(), translated.bound(), translator.newInstance());
             filterWithPriority.setFilter(externalTranslator);
         } catch (Exception e) {
             throw new ElementIsUnbindableException(e);

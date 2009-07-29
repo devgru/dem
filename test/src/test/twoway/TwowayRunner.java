@@ -1,13 +1,9 @@
 package test.twoway;
 
-import org.junit.Test;
 import dem.processing.BiConnector;
 import dem.processing.external.BiProcessorStrategy;
 import dem.processing.external.ExternalBiProcessor;
-import test.twoway.DataEvent;
-import test.twoway.ControlEvent;
-import test.twoway.DataProducer;
-import test.twoway.Controller;
+import org.junit.Test;
 
 public class TwowayRunner {
 
@@ -28,7 +24,6 @@ public class TwowayRunner {
                 return true;
             }
         };
-
 
 
         controller.bp = new ExternalBiProcessor<DataEvent, ControlEvent>(controller, dataProducer, strategy);

@@ -37,6 +37,7 @@ public final class RoundRobin<E extends Event>
     }
 
     public RoundRobin(Collection<? extends Handler<E>> handlers) {
+        assert handlers != null;
         for (Handler<E> handler : handlers) {
             addHandler(handler);
         }
@@ -79,7 +80,7 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-    public synchronized boolean addHandler(Handler<E> handler) {
+     public synchronized boolean addHandler(Handler<E> handler) {
         assert handler != null;
         storedIterator.add(handler);
         storedIterator.previous();

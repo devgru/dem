@@ -5,11 +5,10 @@ import dem.quanta.Event;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import test.handlers.Counter;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import test.handlers.Counter;
 
 public class BufferTest {
     private Counter<Event> target;

@@ -5,6 +5,7 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.inclass.exceptions.MethodIsUnbindableException;
 import dem.quanta.Event;
+import dem.quanta.Log;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
@@ -57,7 +58,7 @@ final class MethodWorker implements AbstractBinder {
                 //todo here I should implement the event-to-array translation
             } else if (argsCount == 1) {
                 Class<?> argClass = types[0];
-                if (argClass.isAssignableFrom(annotation.value())) {
+                if (!argClass.isAssignableFrom(annotation.value())) {
                     throw new MethodIsUnbindableException("declared parameter's type must be equal to annotated class.");
                 }
                 result = new MethodInvoker(argClass, method, argsCount);
@@ -96,7 +97,7 @@ final class MethodWorker implements AbstractBinder {
 
             @Override
             public String toString() {
-                return "Method handler (method is " + method.getName() + ")";
+                return "Method handler"+ Log.offset("method is " + method);
             }
 
             public AnnotatedElement getAnnotatedElement() {
