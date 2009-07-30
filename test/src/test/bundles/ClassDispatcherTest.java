@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
+import test.events.SecondLevelEvent2;
 import test.handlers.BaseHandler;
 import test.handlers.Collector;
 
@@ -33,7 +34,6 @@ public class ClassDispatcherTest {
         cd.handle(new BaseEvent());
         Assert.assertTrue(c.getString().equals("BB"));
 
-
         BoundedHandler<SecondLevelEvent1> bh1 =
                 new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "1");
 
@@ -47,8 +47,22 @@ public class ClassDispatcherTest {
 
         Assert.assertTrue(c.getString().equals("BB1BB"));
 
-
         System.out.println(cd);
+    }
 
+
+    @Test
+    public void add() {
+        Collector c = new Collector();
+
+        ClassDispatcher cd = new ClassDispatcher<SecondLevelEvent2>(SecondLevelEvent2.class);
+
+        BoundedHandler<SecondLevelEvent2> bh =
+                new BaseHandler<SecondLevelEvent2>(c, SecondLevelEvent2.class, "B");
+        BoundedHandler<SecondLevelEvent1> bh1 =
+                new BaseHandler<SecondLevelEvent1>(c, SecondLevelEvent1.class, "1");
+
+        cd.addHandler(bh1);
+        cd.addHandler(bh);
     }
 }

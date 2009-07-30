@@ -58,33 +58,33 @@ public final class ClassDispatcher<E extends Event>
 
         @SuppressWarnings("unchecked")
         public <B extends E> boolean add(BoundedHandler<B> handler) {
-            Class<B> beta = handler.getBoundClass();
-            if (beta == getBoundClass()) {
+            Class<B> newOne = handler.getBoundClass();
+            if (newOne == getBoundClass()) {//same class as root
                 BoundedHandler<E> bh = (BoundedHandler<E>) handler;
-                boolean b = target == null;
-                if (b) {
+                boolean targetWasNull = target == null;
+                if (targetWasNull) {
                     target = bh;
                 }
-                return b;
-            } else if (getBoundClass().isAssignableFrom(beta)) {
+                return targetWasNull;
+            } else if (getBoundClass().isAssignableFrom(newOne)) {//child of root class
                 for (ClassTree<? extends E> subtree : subclasses.values()) {
-                    Class<? extends E> alpha = subtree.getBoundClass();
+                    Class<? extends E> subtreeClass = subtree.getBoundClass();
 
-                    if (alpha.isAssignableFrom(beta)) {
-                        //alpha is a parent - simply add alpha to beta subclasses
+                    if (subtreeClass.isAssignableFrom(newOne)) {
+                        //subtreeClass is a parent - simply add newOne to subtree
                         ClassTree<? super B> subtree2 = (ClassTree<? super B>) subtree;
                         return subtree2.add(handler);
-                    } else if (beta.isAssignableFrom(alpha)) {
-                        //beta is a parent - remove alpha from list, add beta, add alpha to beta as a child
+                    } else if (newOne.isAssignableFrom(subtreeClass)) {
+                        //newOne is a parent - remove subtree from this tree, add newOne, add subtreeClass to newOne as a child
                         ClassTree<? extends B> subtree2 = (ClassTree<? extends B>) subtree;
                         ClassTree<B> value = new ClassTree<B>(handler);
                         value.add(subtree2.target);
-                        subclasses.remove(alpha);
-                        subclasses.put(beta, value);
+                        subclasses.remove(subtreeClass);
+                        subclasses.put(newOne, value);
                         return true;
                     }
                 }
-                subclasses.put(beta, new ClassTree<B>(handler));
+                subclasses.put(newOne, new ClassTree<B>(handler));
                 return true;
             } else {
                 return false;
@@ -94,16 +94,16 @@ public final class ClassDispatcher<E extends Event>
 
         @SuppressWarnings("unchecked")
         public <B extends E> boolean remove(BoundedHandler<B> handler) {
-            Class<B> beta = handler.getBoundClass();
-            if (beta == getBoundClass()) {
+            Class<B> newOne = handler.getBoundClass();
+            if (newOne == getBoundClass()) {
                 target = null;
                 return true;
-            } else if (getBoundClass().isAssignableFrom(beta)) {
+            } else if (getBoundClass().isAssignableFrom(newOne)) {
                 for (ClassTree<? extends E> subtree : subclasses.values()) {
-                    Class<? extends E> alpha = subtree.getBoundClass();
+                    Class<? extends E> subtreeClass = subtree.getBoundClass();
 
-                    if (alpha.isAssignableFrom(beta)) {
-                        //alpha is a parent - simply add alpha to beta subclasses
+                    if (subtreeClass.isAssignableFrom(newOne)) {
+                        //subtreeClass is a parent - simply add subtreeClass to newOne subclasses
                         ClassTree<? super B> subtree2 = (ClassTree<? super B>) subtree;
                         return subtree2.remove(handler);
                     }

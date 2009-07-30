@@ -20,7 +20,7 @@ public final class ExceptionEvent implements RemoteEvent {
 
     @Override
     public String toString() {
-        return "Event, containing exception\n" + Log.offset(" exception is" + exception);
+        return "Event, containing exception\n" + Log.offset(" exception is " + exception);
     }
 
 }
