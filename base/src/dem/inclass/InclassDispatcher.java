@@ -3,10 +3,10 @@ package dem.inclass;
 import dem.bounding.Filter;
 import dem.bundles.Dispatcher;
 import dem.inclass.exceptions.ClassIsUnbindableException;
+import dem.mutables.DelayedInitializationSource;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Log;
-import dem.mutables.DelayedInitializationSource;
 
 import java.util.List;
 
@@ -27,14 +27,10 @@ public final class InclassDispatcher<E extends Event>
     public InclassDispatcher(Object target, boolean strictPrioritization)
             throws ClassIsUnbindableException {
 
-        List<? extends Filter<?>> list =
-                new ClassWorker(target,
-                        ClassWorker.DEFAULT_BINDERS,
-                        ClassWorker.DEFAULT_WRAPPERS
-                ).bindClassElements();
+        this(target, strictPrioritization,
+                ClassWorker.DEFAULT_BINDERS,
+                ClassWorker.DEFAULT_WRAPPERS);
 
-        object = target;
-        close(strictPrioritization, list);
     }
 
     public InclassDispatcher(Object target, boolean strictPrioritization,
@@ -45,15 +41,9 @@ public final class InclassDispatcher<E extends Event>
                 new ClassWorker(target, binders, wrappers).bindClassElements();
 
         object = target;
-        close(strictPrioritization, list);
-    }
-
-    private void close(boolean strictPrioritization, List<? extends Filter<?>> list)
-            throws ClassIsUnbindableException {
         if (strictPrioritization) {
             ensureStrictPrioritization(list);
         }
-
         setTarget(new Dispatcher<Event>(list));
     }
 
