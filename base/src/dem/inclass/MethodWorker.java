@@ -97,7 +97,7 @@ final class MethodWorker implements AbstractBinder {
 
             @Override
             public String toString() {
-                return "Method handler"+ Log.offset("method is " + method);
+                return "Method handler" + Log.offset("method is " + method);
             }
 
             public AnnotatedElement getAnnotatedElement() {
