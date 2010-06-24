@@ -52,7 +52,7 @@ public final class Broadcaster<E extends Event>
 
     @Override
     public String toString() {
-        return "Broadcaster\n"+ Log.offset("targets: " + handlers);
+        return "Broadcaster\n" + Log.offset("targets: " + handlers);
     }
 
 }

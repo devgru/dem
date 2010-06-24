@@ -80,7 +80,7 @@ public final class RoundRobin<E extends Event>
         }
     }
 
-     public synchronized boolean addHandler(Handler<E> handler) {
+    public synchronized boolean addHandler(Handler<E> handler) {
         assert handler != null;
         storedIterator.add(handler);
         storedIterator.previous();

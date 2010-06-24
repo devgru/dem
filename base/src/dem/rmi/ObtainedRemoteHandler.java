@@ -29,7 +29,7 @@ public final class ObtainedRemoteHandler<E extends RemoteEvent>
 
     @Override
     public String toString() {
-        return "Obtained remote handler\n"+ Log.offset("target is " + rh);
+        return "Obtained remote handler\n" + Log.offset("target is " + rh);
 
     }
 

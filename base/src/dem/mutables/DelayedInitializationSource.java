@@ -26,8 +26,6 @@ public class DelayedInitializationSource<E extends Event>
         }
     }
 
-
-
     @Override
     public String toString() {
         return "Delayed-initialization " + super.toString();

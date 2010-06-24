@@ -1,9 +1,9 @@
 package dem.processing;
 
+import dem.mutables.MutableSource;
 import dem.quanta.Event;
 import dem.quanta.Handler;
 import dem.quanta.Log;
-import dem.mutables.MutableSource;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;

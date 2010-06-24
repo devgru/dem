@@ -3,8 +3,8 @@ package dem.exceptions;
 import dem.bounding.Filter;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import dem.quanta.Source;
 import dem.quanta.Log;
+import dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -49,6 +49,6 @@ public final class ExceptionCatcher<E extends Event>
 
     @Override
     public String toString() {
-        return "Exception catcher\n"+ Log.offset("target is " + target + "\nexception hole is" + hole);
+        return "Exception catcher\n" + Log.offset("target is " + target + "\nexception hole is" + hole);
     }
 }

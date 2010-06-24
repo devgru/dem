@@ -2,8 +2,8 @@ package dem.bundles;
 
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import dem.quanta.Source;
 import dem.quanta.Log;
+import dem.quanta.Source;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -27,6 +27,6 @@ public abstract class MultiSource<E extends Event, H extends Handler>
 
     @Override
     public String toString() {
-        return "Multi-source\n"+ Log.offset("targets: " + target);
+        return "Multi-source\n" + Log.offset("targets: " + target);
     }
 }
