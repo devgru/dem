@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @ProcessedBy(TranslatingWrapper.class)
 public @interface Translated {
 
-    public Class<? extends TranslatorStrategy> value() default NoopTranslatorStrategy.class;
+    public Class<? extends TranslatorStrategy> strategy() default NoopTranslatorStrategy.class;
 
     public Class<? extends Event> bound() default Event.class;
 

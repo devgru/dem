@@ -18,7 +18,7 @@ final class TranslatingWrapper implements Wrapper {
         if (translated == null) {
             return;
         }
-        Class<? extends TranslatorStrategy> translator = translated.value();
+        Class<? extends TranslatorStrategy> translator = translated.strategy();
         try {
             ExternalTranslator externalTranslator =
                     new ExternalTranslator(filterWithPriority.getFilter(), translated.bound(), translator.newInstance());

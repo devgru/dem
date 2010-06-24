@@ -42,7 +42,7 @@ public class InclassDispatcherTest {
     public void testTranslated() throws ClassIsUnbindableException {
         class TranslatedClass {
             @Handles(SecondLevelEvent1.class)
-            @Translated(value= NoopTranslatorStrategy.class,bound = SecondLevelEvent1.class)
+            @Translated(strategy = NoopTranslatorStrategy.class,bound = SecondLevelEvent1.class)
             public Filter<BaseEvent> filter = BoundedHandler.bound(c0, BaseEvent.class);
         }
         Handler<BaseEvent> handler = new InclassDispatcher<BaseEvent>(new TranslatedClass());
