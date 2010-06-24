@@ -49,9 +49,8 @@ public final class InclassDispatcher<E extends Event>
     private static void ensureStrictPrioritization(List<? extends Filter> handlers)
             throws ClassIsUnbindableException {
 
-        Object previousElement = handlers.get(0);
-        for (int i = 1; i < handlers.size(); i++) {
-            Object element = handlers.get(i);
+        Filter previousElement = null;
+        for (Filter element : handlers) {
             if (element.equals(previousElement)) {
                 throw new ClassIsUnbindableException("you required strict prioritization, but some " +
                         "methods or fields have same priority. " +
