@@ -6,7 +6,6 @@ import dem.rmi.ObtainedRemoteHandler;
 import dem.rmi.RemoteHandler;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import test.events.BaseEvent;
@@ -23,6 +22,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Random;
+
+import static org.junit.Assert.assertTrue;
 
 
 public class RmiTest {

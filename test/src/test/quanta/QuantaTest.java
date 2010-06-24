@@ -3,12 +3,13 @@ package test.quanta;
 import dem.bounding.BoundedHandler;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Random;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class QuantaTest {

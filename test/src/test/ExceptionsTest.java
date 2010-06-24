@@ -4,11 +4,12 @@ import dem.exceptions.ExceptionCatcher;
 import dem.exceptions.ExceptionEvent;
 import dem.quanta.Event;
 import dem.quanta.Handler;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import test.handlers.Counter;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ExceptionsTest {
     private Counter counter;

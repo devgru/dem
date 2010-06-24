@@ -1,10 +1,9 @@
 package test.bundles;
 
 import dem.bundles.RoundRobin;
-import dem.stuff.NoopHandler;
 import dem.quanta.Handler;
+import dem.stuff.NoopHandler;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
@@ -15,6 +14,8 @@ import test.handlers.Collector;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class RoundRobinTest {
 
@@ -39,7 +40,7 @@ public class RoundRobinTest {
     @Test(expected = AssertionError.class)
     public void testCreationFail() {
         new RoundRobin<BaseEvent>(
-                (List<Handler<BaseEvent>>)null
+                (List<Handler<BaseEvent>>) null
         );
     }
 
@@ -65,14 +66,14 @@ public class RoundRobinTest {
         rrb.addHandler(eventBaseHandler);
         rrb.removeHandler(null);
         rrb.handle(new BaseEvent());
-        Assert.assertEquals("a",c.getString());
+        Assert.assertEquals("a", c.getString());
         rrb.removeHandler(new NoopHandler<BaseEvent>());
         rrb.handle(new BaseEvent());
-        Assert.assertEquals("aa",c.getString());
+        Assert.assertEquals("aa", c.getString());
         rrb.removeHandler(eventBaseHandler);
         rrb.removeHandler(eventBaseHandler);
         rrb.handle(new BaseEvent());
-        Assert.assertEquals("aa",c.getString());
+        Assert.assertEquals("aa", c.getString());
     }
 
     @Test

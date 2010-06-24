@@ -3,13 +3,14 @@ package test.buffers;
 import dem.buffers.EventCollection;
 import dem.buffers.EventCollectionHandler;
 import dem.quanta.Event;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import test.handlers.Counter;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class EventCollectionHandlerTest {

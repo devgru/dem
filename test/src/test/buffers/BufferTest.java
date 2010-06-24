@@ -2,13 +2,14 @@ package test.buffers;
 
 import dem.buffers.EventBuffer;
 import dem.quanta.Event;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import test.handlers.Counter;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class BufferTest {
     private Counter<Event> target;
