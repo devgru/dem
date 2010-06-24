@@ -2,7 +2,8 @@ package test.bundles;
 
 import dem.bounding.BoundedHandler;
 import dem.bounding.Filter;
-import dem.inclass.*;
+import dem.inclass.Handles;
+import dem.inclass.InclassDispatcher;
 import dem.inclass.annotations.Prioritized;
 import dem.inclass.annotations.SuppressExceptions;
 import dem.inclass.annotations.Translated;
@@ -10,13 +11,14 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.quanta.Handler;
 import dem.translating.external.NoopTranslatorStrategy;
 import junit.framework.Assert;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import test.events.BaseEvent;
 import test.events.SecondLevelEvent1;
 import test.events.SecondLevelEvent2;
 import test.handlers.Counter;
+
+import static junit.framework.Assert.assertEquals;
 
 public class InclassDispatcherTest {
 
@@ -42,7 +44,7 @@ public class InclassDispatcherTest {
     public void testTranslated() throws ClassIsUnbindableException {
         class TranslatedClass {
             @Handles(SecondLevelEvent1.class)
-            @Translated(strategy = NoopTranslatorStrategy.class,bound = SecondLevelEvent1.class)
+            @Translated(strategy = NoopTranslatorStrategy.class, bound = SecondLevelEvent1.class)
             public Filter<BaseEvent> filter = BoundedHandler.bound(c0, BaseEvent.class);
         }
         Handler<BaseEvent> handler = new InclassDispatcher<BaseEvent>(new TranslatedClass());
@@ -96,7 +98,9 @@ public class InclassDispatcherTest {
         public Handler<SecondLevelEvent1> samePriority;
 
         public Handler<SecondLevelEvent1> fieldWithoutAnnotation;
-        public void methodWithoutAnnotation(){}
+
+        public void methodWithoutAnnotation() {
+        }
 
         @Handles(SecondLevelEvent2.class)
         public void customMethod(SecondLevelEvent2 sle2) {
