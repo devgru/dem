@@ -1,8 +1,8 @@
-package dem.inclass;
+package dem.inclass.annotations;
 
 import dem.quanta.Event;
-import dem.translating.external.TranslatorStrategy;
 import dem.translating.external.NoopTranslatorStrategy;
+import dem.translating.external.TranslatorStrategy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
+@ProcessedBy(TranslatingWrapper.class)
 public @interface Translated {
 
     public Class<? extends TranslatorStrategy> value() default NoopTranslatorStrategy.class;

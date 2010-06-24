@@ -1,4 +1,4 @@
-package dem.inclass;
+package dem.inclass.annotations;
 
 import java.lang.reflect.AnnotatedElement;
 

@@ -1,4 +1,4 @@
-package dem.inclass;
+package dem.inclass.annotations;
 
 import dem.inclass.exceptions.ElementIsUnbindableException;
 import dem.translating.external.ExternalTranslator;

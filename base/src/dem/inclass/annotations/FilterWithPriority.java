@@ -1,4 +1,4 @@
-package dem.inclass;
+package dem.inclass.annotations;
 
 import dem.bounding.Filter;
 import dem.quanta.Event;
@@ -8,14 +8,14 @@ import dem.quanta.Log;
  * @author Devgru &lt;java@devg.ru&gt;
  * @since 0.175
  */
-final class FilterWithPriority
+public final class FilterWithPriority
         implements Comparable<FilterWithPriority>, Filter<Event> {
 
     private Filter filter;
 
     private Long priority;
 
-    FilterWithPriority(Filter filter) {
+    public FilterWithPriority(Filter filter) {
         this.filter = filter;
         this.priority = 0L;
     }
@@ -36,7 +36,6 @@ final class FilterWithPriority
     public void setPriority(Long priority) {
         this.priority = priority;
     }
-
 
     public boolean handleIfPossible(Event event) {
         return getFilter().handleIfPossible(event);

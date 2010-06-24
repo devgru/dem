@@ -1,10 +1,8 @@
-package dem.inclass;
+package dem.inclass.annotations;
 
-import dem.bounding.Filter;
 import dem.exceptions.ExceptionCatcher;
 import dem.inclass.exceptions.ElementIsUnbindableException;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
 /**
@@ -15,10 +13,10 @@ final class ExceptionsSuppressiveWrapper implements Wrapper {
 
     @SuppressWarnings("unchecked")
     public void wrap(AnnotatedElement clz, FilterWithPriority filterWithPriority) throws ElementIsUnbindableException {
-        Annotation annotation = clz.getAnnotation(SuppressExceptions.class);
-        if (annotation != null) {
-            Filter f = new ExceptionCatcher(filterWithPriority.getFilter());
-            filterWithPriority.setFilter(f);
+        if (clz.isAnnotationPresent(SuppressExceptions.class)) {
+            filterWithPriority.setFilter(
+                    new ExceptionCatcher(filterWithPriority.getFilter())
+            );
         }
     }
 }
