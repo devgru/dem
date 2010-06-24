@@ -8,7 +8,11 @@ import dem.inclass.exceptions.ClassIsUnbindableException;
 import dem.inclass.exceptions.ElementIsUnbindableException;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Devgru &lt;java@devg.ru&gt;
@@ -68,14 +72,21 @@ public final class ClassWorker {
 
         FilterWithPriority filterWithPriority = new FilterWithPriority(filterToWrap);
 
-        for(Annotation annotation: filterToWrap.getAnnotatedElement().getAnnotations()) {
+        for (Annotation annotation : filterToWrap.getAnnotatedElement().getAnnotations()) {
             ProcessedBy processedBy = annotation.annotationType().getAnnotation(ProcessedBy.class);
-            if(processedBy != null) {
+            if (processedBy != null) {
                 try {
-                    processedBy.value().newInstance().wrap(filterToWrap.getAnnotatedElement(), filterWithPriority);
+                    Class<? extends Wrapper> wrapperClass = processedBy.value();
+                    Constructor<? extends Wrapper> constructor = wrapperClass.getDeclaredConstructor();
+                    constructor.setAccessible(true);
+                    constructor.newInstance().wrap(filterToWrap.getAnnotatedElement(), filterWithPriority);
                 } catch (InstantiationException e) {
                     throw new ElementIsUnbindableException(e);
                 } catch (IllegalAccessException e) {
+                    throw new ElementIsUnbindableException(e);
+                } catch (NoSuchMethodException e) {
+                    throw new ElementIsUnbindableException(e);
+                } catch (InvocationTargetException e) {
                     throw new ElementIsUnbindableException(e);
                 }
             }
